@@ -34,10 +34,12 @@ jobs:
       - name: Build static SPA for GitHub Pages
         env:
           DEPLOY_TARGET: github-pages
-          # Served from the votesinan.com custom domain, so assets are
-          # rooted at "/" (see the CNAME step below and site.url in
-          # src/config/candidate.ts).
-          BASE_PATH: /
+          # PREVIEW: served as a GitHub Pages project page at
+          # https://lumin8hub.github.io/sinan-erdemir/ until the votesinan.com
+          # DNS is pointed at Pages. AT LAUNCH: set BASE_PATH to "/", restore
+          # the CNAME step below, update site.url in src/config/candidate.ts,
+          # and configure the custom domain in repo Settings → Pages.
+          BASE_PATH: /sinan-erdemir/
           VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
           VITE_DONATE_ENDPOINT: ${{ secrets.VITE_DONATE_ENDPOINT }}
         run: bun run build
@@ -75,7 +77,10 @@ jobs:
 
           touch "$OUT/.nojekyll"
 
-          echo "votesinan.com" > "$OUT/CNAME"
+          # AT LAUNCH: restore the CNAME write once votesinan.com DNS points
+          # at GitHub Pages (and set the custom domain in Settings → Pages —
+          # for workflow deploys the settings value is what actually counts).
+          # echo "votesinan.com" > "$OUT/CNAME"
 
           echo "Final $OUT contents:"
           ls -la "$OUT"

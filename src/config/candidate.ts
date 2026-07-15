@@ -52,7 +52,9 @@ export const candidate: CandidateConfig = {
   },
 
   site: {
-    url: "https://votesinan.com",
+    // PREVIEW URL — at launch switch back to "https://votesinan.com"
+    // (together with BASE_PATH and the CNAME step in deploy.yml).
+    url: "https://lumin8hub.github.io/sinan-erdemir",
     title: "Sinan Erdemir for Toronto City Council 2026",
     description:
       "A cleaner, safer, more affordable Toronto — Sinan Erdemir for City Council in Ward 16, Don Valley East. Everyday improvements. Real results.",
