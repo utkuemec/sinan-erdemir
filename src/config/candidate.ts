@@ -382,9 +382,8 @@ export const candidate: CandidateConfig = {
   },
 
   integrations: {
-    // PLACEHOLDER — replace with the campaign's hosted Donorbox form URL once
-    // the client provides it (they already have a Donorbox account).
-    donateUrl: "https://donorbox.org/",
+    donateUrl:
+      "https://donorbox.org/sinan-erdemir-city-councillor-don-valley-east-ward-16",
     donateProcessorName: "Donorbox",
     etransferEmail: "info@votesinan.com",
   },
