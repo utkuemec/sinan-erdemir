@@ -2084,9 +2084,9 @@ html[data-hero="split"] .hero__mobile-ctas .btn--mustard {
     order: 2;
     width: 100%;
     min-height: 46svh;
-    /* Subject sits in the left third of the landscape composition — bias the
-       crop left-of-center so he reads naturally in the band. */
-    background: var(--hero-image-landscape) 30% center / cover no-repeat;
+    /* Full-body subject is centred in the landscape composition; keep the
+       crop centred and biased slightly high so his face stays in frame. */
+    background: var(--hero-image-landscape) center 30% / cover no-repeat;
   }
   html[data-hero="split"] .hero__headline {
     white-space: normal;
