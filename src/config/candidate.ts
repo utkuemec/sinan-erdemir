@@ -267,8 +267,8 @@ export const candidate: CandidateConfig = {
     map: {
       src: "/images/ward-map.png",
       alt: "Map of Toronto Ward 16 — Don Valley East, showing the ward boundary from Highway 401 south to the Don River valley between Leslie Street and Victoria Park Avenue",
-      width: 1196,
-      height: 1548,
+      width: 1101,
+      height: 1429,
     },
     landmarks: {
       heading: "Around Don Valley East",
