@@ -1,0 +1,100 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow the workflow to publish to Pages and request the OIDC token used by deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment at a time; cancel in-progress runs of the same group.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build static SPA for GitHub Pages
+        env:
+          DEPLOY_TARGET: github-pages
+          # Served from the votesinan.com custom domain, so assets are
+          # rooted at "/" (see the CNAME step below and site.url in
+          # src/config/candidate.ts).
+          BASE_PATH: /
+          VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
+          VITE_DONATE_ENDPOINT: ${{ secrets.VITE_DONATE_ENDPOINT }}
+        run: bun run build
+
+      - name: Prepare GitHub Pages output
+        # TanStack Start's SPA build emits the static site under dist/client/.
+        # It may emit _shell.html instead of a root index.html, so we ensure
+        # Pages has both index.html for the site root and 404.html for SPA
+        # fallback navigation, and add .nojekyll so GitHub Pages serves
+        # underscore-prefixed files. Also writes the CNAME file for the
+        # votesinan.com custom domain.
+        run: |
+          set -eu
+          OUT=dist/client
+          if [ ! -d "$OUT" ]; then
+            echo "Build output not found at $OUT. Contents of dist:" >&2
+            ls -la dist || true
+            exit 1
+          fi
+
+          if [ -f "$OUT/_shell.html" ]; then
+            SHELL="$OUT/_shell.html"
+          elif [ -f "$OUT/index.html" ]; then
+            SHELL="$OUT/index.html"
+          else
+            echo "Neither _shell.html nor index.html exist in $OUT." >&2
+            ls -la "$OUT"
+            exit 1
+          fi
+
+          if [ ! -f "$OUT/index.html" ]; then
+            cp "$SHELL" "$OUT/index.html"
+          fi
+          cp "$SHELL" "$OUT/404.html"
+
+          touch "$OUT/.nojekyll"
+
+          echo "votesinan.com" > "$OUT/CNAME"
+
+          echo "Final $OUT contents:"
+          ls -la "$OUT"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist/client
+          # Required so .nojekyll (and any other dotfile we ship) makes it into
+          # the artifact — upload-pages-artifact v5 excludes hidden files by default.
+          include-hidden-files: true
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
