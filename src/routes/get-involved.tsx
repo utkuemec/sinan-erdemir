@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   CalendarDays,
   Heart,
@@ -10,13 +10,13 @@ import {
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { JoinForm } from "@/components/JoinForm";
+import { SupporterActionForm } from "@/components/forms/SupporterActionForm";
 import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
-import type { BuiltinCardKind } from "@/config/types";
+import type { BuiltinCardKind, SupporterIntent } from "@/config/types";
 
-const { getInvolved, site } = candidate;
+const { getInvolved, site, features } = candidate;
 const t = getStrings(candidate.locale);
 
 const KIND_ICONS: Record<BuiltinCardKind, LucideIcon> = {
@@ -28,6 +28,13 @@ const KIND_ICONS: Record<BuiltinCardKind, LucideIcon> = {
   pledge: Vote,
 };
 
+/** Card kinds that preselect a supporter-form intent. */
+const KIND_TO_INTENT: Partial<Record<BuiltinCardKind, SupporterIntent>> = {
+  volunteer: "volunteer",
+  "lawn-sign": "lawn-sign",
+  pledge: "pledge",
+};
+
 /** Colour slots cycle across cards in the same order as the original set. */
 const VARIANTS = ["turquoise", "mustard", "taupe"] as const;
 
@@ -37,32 +44,55 @@ interface ResolvedCard {
   title: string;
   body: string;
   cta: string;
-  action: { type: "donate" } | { type: "anchor"; href: string };
+  action: { type: "donate" } | { type: "intent"; intent: SupporterIntent } | { type: "anchor"; href: string };
 }
 
-const CARDS: ResolvedCard[] = getInvolved.cards.map((card) => {
-  if (card.kind === "custom") {
+function cardEnabled(kind: BuiltinCardKind | "custom"): boolean {
+  if (kind === "donate") return features.donations;
+  if (kind === "lawn-sign") return features.lawnSigns;
+  if (kind === "pledge") return features.pledge;
+  return true;
+}
+
+const CARDS: ResolvedCard[] = getInvolved.cards
+  .filter((card) => cardEnabled(card.kind))
+  .map((card) => {
+    if (card.kind === "custom") {
+      return {
+        key: card.title,
+        icon: card.icon,
+        title: card.title,
+        body: card.body,
+        cta: card.cta,
+        action: { type: "anchor" as const, href: card.href },
+      };
+    }
+    const defaults = t.getInvolvedCards[card.kind];
+    const intent = KIND_TO_INTENT[card.kind];
     return {
-      key: card.title,
-      icon: card.icon,
-      title: card.title,
-      body: card.body,
-      cta: card.cta,
-      action: { type: "anchor", href: card.href },
+      key: card.kind,
+      icon: KIND_ICONS[card.kind],
+      title: card.title ?? defaults.title,
+      body: card.body ?? defaults.body,
+      cta: card.cta ?? defaults.cta,
+      action:
+        card.kind === "donate"
+          ? { type: "donate" as const }
+          : intent
+            ? { type: "intent" as const, intent }
+            : { type: "anchor" as const, href: "#join" },
     };
-  }
-  const defaults = t.getInvolvedCards[card.kind];
-  return {
-    key: card.kind,
-    icon: KIND_ICONS[card.kind],
-    title: card.title ?? defaults.title,
-    body: card.body ?? defaults.body,
-    cta: card.cta ?? defaults.cta,
-    action: card.kind === "donate" ? { type: "donate" } : { type: "anchor", href: "#join" },
-  };
-});
+  });
+
+const VALID_ACTIONS: SupporterIntent[] = ["volunteer", "lawn-sign", "pledge"];
 
 export const Route = createFileRoute("/get-involved")({
+  validateSearch: (search: Record<string, unknown>): { action?: SupporterIntent } => {
+    const action = search.action;
+    return typeof action === "string" && VALID_ACTIONS.includes(action as SupporterIntent)
+      ? { action: action as SupporterIntent }
+      : {};
+  },
   head: () => ({
     meta: [
       { title: `${getInvolved.pageTitle} — ${site.title}` },
@@ -74,11 +104,64 @@ export const Route = createFileRoute("/get-involved")({
   component: GetInvolvedPage,
 });
 
+function CardShell({
+  card,
+  variant,
+  children,
+}: {
+  card: ResolvedCard;
+  variant: (typeof VARIANTS)[number];
+  children?: never;
+}) {
+  const Icon = card.icon;
+  const inner = (
+    <>
+      <span className="action-card__icon">
+        <Icon size={26} strokeWidth={1.75} />
+      </span>
+      <h3 className="action-card__title">{card.title}</h3>
+      <p className="action-card__body">{card.body}</p>
+      <span className="action-card__cta">{card.cta} →</span>
+    </>
+  );
+
+  if (card.action.type === "donate") {
+    return (
+      <button
+        type="button"
+        className={`action-card action-card--${variant}`}
+        onClick={() => openDonateModal()}
+      >
+        {inner}
+      </button>
+    );
+  }
+  if (card.action.type === "intent") {
+    return (
+      <Link
+        to="/get-involved"
+        search={{ action: card.action.intent }}
+        hash="join"
+        className={`action-card action-card--${variant}`}
+      >
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <a href={card.action.href} className={`action-card action-card--${variant}`}>
+      {inner}
+    </a>
+  );
+}
+
 function GetInvolvedPage() {
+  const { action } = Route.useSearch();
+
   return (
     <div className="page">
       <Header variant="solid" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="get-involved">
           <div className="container">
             <div className="get-involved__head">
@@ -95,41 +178,9 @@ function GetInvolvedPage() {
             </div>
 
             <div className="get-involved__grid">
-              {CARDS.map((card, i) => {
-                const Icon = card.icon;
-                const variant = VARIANTS[i % VARIANTS.length];
-                if (card.action.type === "donate") {
-                  return (
-                    <button
-                      key={card.key}
-                      type="button"
-                      className={`action-card action-card--${variant}`}
-                      onClick={() => openDonateModal()}
-                    >
-                      <span className="action-card__icon">
-                        <Icon size={26} strokeWidth={1.75} />
-                      </span>
-                      <h3 className="action-card__title">{card.title}</h3>
-                      <p className="action-card__body">{card.body}</p>
-                      <span className="action-card__cta">{card.cta} →</span>
-                    </button>
-                  );
-                }
-                return (
-                  <a
-                    key={card.key}
-                    href={card.action.href}
-                    className={`action-card action-card--${variant}`}
-                  >
-                    <span className="action-card__icon">
-                      <Icon size={26} strokeWidth={1.75} />
-                    </span>
-                    <h3 className="action-card__title">{card.title}</h3>
-                    <p className="action-card__body">{card.body}</p>
-                    <span className="action-card__cta">{card.cta} →</span>
-                  </a>
-                );
-              })}
+              {CARDS.map((card, i) => (
+                <CardShell key={card.key} card={card} variant={VARIANTS[i % VARIANTS.length]} />
+              ))}
             </div>
           </div>
         </section>
@@ -160,8 +211,23 @@ function GetInvolvedPage() {
           </section>
         )}
 
-        <section id="join" className="mobile-join" style={{ display: "block" }}>
-          <JoinForm id="involved-join" source="get-involved" />
+        <section id="join" className="supporter-section">
+          <div className="container supporter-section__inner">
+            <div className="supporter-section__copy">
+              <h2 className="section-heading section-heading--sm">{getInvolved.heading}</h2>
+              <p>{getInvolved.lede}</p>
+              <p className="supporter-section__privacy">
+                {t.contactForm.privacyAckBeforeLink}
+                <Link to="/privacy">{t.contactForm.privacyAckLinkLabel}</Link>
+                {" — "}
+                {t.privacy.noSaleStatement}
+              </p>
+            </div>
+            <SupporterActionForm
+              id="involved-supporter"
+              initialIntents={action ? [action] : []}
+            />
+          </div>
         </section>
       </main>
       <Footer />

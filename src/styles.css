@@ -1505,6 +1505,7 @@ a { color: inherit; }
    ========================================================================= */
 .legal { background: var(--c-cream); padding: var(--space-section) 0; }
 .legal__dates { font-size: var(--fs-caption); color: var(--fg-muted); margin-top: var(--sp-3); }
+.voting__verified { font-size: var(--fs-caption); color: var(--fg-muted); margin-top: var(--sp-2); }
 .legal__providers { display: flex; flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-3); }
 .legal__providers li { padding-left: 1.2em; position: relative; }
 .legal__providers li::before { content: "•"; position: absolute; left: 0; color: var(--c-mustard); }
@@ -1708,6 +1709,28 @@ a { color: inherit; }
 .hero *:focus-visible,
 .join-section *:focus-visible {
   outline-color: #ffffff;
+}
+
+/* =========================================================================
+   SUPPORTER SECTION (get-involved) — copy left, form right
+   ========================================================================= */
+.supporter-section {
+  background: var(--c-cream-deep);
+  padding: var(--space-section) 0;
+}
+.supporter-section__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--sp-7);
+  align-items: start;
+}
+.supporter-section__copy p { max-width: 44ch; }
+.supporter-section__privacy { font-size: var(--fs-body-sm); color: var(--fg-muted); }
+.supporter-section__privacy a { color: var(--c-mustard-deep); }
+.supporter-section .purpose-form { justify-self: end; }
+@media (max-width: 1023px) {
+  .supporter-section__inner { grid-template-columns: 1fr; gap: var(--sp-5); }
+  .supporter-section .purpose-form { justify-self: stretch; max-width: none; }
 }
 
 /* =========================================================================

@@ -1,87 +1,46 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CalendarDays, IdCard, UserCheck, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { candidate } from "@/config/candidate";
 
-const { site } = candidate;
-
-const PAGE_TITLE = "Voting Info";
-const META_DESCRIPTION =
-  "How to vote in the 2026 Toronto municipal election: election day, advance voting dates, who can vote, and what ID to bring to the polls in Ward 16 — Don Valley East.";
+const { site, voting } = candidate;
 
 export const Route = createFileRoute("/vote")({
   head: () => ({
     meta: [
-      { title: `${PAGE_TITLE} — ${site.title}` },
-      { name: "description", content: META_DESCRIPTION },
-      { property: "og:title", content: "Voting in the 2026 Toronto Municipal Election" },
-      {
-        property: "og:description",
-        content: "Key dates, eligibility, and ID requirements for voting in Toronto.",
-      },
+      { title: `${voting.pageTitle} — ${site.title}` },
+      { name: "description", content: voting.metaDescription },
+      { property: "og:title", content: voting.ogTitle },
+      { property: "og:description", content: voting.ogDescription },
     ],
   }),
   component: VotePage,
 });
 
-const SECTIONS = [
-  {
-    icon: CalendarDays,
-    heading: "Key Dates",
-    items: [
-      "Election day: Monday, October 26, 2026 — polls open 10 a.m. to 8 p.m.",
-      "Advance voting: Tuesday, October 6 to Sunday, October 11, 2026 — 10 a.m. to 7 p.m.",
-      "Check your voting place on MyVote before you go — locations can change between elections.",
-    ],
-  },
-  {
-    icon: UserCheck,
-    heading: "Who Can Vote",
-    items: [
-      "You are a Canadian citizen, and",
-      "You are at least 18 years old on election day, and",
-      "You live in Toronto — or you (or your spouse) own or rent property in the city, and",
-      "You are not otherwise prohibited from voting by law.",
-    ],
-  },
-  {
-    icon: IdCard,
-    heading: "What to Bring",
-    items: [
-      "One piece of ID showing your name and qualifying Toronto address — a photo is not required.",
-      "Examples: Ontario driver's licence, utility bill, bank statement, or government cheque stub.",
-      "If you received a Voter Information Card in the mail, bring it along to speed things up.",
-    ],
-  },
-] as const;
-
 function VotePage() {
   return (
     <div className="page">
       <Header variant="solid" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="ward-map">
           <div className="container">
             <div className="ward-map__head">
-              <p className="t-eyebrow">2026 Toronto Municipal Election</p>
+              <p className="t-eyebrow">{voting.eyebrow}</p>
               <h1 className="section-heading">
-                Your Vote. Your Neighbourhood.
+                {voting.heading}
                 <span
                   className="accent-bar"
                   aria-hidden="true"
                   style={{ marginLeft: "auto", marginRight: "auto" }}
                 />
               </h1>
-              <p className="ward-map__lede">
-                On Monday, October 26, 2026, Toronto elects its next City Council. Here is
-                everything you need to cast your ballot in Ward 16 — Don Valley East.
-              </p>
+              <p className="ward-map__lede">{voting.lede}</p>
             </div>
 
             <div className="ward-map__schools">
               <div className="ward-map__school-grid">
-                {SECTIONS.map((section) => {
+                {voting.sections.map((section) => {
                   const Icon = section.icon;
                   return (
                     <div key={section.heading}>
@@ -106,26 +65,27 @@ function VotePage() {
 
               <p style={{ marginTop: 32 }}>
                 Official details, accessible-voting options, and your exact voting place:{" "}
-                <a
-                  href="https://www.toronto.ca/city-government/elections/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  toronto.ca/elections{" "}
-                  <ExternalLink size={14} style={{ verticalAlign: "-2px" }} aria-hidden="true" />
-                </a>{" "}
-                and{" "}
-                <a href="https://myvote.toronto.ca/" target="_blank" rel="noreferrer">
-                  myvote.toronto.ca{" "}
-                  <ExternalLink size={14} style={{ verticalAlign: "-2px" }} aria-hidden="true" />
-                </a>
-                . Information on this page is a summary — the City Clerk's official
-                instructions govern.
+                {voting.officialLinks.map((link, i) => (
+                  <span key={link.url}>
+                    {i > 0 && " and "}
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      {link.label}{" "}
+                      <ExternalLink size={14} style={{ verticalAlign: "-2px" }} aria-hidden="true" />
+                    </a>
+                  </span>
+                ))}
+                . {voting.disclaimer}
+              </p>
+
+              <p className="voting__verified">
+                Last verified against the City Clerk's information: {voting.lastVerified}.
               </p>
 
               <p style={{ marginTop: 16 }}>
                 Ready to help before election day?{" "}
-                <Link to="/get-involved">Join Team Sinan or pledge your vote →</Link>
+                <Link to="/get-involved" search={{ action: "pledge" }} hash="join">
+                  Pledge your vote or join Team Sinan →
+                </Link>
               </p>
             </div>
           </div>

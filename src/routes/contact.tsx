@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { JoinForm } from "@/components/JoinForm";
+import { ContactForm } from "@/components/forms/ContactForm";
 import { candidate } from "@/config/candidate";
 import type { SocialPlatform } from "@/config/types";
 
@@ -44,7 +44,7 @@ function ContactPage() {
   return (
     <div className="page">
       <Header variant="solid" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="contact">
           <div className="contact__inner">
             <div className="contact__copy">
@@ -75,7 +75,13 @@ function ContactPage() {
                     {contact.socials.map((social) => {
                       const { icon: Icon, label } = SOCIAL_ICONS[social.platform];
                       return (
-                        <a key={social.platform} href={social.url} aria-label={label}>
+                        <a
+                          key={social.platform}
+                          href={social.url}
+                          aria-label={label}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <Icon size={20} />
                         </a>
                       );
@@ -86,7 +92,7 @@ function ContactPage() {
             </div>
 
             <div className="contact__form">
-              <JoinForm id="contact-join" source="contact" />
+              <ContactForm id="contact-form" />
             </div>
           </div>
         </section>

@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { JoinForm } from "@/components/JoinForm";
+import { CompactSignupForm } from "@/components/forms/CompactSignupForm";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
 import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
@@ -71,7 +71,7 @@ function HomePage() {
               </div>
 
               <div className="hero__form">
-                <JoinForm id="hero-join" source="homepage" />
+                <CompactSignupForm id="hero-join" source="homepage" />
               </div>
             </div>
           </div>
@@ -201,7 +201,7 @@ function HomePage() {
         </section>
 
         <section id="hero-join-section" className="mobile-join">
-          <JoinForm id="mobile-join-form" source="homepage-mobile" />
+          <CompactSignupForm id="mobile-join-form" source="homepage-mobile" />
         </section>
       </main>
       <Footer />
