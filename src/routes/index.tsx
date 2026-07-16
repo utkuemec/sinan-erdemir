@@ -119,18 +119,18 @@ function HomePage() {
                 />
                 <source
                   type="image/avif"
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1080], "avif")}
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "avif")}
                   sizes="45vw"
                 />
                 <source
                   type="image/webp"
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1080], "webp")}
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "webp")}
                   sizes="45vw"
                 />
                 <img
                   className="hero__media-img"
                   src={withBase(hero.imagePortrait)}
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1080], "jpg")}
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "jpg")}
                   sizes="45vw"
                   alt=""
                   width={1024}
