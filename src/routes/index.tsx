@@ -145,6 +145,12 @@ function HomePage() {
               })}
             </div>
 
+            <div className="priorities__cta">
+              <Link to="/priorities" className="btn btn--secondary btn--lg">
+                {t.buttons.seeFullPlan}
+              </Link>
+            </div>
+
             <div className="why-matters">
               <h3 className="why-matters__title t-pillar">{priorities.whyThisMatters.heading}</h3>
               <p className="why-matters__intro">{priorities.whyThisMatters.intro}</p>

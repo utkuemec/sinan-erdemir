@@ -37,7 +37,9 @@ function PrioritiesPage() {
               <p className="priorities__lede">{priorities.intro}</p>
             </div>
 
-            <ol className="priorities__list priorities__list--four">
+            <ol
+              className={`priorities__list${priorities.items.length >= 4 ? " priorities__list--four" : ""}`}
+            >
               {priorities.items.map((p, i) => {
                 const Icon = p.icon;
                 return (
