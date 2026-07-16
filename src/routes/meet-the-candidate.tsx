@@ -6,20 +6,24 @@ import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
-import { absoluteUrl, withBase } from "@/lib/paths";
+import { withBase } from "@/lib/paths";
+import { pageHead } from "@/lib/seo";
+import { jsonLdScripts, personJsonLd } from "@/lib/jsonld";
 
 const { bio, site } = candidate;
 const t = getStrings(candidate.locale);
 
 export const Route = createFileRoute("/meet-the-candidate")({
   head: () => ({
-    meta: [
-      { title: `${bio.pageTitle} — ${site.title}` },
-      { name: "description", content: bio.metaDescription },
-      { property: "og:title", content: bio.ogTitle },
-      { property: "og:description", content: bio.ogDescription },
-      { property: "og:image", content: absoluteUrl(bio.portrait.src) },
-    ],
+    ...pageHead({
+      path: "/meet-the-candidate",
+      title: bio.pageTitle,
+      description: bio.metaDescription,
+      ogTitle: bio.ogTitle,
+      ogDescription: bio.ogDescription,
+      image: bio.portrait.src,
+    }),
+    scripts: jsonLdScripts(personJsonLd),
   }),
   component: MeetTheCandidatePage,
 });

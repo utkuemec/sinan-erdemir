@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
 import { candidate } from "@/config/candidate";
+import { pageHead } from "@/lib/seo";
 import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
 
@@ -13,12 +14,13 @@ const t = getStrings(candidate.locale);
 
 export const Route = createFileRoute("/ward")({
   head: () => ({
-    meta: [
-      { title: `${ward.pageTitle} — ${site.title}` },
-      { name: "description", content: ward.metaDescription },
-      { property: "og:title", content: ward.ogTitle },
-      { property: "og:description", content: ward.ogDescription },
-    ],
+    ...pageHead({
+      path: "/ward",
+      title: ward.pageTitle,
+      description: ward.metaDescription,
+      ogTitle: ward.ogTitle,
+      ogDescription: ward.ogDescription,
+    }),
   }),
   component: WardPage,
 });

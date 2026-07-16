@@ -9,19 +9,23 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
-import { absoluteUrl, withBase } from "@/lib/paths";
+import { withBase } from "@/lib/paths";
+import { pageHead } from "@/lib/seo";
+import { jsonLdScripts, personJsonLd } from "@/lib/jsonld";
 
 const t = getStrings(candidate.locale);
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: `${candidate.site.title} — ${candidate.hero.sloganLine}` },
-      { name: "description", content: candidate.site.description },
-      { property: "og:title", content: candidate.hero.sloganLine },
-      { property: "og:description", content: candidate.site.shortDescription },
-      { property: "og:image", content: absoluteUrl(candidate.site.ogImage) },
-    ],
+    ...pageHead({
+      path: "/",
+      title: "Home",
+      fullTitle: `${candidate.site.title} — ${candidate.hero.sloganLine}`,
+      description: candidate.site.description,
+      ogTitle: candidate.hero.sloganLine,
+      ogDescription: candidate.site.shortDescription,
+    }),
+    scripts: jsonLdScripts(personJsonLd),
   }),
   component: HomePage,
 });

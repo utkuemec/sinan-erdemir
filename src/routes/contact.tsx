@@ -15,6 +15,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { candidate } from "@/config/candidate";
+import { pageHead } from "@/lib/seo";
 import type { SocialPlatform } from "@/config/types";
 
 const { contact, site } = candidate;
@@ -30,12 +31,13 @@ const SOCIAL_ICONS: Record<SocialPlatform, { icon: LucideIcon; label: string }> 
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
-    meta: [
-      { title: `${contact.pageTitle} — ${site.title}` },
-      { name: "description", content: contact.metaDescription },
-      { property: "og:title", content: contact.ogTitle },
-      { property: "og:description", content: contact.ogDescription },
-    ],
+    ...pageHead({
+      path: "/contact",
+      title: contact.pageTitle,
+      description: contact.metaDescription,
+      ogTitle: contact.ogTitle,
+      ogDescription: contact.ogDescription,
+    }),
   }),
   component: ContactPage,
 });

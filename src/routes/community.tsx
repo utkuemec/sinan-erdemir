@@ -6,18 +6,20 @@ import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { candidate } from "@/config/candidate";
+import { pageHead } from "@/lib/seo";
 import { withBase } from "@/lib/paths";
 
 const { community, bio, site } = candidate;
 
 export const Route = createFileRoute("/community")({
   head: () => ({
-    meta: [
-      { title: `${community.pageTitle} — ${site.title}` },
-      { name: "description", content: community.metaDescription },
-      { property: "og:title", content: community.ogTitle },
-      { property: "og:description", content: community.ogDescription },
-    ],
+    ...pageHead({
+      path: "/community",
+      title: community.pageTitle,
+      description: community.metaDescription,
+      ogTitle: community.ogTitle,
+      ogDescription: community.ogDescription,
+    }),
   }),
   component: CommunityPage,
 });

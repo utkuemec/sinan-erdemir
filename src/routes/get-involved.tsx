@@ -13,6 +13,7 @@ import { Footer } from "@/components/Footer";
 import { SupporterActionForm } from "@/components/forms/SupporterActionForm";
 import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
+import { pageHead } from "@/lib/seo";
 import { getStrings } from "@/config/strings";
 import type { BuiltinCardKind, SupporterIntent } from "@/config/types";
 
@@ -94,12 +95,13 @@ export const Route = createFileRoute("/get-involved")({
       : {};
   },
   head: () => ({
-    meta: [
-      { title: `${getInvolved.pageTitle} — ${site.title}` },
-      { name: "description", content: getInvolved.metaDescription },
-      { property: "og:title", content: getInvolved.ogTitle },
-      { property: "og:description", content: getInvolved.ogDescription },
-    ],
+    ...pageHead({
+      path: "/get-involved",
+      title: getInvolved.pageTitle,
+      description: getInvolved.metaDescription,
+      ogTitle: getInvolved.ogTitle,
+      ogDescription: getInvolved.ogDescription,
+    }),
   }),
   component: GetInvolvedPage,
 });

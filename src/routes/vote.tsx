@@ -3,17 +3,19 @@ import { ExternalLink } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { candidate } from "@/config/candidate";
+import { pageHead } from "@/lib/seo";
 
 const { site, voting } = candidate;
 
 export const Route = createFileRoute("/vote")({
   head: () => ({
-    meta: [
-      { title: `${voting.pageTitle} — ${site.title}` },
-      { name: "description", content: voting.metaDescription },
-      { property: "og:title", content: voting.ogTitle },
-      { property: "og:description", content: voting.ogDescription },
-    ],
+    ...pageHead({
+      path: "/vote",
+      title: voting.pageTitle,
+      description: voting.metaDescription,
+      ogTitle: voting.ogTitle,
+      ogDescription: voting.ogDescription,
+    }),
   }),
   component: VotePage,
 });

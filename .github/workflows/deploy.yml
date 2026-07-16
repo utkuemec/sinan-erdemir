@@ -40,8 +40,10 @@ jobs:
           # the CNAME step below, update site.url in src/config/candidate.ts,
           # and configure the custom domain in repo Settings → Pages.
           BASE_PATH: /sinan-erdemir/
+          # Used by scripts/generate-seo-files.mjs for sitemap/robots URLs.
+          # AT LAUNCH: change to https://votesinan.com
+          SITE_URL: https://lumin8hub.github.io/sinan-erdemir
           VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
-          VITE_DONATE_ENDPOINT: ${{ secrets.VITE_DONATE_ENDPOINT }}
         run: bun run build
 
       - name: Prepare GitHub Pages output

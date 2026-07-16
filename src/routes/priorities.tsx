@@ -2,17 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { candidate } from "@/config/candidate";
+import { pageHead } from "@/lib/seo";
 
 const { priorities, site } = candidate;
 
 export const Route = createFileRoute("/priorities")({
   head: () => ({
-    meta: [
-      { title: `${priorities.pageTitle} — ${site.title}` },
-      { name: "description", content: priorities.metaDescription },
-      { property: "og:title", content: priorities.ogTitle },
-      { property: "og:description", content: priorities.ogDescription },
-    ],
+    ...pageHead({
+      path: "/priorities",
+      title: priorities.pageTitle,
+      description: priorities.metaDescription,
+      ogTitle: priorities.ogTitle,
+      ogDescription: priorities.ogDescription,
+    }),
   }),
   component: PrioritiesPage,
 });

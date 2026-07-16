@@ -4,7 +4,8 @@ import { DonateModal } from "@/components/DonateModal";
 import { DemoThemeSwitcher } from "@/components/DemoThemeSwitcher";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
-import { absoluteUrl, withBase } from "@/lib/paths";
+import { withBase } from "@/lib/paths";
+import { jsonLdScripts, organizationJsonLd, webSiteJsonLd } from "@/lib/jsonld";
 
 import appCss from "../styles.css?url";
 import themesCss from "../styles/themes.css?url";
@@ -45,18 +46,15 @@ function NotFoundComponent() {
 
 export const Route = createRootRoute({
   head: () => ({
+    // Titles, descriptions, canonical and og/twitter tags come from each
+    // route's pageHead() (src/lib/seo.ts) — only page-agnostic chrome here.
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: candidate.site.title },
-      { name: "description", content: candidate.site.description },
       { name: "author", content: candidate.site.author },
-      { property: "og:title", content: candidate.site.title },
-      { property: "og:description", content: candidate.site.description },
-      { property: "og:type", content: "website" },
-      { property: "og:image", content: absoluteUrl(candidate.site.ogImage) },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: jsonLdScripts(webSiteJsonLd, organizationJsonLd),
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "stylesheet", href: themesCss },

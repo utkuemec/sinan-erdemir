@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { candidate } from "@/config/candidate";
+import { pageHead } from "@/lib/seo";
 import { getStrings } from "@/config/strings";
 
 const { site, contact, features, privacy } = candidate;
@@ -10,12 +11,12 @@ const p = t.privacy;
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
-    meta: [
-      { title: `${p.pageTitle} - ${site.title}` },
-      { name: "description", content: p.metaDescription(site.title) },
-      { property: "og:title", content: `${p.pageTitle} - ${site.title}` },
-      { property: "og:description", content: p.ogDescription },
-    ],
+    ...pageHead({
+      path: "/privacy",
+      title: p.pageTitle,
+      description: p.metaDescription(site.title),
+      ogDescription: p.ogDescription,
+    }),
   }),
   component: PrivacyPage,
 });
