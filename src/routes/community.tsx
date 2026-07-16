@@ -47,20 +47,6 @@ function CommunityPage() {
                 <span className="accent-bar" aria-hidden="true" />
               </h1>
               <p>{community.intro}</p>
-
-              <ul className="community__list">
-                {community.work.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <li key={item.label} className="community__item">
-                      <span className="community__item-icon">
-                        <Icon size={22} strokeWidth={1.75} />
-                      </span>
-                      <span className="community__item-label">{item.label}</span>
-                    </li>
-                  );
-                })}
-              </ul>
             </div>
 
             <div className="community__photo">
@@ -76,17 +62,40 @@ function CommunityPage() {
               />
             </div>
           </div>
+
+          {/* Full-width card row below the copy/photo grid (feedback 1, item 5/6a). */}
+          <div className="container">
+            <ul className="community__list">
+              {community.work.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.label} className="community__item">
+                    <span className="community__item-icon">
+                      <Icon size={32} strokeWidth={1.75} />
+                    </span>
+                    <span className="community__item-label">{item.label}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </section>
 
-        {/* Recognition strip — exact award names from the client's form. */}
-        <section className="awards-strip" aria-label="Recognition">
-          <div className="container awards-strip__inner">
-            {bio.recognition.map((award) => (
-              <div key={award} className="awards-strip__item">
-                <Award size={20} strokeWidth={1.75} aria-hidden="true" />
-                <span>{award}</span>
-              </div>
-            ))}
+        {/* Recognition — exact award names from the client's form. */}
+        <section className="awards-strip" aria-labelledby="recognition-heading">
+          <div className="container">
+            <p className="t-eyebrow awards-strip__eyebrow">Honours</p>
+            <h2 id="recognition-heading" className="section-heading section-heading--sm awards-strip__heading">
+              Recognition
+            </h2>
+            <div className="awards-strip__inner">
+              {bio.recognition.map((award) => (
+                <div key={award} className="awards-strip__item">
+                  <Award size={28} strokeWidth={1.75} aria-hidden="true" />
+                  <span>{award}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 

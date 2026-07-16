@@ -120,18 +120,18 @@ function HomePage() {
                 <source
                   type="image/avif"
                   srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "avif")}
-                  sizes="45vw"
+                  sizes="40vw"
                 />
                 <source
                   type="image/webp"
                   srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "webp")}
-                  sizes="45vw"
+                  sizes="40vw"
                 />
                 <img
                   className="hero__media-img"
                   src={withBase(hero.imagePortrait)}
                   srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "jpg")}
-                  sizes="45vw"
+                  sizes="40vw"
                   alt=""
                   width={1024}
                   height={1536}
@@ -140,10 +140,6 @@ function HomePage() {
               </picture>
             )}
           </div>
-        </section>
-
-        <section id="join" className="join-section" aria-label={t.joinForm.title}>
-          <CompactSignupForm id="home-join" source="homepage" />
         </section>
 
         <section id="pillars" className="pillars" aria-label="Campaign values">
@@ -173,6 +169,11 @@ function HomePage() {
               </article>
             );
           })}
+        </section>
+
+        {/* Feedback round 1, item 4: join form sits below the pillar band. */}
+        <section id="join" className="join-section" aria-label={t.joinForm.title}>
+          <CompactSignupForm id="home-join" source="homepage" />
         </section>
 
         <section className="priorities--home" aria-label={priorities.eyebrow}>
