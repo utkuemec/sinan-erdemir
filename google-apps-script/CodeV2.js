@@ -208,7 +208,12 @@ function coerce(field, value) {
   }
   if (typeof value !== "string") return "";
   // strip control characters, cap length
-  return value.replace(/[ -]/g, "").trim().slice(0, field.maxLen || 200);
+  var cleaned = "";
+  for (var ci = 0; ci < value.length; ci++) {
+    var code = value.charCodeAt(ci);
+    if (code >= 32 && code !== 127) cleaned += value.charAt(ci);
+  }
+  return cleaned.trim().slice(0, field.maxLen || 200);
 }
 
 function validate(formType, data) {

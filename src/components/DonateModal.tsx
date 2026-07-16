@@ -1,23 +1,30 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { X, CreditCard, Mail, ArrowLeft, Copy, Check } from "lucide-react";
+import { X, CreditCard, Mail, ArrowLeft, Copy, Check, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { subscribeDonateModal, closeDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
+import {
+  FIELD_LIMITS,
+  sanitize,
+  submitForm,
+  useSubmissionToken,
+  type EtransferSubmission,
+} from "@/lib/forms";
 
 /*
  * NOTE FOR THE CAMPAIGN:
- * Political contributions are typically subject to jurisdiction-specific
- * contribution rules and receipting requirements (e.g. Ontario's municipal /
- * school-board rules). Confirm with the campaign's official agent whether a
- * contributor eligibility declaration or contribution-limit acknowledgement
- * must also be captured here before launch. This form collects identity +
- * address only.
+ * The e-transfer flow now captures a contributor eligibility declaration
+ * (see t.donateModal.eligibilityItems) — that wording is a DRAFT and must be
+ * approved by the campaign's official agent before launch. If sign-off
+ * stalls, set candidate.features.eTransfer to false to hide the flow while
+ * keeping credit-card donations live.
  */
 
 const DONATE_URL = candidate.integrations.donateUrl;
 const ETRANSFER_EMAIL = candidate.integrations.etransferEmail;
-const FORM_ENDPOINT = import.meta.env.VITE_DONATE_ENDPOINT as string | undefined;
+// E-transfer intents go through the shared v2 endpoint (lib/forms.ts);
+// the legacy VITE_DONATE_ENDPOINT secret is retired.
 
 const t = getStrings(candidate.locale);
 
@@ -27,6 +34,8 @@ export function DonateModal() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<View>("choose");
   const [submitting, setSubmitting] = useState(false);
+  const token = useSubmissionToken();
+  const showEtransfer = candidate.features.eTransfer;
   const [copied, setCopied] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -86,34 +95,45 @@ export function DonateModal() {
 
   async function handleEtransferSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submitting) return;
     setSubmitting(true);
 
     const form = e.target as HTMLFormElement;
-    const data = {
-      fullName: (form.elements.namedItem("donate-name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("donate-email") as HTMLInputElement).value,
-      phone: (form.elements.namedItem("donate-phone") as HTMLInputElement).value,
-      address: (form.elements.namedItem("donate-address") as HTMLTextAreaElement).value,
+    const field = (name: string) =>
+      (form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement).value;
+    const checked = (name: string) =>
+      (form.elements.namedItem(name) as HTMLInputElement | null)?.checked === true;
+
+    const payload: EtransferSubmission = {
+      formType: "donate-etransfer",
+      version: 2,
       source: "donate-etransfer",
+      token: token.current(),
+      website: "",
+      fullName: sanitize(field("donate-name"), FIELD_LIMITS.name),
+      email: sanitize(field("donate-email"), FIELD_LIMITS.email),
+      phone: sanitize(field("donate-phone"), FIELD_LIMITS.phone),
+      address: sanitize(field("donate-address"), FIELD_LIMITS.address),
+      eligibilityConfirmed: checked("donate-eligible"),
+      ownFundsConfirmed: checked("donate-own-funds"),
+      notOnBehalfConfirmed: checked("donate-not-behalf"),
     };
 
-    try {
-      if (!FORM_ENDPOINT) throw new Error("Form endpoint not configured");
+    const outcome = await submitForm(payload);
+    setSubmitting(false);
 
-      await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify(data),
-      });
-
+    // Only show the transfer instructions when the backend confirmed the
+    // contributor record was written (P0-05 — no false-positive success).
+    if (outcome.status === "ok") {
+      token.refresh();
       setView("etransfer-instructions");
-    } catch {
+    } else {
       toast.error(t.donateModal.errorTitle, {
-        description: t.donateModal.errorBody(candidate.contact.email),
+        description:
+          outcome.kind === "timeout"
+            ? t.forms.timeoutError
+            : t.donateModal.errorBody(candidate.contact.email),
       });
-    } finally {
-      setSubmitting(false);
     }
   }
 
@@ -164,27 +184,37 @@ export function DonateModal() {
                   <CreditCard size={24} />
                 </span>
                 <span className="donate-option__text">
-                  <span className="donate-option__label">{t.donateModal.creditCardLabel}</span>
+                  <span className="donate-option__label">
+                    {t.donateModal.creditCardLabel}{" "}
+                    <ExternalLink size={14} aria-hidden="true" />
+                  </span>
                   <span className="donate-option__sub">
-                    {t.donateModal.creditCardSub(candidate.integrations.donateProcessorName)}
+                    {t.donateModal.creditCardSub(candidate.integrations.donateProcessorName)} —{" "}
+                    {t.donateModal.opensExternal}
                   </span>
                 </span>
               </button>
 
-              <button
-                type="button"
-                className="donate-option donate-option--etransfer"
-                onClick={() => setView("etransfer-form")}
-              >
-                <span className="donate-option__icon donate-option__icon--turquoise">
-                  <Mail size={24} />
-                </span>
-                <span className="donate-option__text">
-                  <span className="donate-option__label">{t.donateModal.etransferLabel}</span>
-                  <span className="donate-option__sub">{t.donateModal.etransferSub}</span>
-                </span>
-              </button>
+              {showEtransfer && (
+                <button
+                  type="button"
+                  className="donate-option donate-option--etransfer"
+                  onClick={() => setView("etransfer-form")}
+                >
+                  <span className="donate-option__icon donate-option__icon--turquoise">
+                    <Mail size={24} />
+                  </span>
+                  <span className="donate-option__text">
+                    <span className="donate-option__label">{t.donateModal.etransferLabel}</span>
+                    <span className="donate-option__sub">{t.donateModal.etransferSub}</span>
+                  </span>
+                </button>
+              )}
             </div>
+
+            <p className="donate-modal__authorized">
+              {t.donateModal.authorizedNote(candidate.legal.authorizedBy)}
+            </p>
           </>
         )}
 
@@ -247,10 +277,29 @@ export function DonateModal() {
                 required
               />
 
+              {/* Contribution-eligibility declaration — DRAFT wording,
+                  official-agent approval required before launch (P0-08). */}
+              <fieldset className="donate-form__eligibility">
+                <legend>{t.donateModal.eligibilityLegend}</legend>
+                <label className="donate-form__check">
+                  <input type="checkbox" name="donate-eligible" required />
+                  <span>{t.donateModal.eligibilityItems.eligible}</span>
+                </label>
+                <label className="donate-form__check">
+                  <input type="checkbox" name="donate-own-funds" required />
+                  <span>{t.donateModal.eligibilityItems.ownFunds}</span>
+                </label>
+                <label className="donate-form__check">
+                  <input type="checkbox" name="donate-not-behalf" required />
+                  <span>{t.donateModal.eligibilityItems.notOnBehalf}</span>
+                </label>
+              </fieldset>
+
               <button
                 type="submit"
                 className="btn btn--mustard btn--lg btn--full"
                 disabled={submitting}
+                aria-busy={submitting}
               >
                 {submitting ? t.donateModal.submitting : t.donateModal.continue}
               </button>
