@@ -34,6 +34,16 @@ try {
     for (const route of PAGES) {
       const url = BASE_URL.replace(/\/$/, "") + route;
       await page.goto(url, { waitUntil: "networkidle" });
+      // Scroll through the page so loading="lazy" images fire before the
+      // fullPage capture (otherwise below-fold photos screenshot blank).
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += 600) {
+          window.scrollTo(0, y);
+          await new Promise((resolve) => setTimeout(resolve, 80));
+        }
+        window.scrollTo(0, 0);
+      });
+      await page.waitForTimeout(400);
       const slug = route === "/" ? "home" : route.slice(1).replace(/\//g, "-");
       await page.screenshot({
         path: join(OUT, `${slug}-${width}.png`),

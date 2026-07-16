@@ -25,9 +25,7 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="container site-footer__cta-row">
-        <p className="site-footer__cta-heading">
-          {t.finalCta.heading(candidate.identity.wardLabel.split("—")[0]?.trim() ?? "our ward")}
-        </p>
+        <p className="site-footer__cta-heading">{t.joinForm.title}</p>
         <div className="site-footer__cta-buttons">
           <Link to="/get-involved" className="btn btn--secondary">
             {t.buttons.volunteer}

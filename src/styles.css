@@ -543,33 +543,6 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 .btn--ink-on-red:hover { background: #000000; }
 .btn--paper-on-red { background: #ffffff; color: var(--c-ink); }
 .btn--paper-on-red:hover { background: var(--c-cream-deep); }
-.hero__form {
-  background: var(--c-ink);
-  backdrop-filter: blur(12px);
-  border-radius: 28px;
-  padding: var(--sp-6);
-  box-shadow: var(--shadow-lg);
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-.hero__form .join-form__title {
-  color: var(--c-mustard);
-}
-.hero__form .join-form__input {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: var(--c-paper);
-}
-.hero__form .join-form__input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-.hero__form .join-form__disclaimer {
-  color: rgba(255, 255, 255, 0.55);
-}
-.hero__form .join-form__disclaimer a {
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: underline;
-}
 .hero__scroll {
   position: absolute;
   bottom: var(--sp-5);
@@ -1764,7 +1737,6 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   .hero__ctas .btn {
     flex: 1 1 140px;
   }
-  .hero__form { display: none; }
   .hero__scroll { display: flex; color: var(--c-cream); }
   .hero__eyebrow {
     font-size: 16px;
@@ -2585,14 +2557,7 @@ html[data-hero="split"] .hero__subtitle {
   text-shadow: none;
 }
 /* On the primary-colour panel, primary-coloured buttons vanish — repoint
-   the form submit + mobile Donate CTA at contrasting slots. */
-html[data-hero="split"] .hero__form .btn--mustard {
-  background: var(--c-turquoise);
-  color: var(--fg-on-turquoise);
-}
-html[data-hero="split"] .hero__form .btn--mustard:hover {
-  background: var(--c-turquoise-deep);
-}
+   the Donate CTA at a contrasting slot. */
 html[data-hero="split"] .hero__ctas .btn--mustard {
   background: var(--c-paper);
   color: var(--c-ink);
