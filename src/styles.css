@@ -1781,6 +1781,46 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 }
 
 /* =========================================================================
+   PHOTO GALLERY (static grid — replaces the autoplay carousel)
+   ========================================================================= */
+.photo-gallery-section {
+  padding: var(--space-section) 0;
+  background: var(--c-cream);
+}
+.photo-gallery-section__eyebrow { text-align: center; margin-bottom: var(--sp-2); }
+.photo-gallery-section__heading {
+  text-align: center;
+  font-size: var(--fs-h2-fluid);
+  margin: 0 0 var(--sp-6);
+}
+.photo-gallery-section__cta { display: flex; justify-content: center; margin-top: var(--sp-6); }
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+.photo-gallery__item { margin: 0; }
+.photo-gallery__item img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+.photo-gallery__item figcaption {
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+  margin-top: var(--sp-2);
+}
+@media (max-width: 1023px) {
+  .photo-gallery { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 767px) {
+  .photo-gallery { grid-template-columns: 1fr; }
+}
+
+/* =========================================================================
    SUPPORTER SECTION (get-involved) — copy left, form right
    ========================================================================= */
 .supporter-section {

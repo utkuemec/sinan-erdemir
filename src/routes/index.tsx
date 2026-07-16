@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CompactSignupForm } from "@/components/forms/CompactSignupForm";
-import { PhotoCarousel } from "@/components/PhotoCarousel";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
@@ -203,17 +203,25 @@ function HomePage() {
           </section>
         )}
 
-        <section
-          className="photo-carousel"
-          aria-label={`${candidate.identity.firstName} in the community`}
-        >
-          <div className="photo-carousel__inner">
-            <p className="t-eyebrow photo-carousel__eyebrow">{community.carousel.eyebrow}</p>
-            <h2 className="photo-carousel__heading t-section">{community.carousel.heading}</h2>
+        <section className="photo-gallery-section">
+          <div className="container">
+            <p className="t-eyebrow photo-gallery-section__eyebrow">
+              {community.carousel.eyebrow}
+            </p>
+            <h2 id="home-gallery-heading" className="photo-gallery-section__heading t-section">
+              {community.carousel.heading}
+            </h2>
+            <PhotoGallery
+              photos={community.carousel.photos}
+              limit={3}
+              headingId="home-gallery-heading"
+            />
+            <div className="photo-gallery-section__cta">
+              <Link to="/community" className="btn btn--outline">
+                {t.buttons.seeMoreCommunity}
+              </Link>
+            </div>
           </div>
-          <PhotoCarousel
-            photos={community.carousel.photos.map((p) => ({ ...p, src: withBase(p.src) }))}
-          />
         </section>
 
       </main>
