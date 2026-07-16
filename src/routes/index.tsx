@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CompactSignupForm } from "@/components/forms/CompactSignupForm";
+import { FinalCta } from "@/components/FinalCta";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
@@ -175,6 +176,36 @@ function HomePage() {
           </div>
         </section>
 
+        {/* Proof section: who is Sinan, in 100 words, with verifiable chips
+            (audit 8.5 — copy assembled from client-approved form answers). */}
+        <section className="home-meet" aria-label={t.buttons.meetCandidate(candidate.identity.firstName)}>
+          <div className="container home-meet__inner">
+            <img
+              className="home-meet__photo"
+              src={withBase(candidate.bio.portrait.src)}
+              alt={candidate.bio.portrait.alt}
+              loading="lazy"
+              width={880}
+              height={1168}
+            />
+            <div className="home-meet__copy">
+              <p className="t-eyebrow">{candidate.bio.eyebrow}</p>
+              <h2 className="section-heading section-heading--sm">
+                {t.buttons.meetCandidate(candidate.identity.firstName)}
+              </h2>
+              <p className="home-meet__excerpt">{candidate.bio.homeExcerpt}</p>
+              <ul className="home-meet__facts">
+                {candidate.bio.quickFacts.slice(0, 3).map((fact) => (
+                  <li key={fact}>{fact}</li>
+                ))}
+              </ul>
+              <Link to="/meet-the-candidate" className="btn btn--secondary">
+                {t.buttons.meetCandidate(candidate.identity.firstName)}
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {features.endorsements && (
           <section className="endorsements" aria-label={endorsements.eyebrow}>
             <div className="endorsements__inner">
@@ -224,6 +255,7 @@ function HomePage() {
           </div>
         </section>
 
+        <FinalCta />
       </main>
       <Footer />
     </div>

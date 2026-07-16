@@ -1,11 +1,15 @@
 import { Fragment } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Award, Users } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { FinalCta } from "@/components/FinalCta";
 import { candidate } from "@/config/candidate";
+import { getStrings } from "@/config/strings";
 import { absoluteUrl, withBase } from "@/lib/paths";
 
 const { bio, site } = candidate;
+const t = getStrings(candidate.locale);
 
 export const Route = createFileRoute("/meet-the-candidate")({
   head: () => ({
@@ -28,7 +32,13 @@ function MeetTheCandidatePage() {
         <section className="meet">
           <div className="meet__inner">
             <div className="meet__photo">
-              <img src={withBase(bio.portrait.src)} alt={bio.portrait.alt} />
+              <img
+                src={withBase(bio.portrait.src)}
+                alt={bio.portrait.alt}
+                width={880}
+                height={1168}
+                fetchPriority="high"
+              />
             </div>
 
             <div className="meet__copy">
@@ -43,9 +53,44 @@ function MeetTheCandidatePage() {
                 <span className="accent-bar" aria-hidden="true" />
               </h1>
 
+              <ul className="meet__facts" aria-label="Quick facts">
+                {bio.quickFacts.map((fact) => (
+                  <li key={fact}>{fact}</li>
+                ))}
+              </ul>
+
               {bio.paragraphs.map((p) => (
                 <p key={p.slice(0, 32)}>{p}</p>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Leadership record + recognition — exact titles from the client's
+            form; expand with dates once the client confirms them. */}
+        <section className="meet-record" aria-label="Leadership and recognition">
+          <div className="container meet-record__grid">
+            <div>
+              <h2 className="ward-map__school-type">
+                <Users size={18} strokeWidth={2} style={{ verticalAlign: "-3px", marginRight: 8 }} aria-hidden="true" />
+                Community Leadership
+              </h2>
+              <ul className="ward-map__school-list">
+                {bio.leadership.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="ward-map__school-type">
+                <Award size={18} strokeWidth={2} style={{ verticalAlign: "-3px", marginRight: 8 }} aria-hidden="true" />
+                Recognition
+              </h2>
+              <ul className="ward-map__school-list">
+                {bio.recognition.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
@@ -66,9 +111,19 @@ function MeetTheCandidatePage() {
               {bio.whyRunning.paragraphs.map((p) => (
                 <p key={p.slice(0, 32)}>{p}</p>
               ))}
+              <div className="why__ctas">
+                <Link to="/priorities" className="btn btn--secondary">
+                  {t.buttons.seeFullPlan}
+                </Link>
+                <Link to="/get-involved" className="btn btn--outline">
+                  {t.buttons.volunteer}
+                </Link>
+              </div>
             </div>
           </div>
         </section>
+
+        <FinalCta />
       </main>
       <Footer />
     </div>

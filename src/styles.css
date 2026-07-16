@@ -1072,7 +1072,7 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 .why__quote {
   font-family: var(--font-display);
   font-weight: var(--fw-display);
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(24px, 1.5vw + 14px, 34px);
   line-height: 1.18;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -1084,14 +1084,14 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 }
 .why__quote-mark {
   position: absolute;
-  top: -40px;
+  top: -28px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-display);
-  font-size: 120px;
+  font-size: 64px;
   line-height: 1;
   color: var(--c-mustard);
-  opacity: 0.85;
+  opacity: 0.35;
 }
 .why__attribution {
   display: block;
@@ -1247,8 +1247,47 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   line-height: 1.6;
 }
 .ward-map__image-wrap {
-  margin-bottom: var(--sp-8);
+  /* ~620px wide keeps the 1101x1429 map at ≈805px visible height (audit
+     11.1 target 700-850px); the dialog offers the full-size version. */
+  max-width: 620px;
+  margin: 0 auto var(--sp-7);
 }
+.ward-map__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--sp-4);
+}
+.ward-map__dialog {
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3);
+  max-width: min(92vw, 1140px);
+  background: #ffffff;
+}
+.ward-map__dialog::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}
+.ward-map__dialog img {
+  max-height: 86vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+}
+.ward-map__dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--c-cream-deep);
+  color: var(--c-ink);
+}
+.ward-map__dialog-close:hover { background: var(--c-mustard); color: #ffffff; }
 .ward-map__image {
   width: 100%;
   height: auto;
@@ -1322,7 +1361,37 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   padding: 0 var(--container-pad);
 }
 .community__copy p { max-width: 40ch; }
-.community__list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.community__list { display: flex; flex-direction: column; gap: var(--sp-3); margin-top: var(--sp-5); }
+.community__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+.awards-strip {
+  background: var(--c-cream-deep);
+  padding: var(--sp-6) 0;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+.awards-strip__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+.awards-strip__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+}
+.awards-strip__item svg { color: var(--c-mustard); flex: 0 0 auto; margin-top: 2px; }
+@media (max-width: 767px) {
+  .awards-strip__inner { grid-template-columns: 1fr; gap: var(--sp-3); }
+}
 .community__item {
   display: flex;
   align-items: center;
@@ -1778,6 +1847,118 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 .hero *:focus-visible,
 .join-section *:focus-visible {
   outline-color: #ffffff;
+}
+
+/* =========================================================================
+   HOME PROOF SECTION ("Meet Sinan") + FINAL CTA BAND
+   ========================================================================= */
+.home-meet {
+  padding: var(--space-section) 0;
+  background: var(--c-cream-deep);
+}
+.home-meet__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: var(--sp-7);
+  align-items: center;
+}
+.home-meet__photo {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 3 / 4;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  justify-self: center;
+}
+.home-meet__excerpt { max-width: 60ch; }
+.home-meet__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-4) 0 var(--sp-5);
+}
+.home-meet__facts li {
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-left: 4px solid var(--c-mustard);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+}
+@media (max-width: 1023px) {
+  .home-meet__inner { grid-template-columns: 1fr; gap: var(--sp-5); }
+  .home-meet__photo { max-width: 320px; }
+}
+
+.meet__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-4);
+}
+.meet__facts li {
+  background: var(--c-cream-deep);
+  border-left: 4px solid var(--c-mustard);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+}
+.meet-record {
+  background: var(--c-cream-deep);
+  padding: var(--space-section) 0;
+}
+.meet-record__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-7);
+}
+@media (max-width: 767px) {
+  .meet-record__grid { grid-template-columns: 1fr; gap: var(--sp-5); }
+}
+.why__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: center;
+  margin-top: var(--sp-5);
+}
+
+.final-cta {
+  background: var(--c-mustard);
+  color: var(--fg-on-mustard);
+  padding: var(--space-section) 0;
+}
+.final-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  text-align: center;
+}
+.final-cta__heading {
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: var(--fs-h2-fluid);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--fg-on-mustard);
+  margin: 0;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+.final-cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+}
+@media (max-width: 560px) {
+  .final-cta__buttons { flex-direction: column; width: 100%; }
+  .final-cta__buttons .btn { width: 100%; }
 }
 
 /* =========================================================================
