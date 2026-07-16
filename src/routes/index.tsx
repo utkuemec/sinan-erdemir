@@ -43,7 +43,7 @@ function HomePage() {
   return (
     <div className="page">
       <Header variant="overlay" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="hero" style={heroStyle}>
           <div className="hero__scrim" aria-hidden="true" />
           <div className="hero__inner">
@@ -51,27 +51,33 @@ function HomePage() {
               <div className="hero__copy">
                 <p className="t-eyebrow hero__eyebrow">{hero.eyebrow}</p>
                 <h1 className="hero__headline">
-                  <span className="hero__headline-text">{hero.headline}</span>
+                  <span className="hero__headline-text">
+                    {(hero.headlineLines ?? [hero.headline]).map((line) => (
+                      <span key={line} className="hero__headline-line">
+                        {line}
+                      </span>
+                    ))}
+                  </span>
                   <span className="hero__underline" aria-hidden="true" />
                 </h1>
                 <p className="hero__subtitle">{hero.subtitle}</p>
               </div>
 
-              <div className="hero__mobile-ctas">
-                <a href="#hero-join-section" className="btn btn--turquoise btn--lg">
+              {/* Two strong CTAs at every width; the signup form lives in the
+                  #join section immediately below the hero (audit 8.1 opt. B). */}
+              <div className="hero__ctas">
+                <a href="#join" className="btn btn--ink-on-red btn--lg">
                   {t.buttons.volunteer}
                 </a>
-                <button
-                  type="button"
-                  className="btn btn--mustard btn--lg"
-                  onClick={() => openDonateModal()}
-                >
-                  {t.buttons.donate}
-                </button>
-              </div>
-
-              <div className="hero__form">
-                <CompactSignupForm id="hero-join" source="homepage" />
+                {features.donations && (
+                  <button
+                    type="button"
+                    className="btn btn--paper-on-red btn--lg"
+                    onClick={() => openDonateModal()}
+                  >
+                    {t.buttons.donate}
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -83,6 +89,10 @@ function HomePage() {
           {/* Photo panel for the split hero layout (data-hero="split"); hidden
               in overlay mode. Driven by the same --hero-image-* variables. */}
           <div className="hero__media" aria-hidden="true" />
+        </section>
+
+        <section id="join" className="join-section" aria-label={t.joinForm.title}>
+          <CompactSignupForm id="home-join" source="homepage" />
         </section>
 
         <section id="pillars" className="pillars" aria-label="Campaign values">
@@ -206,9 +216,6 @@ function HomePage() {
           />
         </section>
 
-        <section id="hero-join-section" className="mobile-join">
-          <CompactSignupForm id="mobile-join-form" source="homepage-mobile" />
-        </section>
       </main>
       <Footer />
     </div>

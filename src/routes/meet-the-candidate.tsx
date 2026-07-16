@@ -24,7 +24,7 @@ function MeetTheCandidatePage() {
   return (
     <div className="page">
       <Header variant="solid" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="meet">
           <div className="meet__inner">
             <div className="meet__photo">

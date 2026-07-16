@@ -516,11 +516,23 @@ html[data-hero="split"] .site-header--stuck {
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
 }
-.hero__mobile-ctas {
-  display: none;
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-3);
-  margin-top: var(--sp-2);
+  margin-top: var(--sp-5);
 }
+/* Deliberate line breaks from hero.headlineLines; balance guards odd wraps. */
+.hero__headline-line { display: block; }
+html[data-hero="split"] .hero__headline {
+  text-wrap: balance;
+  max-width: 13ch;
+}
+html[data-hero="split"] .hero__inner { min-width: 0; }
+.btn--ink-on-red { background: var(--c-ink); color: #ffffff; }
+.btn--ink-on-red:hover { background: #000000; }
+.btn--paper-on-red { background: #ffffff; color: var(--c-ink); }
+.btn--paper-on-red:hover { background: var(--c-cream-deep); }
 .hero__form {
   background: var(--c-ink);
   backdrop-filter: blur(12px);
@@ -985,13 +997,12 @@ html[data-hero="split"] .site-header--stuck {
 /* =========================================================================
    MOBILE JOIN
    ========================================================================= */
-.mobile-join {
-  display: none;
-  background: var(--c-cream);
+.join-section {
+  background: var(--c-cream-deep);
   padding: var(--sp-7) var(--container-pad);
   scroll-margin-top: 92px;
 }
-.mobile-join .join-form {
+.join-section .join-form {
   background: var(--c-ink);
   border-radius: var(--radius-lg);
   padding: var(--sp-6);
@@ -999,22 +1010,22 @@ html[data-hero="split"] .site-header--stuck {
   max-width: 480px;
   margin: 0 auto;
 }
-.mobile-join .join-form__title {
+.join-section .join-form__title {
   color: var(--c-mustard);
 }
-.mobile-join .join-form__input {
+.join-section .join-form__input {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
   color: var(--c-paper);
 }
-.mobile-join .join-form__input::placeholder {
+.join-section .join-form__input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
-.mobile-join .join-form__disclaimer {
+.join-section .join-form__disclaimer {
   color: rgba(255, 255, 255, 0.55);
 }
-.mobile-join .join-form__disclaimer a {
-  color: var(--c-turquoise);
+.join-section .join-form__disclaimer a {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* =========================================================================
@@ -1666,12 +1677,12 @@ html[data-hero="split"] .site-header--stuck {
     border-radius: 0;
     box-shadow: none;
   }
-  .hero__mobile-ctas {
+  .hero__ctas {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
   }
-  .hero__mobile-ctas .btn {
+  .hero__ctas .btn {
     flex: 1 1 140px;
   }
   .hero__form { display: none; }
@@ -1699,7 +1710,6 @@ html[data-hero="split"] .site-header--stuck {
   }
   .hero__underline { width: 120px; height: 5px; }
 
-  .mobile-join { display: block; }
 
   /* Short phones (e.g. 375x667): the copy stack starts higher, so zoom the
      portrait a little more to keep the face above the copy. */
@@ -1749,10 +1759,10 @@ html[data-hero="split"] .site-header--stuck {
 }
 
 @media (max-width: 380px) {
-  .hero__mobile-ctas { flex-direction: column; }
+  .hero__ctas { flex-direction: column; }
   /* flex-basis from the 767px block would become a 140px HEIGHT in the
      column direction — reset it so stacked buttons keep natural height. */
-  .hero__mobile-ctas .btn { width: 100%; flex: 0 0 auto; }
+  .hero__ctas .btn { width: 100%; flex: 0 0 auto; }
   .join-form__row { grid-template-columns: 1fr; }
 }
 
@@ -2352,7 +2362,7 @@ html[data-hero="split"] .hero__form .btn--mustard {
 html[data-hero="split"] .hero__form .btn--mustard:hover {
   background: var(--c-turquoise-deep);
 }
-html[data-hero="split"] .hero__mobile-ctas .btn--mustard {
+html[data-hero="split"] .hero__ctas .btn--mustard {
   background: var(--c-paper);
   color: var(--c-ink);
 }

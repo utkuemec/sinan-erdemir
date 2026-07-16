@@ -22,7 +22,7 @@ function CommunityPage() {
   return (
     <div className="page">
       <Header variant="solid" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="community">
           <div className="community__inner">
             <div className="community__copy">

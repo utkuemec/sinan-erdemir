@@ -21,7 +21,7 @@ function PrioritiesPage() {
   return (
     <div className="page">
       <Header variant="solid" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="priorities">
           <div className="container">
             <div className="priorities__head">

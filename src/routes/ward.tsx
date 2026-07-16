@@ -22,7 +22,7 @@ function WardPage() {
   return (
     <div className="page">
       <Header variant="solid" />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="ward-map">
           <div className="container">
             <div className="ward-map__head">
