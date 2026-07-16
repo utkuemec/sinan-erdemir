@@ -5,6 +5,8 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+// eslint-disable-next-line import/no-relative-packages -- single source of truth for routes
+import { PAGES } from "./scripts/pages.mjs";
 
 // When DEPLOY_TARGET=github-pages is set (by .github/workflows/deploy.yml), we build a
 // fully-static SPA suitable for GitHub Pages: the Cloudflare Worker plugin is disabled
@@ -34,17 +36,8 @@ export default defineConfig({
           crawlLinks: true,
           autoSubfolderIndex: true,
         },
-        pages: [
-          { path: "/" },
-          { path: "/meet-the-candidate" },
-          { path: "/priorities" },
-          { path: "/ward" },
-          { path: "/community" },
-          { path: "/get-involved" },
-          { path: "/vote" },
-          { path: "/contact" },
-          { path: "/privacy" },
-        ],
+        // Route list lives in scripts/pages.mjs (shared with sitemap + QA scripts).
+        pages: PAGES.map((path: string) => ({ path })),
       }
     : undefined,
   vite: {
