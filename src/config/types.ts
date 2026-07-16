@@ -45,6 +45,76 @@ export interface ImageRef {
   alt: string;
 }
 
+/* --- Form domain values (shared by strings.ts, lib/forms.ts, components) -- */
+export type ContactTopic = "neighbourhood" | "policy" | "media" | "volunteer" | "event" | "other";
+export type SupporterIntent = "volunteer" | "lawn-sign" | "pledge";
+export type VolunteerRole =
+  | "canvassing"
+  | "phone-bank"
+  | "sign-delivery"
+  | "event-support"
+  | "data-entry"
+  | "translation"
+  | "social-media"
+  | "host-event"
+  | "other";
+export type AvailabilitySlot = "weekday" | "weekend" | "daytime" | "evening";
+export type PropertyType = "house" | "townhouse" | "condo-apartment" | "business" | "other";
+export type SignTiming = "asap" | "campaign-start" | "no-preference";
+export type PreferredResponse = "email" | "phone";
+
+/** Gallery photo: focal point steers object-position so faces never crop. */
+export interface GalleryPhoto extends ImageRef {
+  /** CSS object-position value, e.g. "50% 25%". Defaults to "50% 30%". */
+  focal?: string;
+  /** Optional visible caption (event / place label). */
+  caption?: string;
+}
+
+/**
+ * Feature switches. Sections and workflows check these so the campaign can
+ * enable/disable functionality without deleting code.
+ */
+export interface FeatureFlags {
+  donations: boolean;
+  /** E-transfer flow inside the donate modal (official-agent sign-off). */
+  eTransfer: boolean;
+  endorsements: boolean;
+  lawnSigns: boolean;
+  pledge: boolean;
+  votingInfo: boolean;
+}
+
+/** Election facts for the /vote page — config, not route code (audit 16.1). */
+export interface VotingConfig {
+  navLabel: string;
+  pageTitle: string;
+  metaDescription: string;
+  ogTitle: string;
+  ogDescription: string;
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  /** ISO date these facts were last checked against the City Clerk. */
+  lastVerified: string;
+  sections: { icon: LucideIcon; heading: string; items: string[] }[];
+  officialLinks: { label: string; url: string }[];
+  disclaimer: string;
+}
+
+/** Facts the privacy policy renders so it always matches real data flows. */
+export interface PrivacyConfig {
+  /** ISO dates shown at the top of the policy. */
+  effectiveDate: string;
+  lastUpdated: string;
+  /** Service providers that touch supporter data. */
+  providers: { name: string; purpose: string }[];
+  /** Retention/deletion statement (official-agent approved wording). */
+  retentionStatement: string;
+  /** Role handling privacy requests, e.g. "Campaign Manager". */
+  contactRole: string;
+}
+
 export interface PriorityItem {
   icon: LucideIcon;
   title: string;
@@ -157,9 +227,24 @@ export interface CandidateConfig {
     ogImage: string;
   };
 
+  features: FeatureFlags;
+
+  voting: VotingConfig;
+
+  privacy: PrivacyConfig;
+
+  forms: {
+    supporter: {
+      /** Languages the campaign can actually respond in. */
+      languages: { value: string; label: string }[];
+    };
+  };
+
   hero: {
     eyebrow: string;
     headline: string;
+    /** Deliberate headline line breaks (falls back to `headline`). */
+    headlineLines?: string[];
     subtitle: string;
     /** One-line slogan used in the home page <title> / og:title. */
     sloganLine: string;
@@ -186,6 +271,14 @@ export interface CandidateConfig {
     headingLines: string[];
     portrait: ImageRef;
     paragraphs: string[];
+    /** 80-120 word home-page introduction (proof section). */
+    homeExcerpt: string;
+    /** Short scannable proof chips ("Resident since 2009", …). */
+    quickFacts: string[];
+    /** Leadership roles, exact titles (client-approved wording). */
+    leadership: string[];
+    /** Awards / recognitions, exact names (client-approved wording). */
+    recognition: string[];
     whyRunning: {
       eyebrow: string;
       quote: string;
@@ -215,8 +308,7 @@ export interface CandidateConfig {
   pillars: PillarCard[];
 
   endorsements: {
-    /** Hide the section entirely (e.g. early campaign with none yet). */
-    enabled: boolean;
+    /** Visibility is controlled by `features.endorsements`. */
     eyebrow: string;
     heading: string;
     items: Endorsement[];
@@ -231,11 +323,11 @@ export interface CandidateConfig {
     headingLines: string[];
     intro: string;
     work: { icon: LucideIcon; label: string }[];
-    /** Home-page photo strip. */
+    /** Photo gallery (home preview + community page). */
     carousel: {
       eyebrow: string;
       heading: string;
-      photos: ImageRef[];
+      photos: GalleryPhoto[];
     };
   };
 

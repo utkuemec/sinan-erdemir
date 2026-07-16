@@ -1504,6 +1504,10 @@ a { color: inherit; }
    LEGAL
    ========================================================================= */
 .legal { background: var(--c-cream); padding: var(--space-section) 0; }
+.legal__dates { font-size: var(--fs-caption); color: var(--fg-muted); margin-top: var(--sp-3); }
+.legal__providers { display: flex; flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+.legal__providers li { padding-left: 1.2em; position: relative; }
+.legal__providers li::before { content: "•"; position: absolute; left: 0; color: var(--c-mustard); }
 .legal__inner {
   max-width: var(--container-reading);
   margin: 0 auto;

@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const { hero, pillars, priorities, endorsements, community } = candidate;
+  const { hero, pillars, priorities, endorsements, community, features } = candidate;
 
   // The hero background is set via CSS custom properties (see styles.css
   // `.hero`) so the image paths can come from the config and respect the
@@ -159,7 +159,7 @@ function HomePage() {
           </div>
         </section>
 
-        {endorsements.enabled && (
+        {features.endorsements && (
           <section className="endorsements" aria-label={endorsements.eyebrow}>
             <div className="endorsements__inner">
               <p className="t-eyebrow endorsements__eyebrow">{endorsements.eyebrow}</p>

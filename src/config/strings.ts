@@ -1,4 +1,14 @@
-import type { BuiltinCardKind, Locale } from "./types";
+import type {
+  AvailabilitySlot,
+  BuiltinCardKind,
+  ContactTopic,
+  Locale,
+  PreferredResponse,
+  PropertyType,
+  SignTiming,
+  SupporterIntent,
+  VolunteerRole,
+} from "./types";
 
 /**
  * UI-chrome strings (labels, buttons, toasts, legal boilerplate) — everything
@@ -17,11 +27,100 @@ export interface UiStrings {
     getInvolved: string;
     contact: string;
     vote: string;
+    privacy: string;
+    skipToContent: string;
   };
   buttons: {
     volunteer: string;
     donate: string;
     goHome: string;
+    requestLawnSign: string;
+    contact: string;
+    seeFullPlan: string;
+    meetCandidate: (firstName: string) => string;
+    seeMoreCommunity: string;
+    viewFullMap: string;
+  };
+  finalCta: {
+    /** e.g. heading("Ward 16") -> "Help bring everyday improvements to Ward 16." */
+    heading: (wardShort: string) => string;
+  };
+  /** Shared bits for all purpose-built forms. */
+  forms: {
+    requiredHint: string;
+    optionalSuffix: string;
+    charCount: (used: number, max: number) => string;
+    submitting: string;
+    errorTitle: string;
+    /** Rendered around a mailto link to the campaign email. */
+    errorBodyBeforeEmail: string;
+    errorBodyAfterEmail: string;
+    timeoutError: string;
+    configError: string;
+    successRefLabel: (submissionId: string) => string;
+  };
+  contactForm: {
+    title: string;
+    fullName: string;
+    fullNamePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    phone: string;
+    phonePlaceholder: string;
+    postalCode: string;
+    postalCodePlaceholder: string;
+    postalCodeError: string;
+    topicLabel: string;
+    topics: Record<ContactTopic, string>;
+    messageLabel: string;
+    messagePlaceholder: string;
+    preferredResponseLabel: string;
+    preferredResponseOptions: Record<PreferredResponse, string>;
+    phoneRequiredNote: string;
+    privacyAckBeforeLink: string;
+    privacyAckLinkLabel: string;
+    privacyAckAfterLink: string;
+    submit: string;
+    successTitle: string;
+    successBody: (email: string) => string;
+  };
+  supporterForm: {
+    title: string;
+    intentLegend: string;
+    intents: Record<SupporterIntent, string>;
+    intentRequired: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    postalCode: string;
+    languageLabel: string;
+    consentLabel: (campaignName: string) => string;
+    volunteerLegend: string;
+    roles: Record<VolunteerRole, string>;
+    roleOtherLabel: string;
+    roleOtherPlaceholder: string;
+    availabilityLegend: string;
+    availability: Record<AvailabilitySlot, string>;
+    accessibilityLabel: string;
+    accessibilityPlaceholder: string;
+    signLegend: string;
+    addressLabel: string;
+    addressPlaceholder: string;
+    propertyTypeLabel: string;
+    propertyTypes: Record<PropertyType, string>;
+    permissionLabel: string;
+    timingLabel: string;
+    timings: Record<SignTiming, string>;
+    quantityLabel: string;
+    retrievalLabel: string;
+    pledgeLegend: string;
+    pledgeLabel: string;
+    reminderLabel: string;
+    nonBindingNote: string;
+    submit: string;
+    successTitle: (teamName: string) => string;
+    successBody: (email: string) => string;
   };
   joinForm: {
     title: string;
@@ -80,6 +179,18 @@ export interface UiStrings {
     errorTitle: string;
     errorBody: (email: string) => string;
     copyError: string;
+    /**
+     * Contribution-eligibility declaration (Ontario municipal elections).
+     * DRAFT wording — the official agent must approve before launch.
+     */
+    eligibilityLegend: string;
+    eligibilityItems: {
+      eligible: string;
+      ownFunds: string;
+      notOnBehalf: string;
+    };
+    authorizedNote: (authorizedBy: string) => string;
+    opensExternal: string;
   };
   getInvolvedCards: Record<BuiltinCardKind, { title: string; body: string; cta: string }>;
   notFound: {
@@ -94,11 +205,25 @@ export interface UiStrings {
     eyebrow: string;
     heading: string;
     lede: string;
+    effectiveLabel: string;
+    updatedLabel: string;
+    noSaleStatement: string;
     sections: {
       collectHeading: string;
-      collectBody: string;
+      collectIntro: string;
+      /** Per-form collection descriptions — rendered only for enabled forms. */
+      collectByForm: {
+        signup: { heading: string; body: string };
+        contact: { heading: string; body: string };
+        supporter: { heading: string; body: string };
+        donation: { heading: string; body: string; etransferExtra: string };
+      };
+      technicalBody: string;
       useHeading: string;
       useBody: string;
+      providersHeading: string;
+      providersIntro: string;
+      retentionHeading: string;
       choicesHeading: string;
       /** Rendered around a mailto link to `email`. */
       choicesBodyBeforeEmail: string;
@@ -106,7 +231,8 @@ export interface UiStrings {
       sharingHeading: string;
       sharingBody: string;
       contactHeading: string;
-      contactBodyBeforeEmail: string;
+      /** contactBody(contactRole) rendered around a mailto link. */
+      contactBodyBeforeEmail: (contactRole: string) => string;
       contactBodyAfterEmail: string;
     };
   };
@@ -118,11 +244,139 @@ const en: UiStrings = {
     getInvolved: "Get Involved",
     contact: "Contact",
     vote: "Voting Info",
+    privacy: "Privacy",
+    skipToContent: "Skip to content",
   },
   buttons: {
     volunteer: "Volunteer",
     donate: "Donate",
     goHome: "Go Home",
+    requestLawnSign: "Request a Lawn Sign",
+    contact: "Contact",
+    seeFullPlan: "See the Full Plan",
+    meetCandidate: (firstName) => `Meet ${firstName}`,
+    seeMoreCommunity: "See more from the community",
+    viewFullMap: "View full-size map",
+  },
+  finalCta: {
+    heading: (wardShort) => `Help bring everyday improvements to ${wardShort}.`,
+  },
+  forms: {
+    requiredHint: "Required fields are marked with *",
+    optionalSuffix: "(optional)",
+    charCount: (used, max) => `${used}/${max} characters`,
+    submitting: "Sending…",
+    errorTitle: "Something went wrong.",
+    errorBodyBeforeEmail: "Your message was not sent. Please try again, or email us directly at ",
+    errorBodyAfterEmail: ".",
+    timeoutError: "The request timed out — your submission may not have been received. Please try again.",
+    configError: "The form isn't connected yet. Please email us instead.",
+    successRefLabel: (submissionId) => `Reference: ${submissionId}`,
+  },
+  contactForm: {
+    title: "Send a Message",
+    fullName: "Full name *",
+    fullNamePlaceholder: "Your full name",
+    email: "Email address *",
+    emailPlaceholder: "you@example.com",
+    phone: "Phone number",
+    phonePlaceholder: "(416) 555-0100",
+    postalCode: "Postal code",
+    postalCodePlaceholder: "M3A 1A1",
+    postalCodeError: "Please enter a valid postal code (e.g. M3A 1A1).",
+    topicLabel: "What is this about? *",
+    topics: {
+      neighbourhood: "Neighbourhood issue",
+      policy: "Policy question",
+      media: "Media inquiry",
+      volunteer: "Volunteer question",
+      event: "Event invitation",
+      other: "Other",
+    },
+    messageLabel: "Your message *",
+    messagePlaceholder: "Tell us what's on your mind…",
+    preferredResponseLabel: "How should we respond?",
+    preferredResponseOptions: {
+      email: "By email",
+      phone: "By phone",
+    },
+    phoneRequiredNote: "A phone number is required for a phone response.",
+    privacyAckBeforeLink: "I have read the ",
+    privacyAckLinkLabel: "privacy policy",
+    privacyAckAfterLink: " and consent to the campaign storing my message. *",
+    submit: "Send Message",
+    successTitle: "Message sent — thank you!",
+    successBody: (email) =>
+      `The campaign team reads every message. If it's urgent, you can also reach us at ${email}.`,
+  },
+  supporterForm: {
+    title: "Get Involved",
+    intentLegend: "How would you like to help? *",
+    intents: {
+      volunteer: "Volunteer",
+      "lawn-sign": "Request a lawn sign",
+      pledge: "Pledge to vote",
+    },
+    intentRequired: "Please choose at least one way to help.",
+    firstName: "First name *",
+    lastName: "Last name *",
+    email: "Email address *",
+    phone: "Phone number",
+    postalCode: "Postal code",
+    languageLabel: "Preferred language",
+    consentLabel: (campaignName) =>
+      `I consent to receive campaign emails from ${campaignName}. I can unsubscribe at any time. *`,
+    volunteerLegend: "Volunteer roles",
+    roles: {
+      canvassing: "Canvassing",
+      "phone-bank": "Phone bank",
+      "sign-delivery": "Sign delivery",
+      "event-support": "Event support",
+      "data-entry": "Data entry",
+      translation: "Translation",
+      "social-media": "Social media",
+      "host-event": "Host a gathering",
+      other: "Other",
+    },
+    roleOtherLabel: "Other role",
+    roleOtherPlaceholder: "Tell us how you'd like to help",
+    availabilityLegend: "When are you generally available?",
+    availability: {
+      weekday: "Weekdays",
+      weekend: "Weekends",
+      daytime: "Daytime",
+      evening: "Evenings",
+    },
+    accessibilityLabel: "Mobility or accessibility considerations",
+    accessibilityPlaceholder: "Anything we should know so you can participate comfortably",
+    signLegend: "Lawn sign details",
+    addressLabel: "Installation address *",
+    addressPlaceholder: "Street address for the sign",
+    propertyTypeLabel: "Property type",
+    propertyTypes: {
+      house: "House",
+      townhouse: "Townhouse",
+      "condo-apartment": "Condo / apartment",
+      business: "Business",
+      other: "Other",
+    },
+    permissionLabel: "I confirm I have permission to place a sign at this address. *",
+    timingLabel: "When should we install it?",
+    timings: {
+      asap: "As soon as possible",
+      "campaign-start": "When the sign campaign starts",
+      "no-preference": "No preference",
+    },
+    quantityLabel: "Number of signs",
+    retrievalLabel: "The campaign may pick the sign up after election day.",
+    pledgeLegend: "Pledge to vote",
+    pledgeLabel: "I plan to vote in the 2026 Toronto municipal election. *",
+    reminderLabel: "Send me a reminder before voting days.",
+    nonBindingNote: "A pledge is a personal commitment, not a legal obligation.",
+    submit: "Send",
+    successTitle: (teamName) => `Welcome to ${teamName}!`,
+    successBody: (email) =>
+      `Thanks — the team will follow up soon. Questions in the meantime? Email ${email}.`,
   },
   joinForm: {
     title: "Join the Campaign",
@@ -179,6 +433,16 @@ const en: UiStrings = {
     errorTitle: "Something went wrong.",
     errorBody: (email) => `Please try again or email us directly at ${email}.`,
     copyError: "Failed to copy. Please copy the email address manually.",
+    // DRAFT — Ontario municipal contribution rules. The official agent must
+    // approve this wording before launch (audit P0-08).
+    eligibilityLegend: "Contribution eligibility (required)",
+    eligibilityItems: {
+      eligible: "I am an individual normally resident in Ontario and eligible to contribute under the Municipal Elections Act.",
+      ownFunds: "This contribution comes from my own funds.",
+      notOnBehalf: "I am not contributing on behalf of a corporation, trade union, or another person.",
+    },
+    authorizedNote: (authorizedBy) => authorizedBy,
+    opensExternal: "Opens in a new tab",
   },
   getInvolvedCards: {
     volunteer: {
@@ -223,23 +487,53 @@ const en: UiStrings = {
     ogDescription: "How campaign contact information is collected, used, and protected.",
     eyebrow: "Privacy",
     heading: "Privacy Policy",
-    lede: "This campaign only asks for the information needed to stay in touch with supporters and respond to community questions.",
+    lede: "This campaign only asks for the information needed to stay in touch with supporters, complete the requests you make, and meet Ontario campaign-finance record requirements.",
+    effectiveLabel: "Effective date",
+    updatedLabel: "Last updated",
+    noSaleStatement: "We never sell personal information.",
     sections: {
       collectHeading: "Information We Collect",
-      collectBody:
-        "When you submit a form, the campaign may collect your name, email address, phone number, postal code, and any message you choose to send. We may also receive basic technical information from normal website logs, such as browser type and approximate visit time.",
+      collectIntro:
+        "What we collect depends on which form you use. Every form stores exactly the fields it shows — nothing more:",
+      collectByForm: {
+        signup: {
+          heading: "Campaign signup",
+          body: "First and last name, email address, and an optional phone number, along with which page you signed up from.",
+        },
+        contact: {
+          heading: "Contact messages",
+          body: "Your name, email address, message, topic, optional phone number and postal code, and how you prefer to be contacted.",
+        },
+        supporter: {
+          heading: "Volunteer, lawn-sign, and pledge requests",
+          body: "Your name and contact details plus only the extra information the request needs — volunteer roles and availability, a lawn-sign installation address, or a voting pledge and optional reminder consent.",
+        },
+        donation: {
+          heading: "Donations",
+          body: "Credit-card contributions happen entirely on our payment processor's secure site — this website never sees or stores card numbers.",
+          etransferExtra:
+            "If you start an Interac e-Transfer contribution, we collect your full name, email, phone number, and residential address, plus eligibility confirmations, because Ontario municipal campaign-finance rules require contributor records.",
+        },
+      },
+      technicalBody:
+        "Our website host also keeps standard, short-lived server access logs (browser type and approximate visit time). The site sets no analytics or advertising cookies.",
       useHeading: "How We Use It",
       useBody:
-        "We use this information to send campaign updates, respond to requests, organize volunteers, and understand community interest in the campaign.",
+        "We use this information to send campaign updates you've consented to, respond to your messages, organize volunteers and lawn signs, keep legally required contribution records, and understand community interest in the campaign.",
+      providersHeading: "Service Providers",
+      providersIntro: "The campaign uses these services to operate the website and store submissions:",
+      retentionHeading: "Retention",
       choicesHeading: "Your Choices",
       choicesBodyBeforeEmail:
-        "You can unsubscribe from campaign updates or ask to have your contact information removed by emailing ",
-      choicesBodyAfterEmail: ". Text messages may also be stopped by replying STOP.",
+        "You can unsubscribe from campaign updates or ask to have your information accessed, corrected, or removed by emailing ",
+      choicesBodyAfterEmail:
+        ". Text messages may also be stopped by replying STOP. Contribution records may need to be retained where Ontario election rules require it.",
       sharingHeading: "Sharing",
       sharingBody:
-        "We do not sell personal information. Information may be shared only with campaign service providers or volunteers who need it to support campaign work.",
+        "We do not sell personal information. Information is shared only with the service providers above and with campaign volunteers who need it to complete your request, and with election authorities where the law requires it.",
       contactHeading: "Contact",
-      contactBodyBeforeEmail: "Questions about this policy can be sent to ",
+      contactBodyBeforeEmail: (contactRole) =>
+        `Privacy questions and access, correction, or deletion requests are handled by the campaign's ${contactRole}. Reach them at `,
       contactBodyAfterEmail: ".",
     },
   },

@@ -3,6 +3,7 @@ import {
   DoorOpen,
   HandHelping,
   Heart,
+  IdCard,
   PartyPopper,
   Phone,
   PiggyBank,
@@ -10,6 +11,7 @@ import {
   Signpost,
   Sparkles,
   Target,
+  UserCheck,
   Users,
 } from "lucide-react";
 import type { CandidateConfig } from "./types";
@@ -23,6 +25,18 @@ import type { CandidateConfig } from "./types";
  */
 export const candidate: CandidateConfig = {
   locale: "en",
+
+  // Feature switches — flip without deleting code. eTransfer stays on per
+  // the campaign's decision; wording inside the flow is pending official-
+  // agent review and the flag is the kill switch if that stalls.
+  features: {
+    donations: true,
+    eTransfer: true,
+    endorsements: false,
+    lawnSigns: true,
+    pledge: true,
+    votingInfo: true,
+  },
 
   // Brand: #B80000 red + white with Archivo Black (see the campaign lockup).
   // Levers intentionally diverge from both the demo and the source campaign.
@@ -67,6 +81,7 @@ export const candidate: CandidateConfig = {
   hero: {
     eyebrow: "Sinan Erdemir for Ward 16 — Don Valley East",
     headline: "Everyday Improvements.",
+    headlineLines: ["Everyday", "Improvements."],
     subtitle: "Real Results.",
     sloganLine: "Everyday Improvements. Real Results.",
     imagePortrait: "/images/hero-portrait.jpg",
@@ -90,7 +105,27 @@ export const candidate: CandidateConfig = {
     paragraphs: [
       "Sinan Erdemir has called Don Valley East home since 2009. For nearly fifteen years he has made community service a central part of his life here — drawing on his own multicultural journey and international perspective to help neighbours overcome barriers, connect with their communities, and build meaningful lives in Canada.",
       "Professionally, Sinan is the co-founder and co-owner of a consulting firm that supports international and domestic students, newcomers, refugees, and visitors in navigating opportunities and building successful futures in Canada. That work means listening carefully, solving practical problems, and delivering results people can count on — the same skills a city councillor needs.",
-      "Sinan's record of leadership runs deep: Secretary General and Board Member of the Federation of Canadian Turkish Associations, President and Board Member of the Turkish Culture and Folklore Society of Canada, member of the Community Policing Liaison Committee (CPLC) Consultative Committee with Toronto Police 32 Division, and Board Member of the Carassauga Festival of Cultures. His volunteerism has been recognized with a Certificate of Recognition from the Toronto Police Service, the Community Member Award from the Toronto Police Services Board, and the King Charles III Coronation Pin for his contributions to the community and the Province of Ontario.",
+    ],
+    // 80-120 word introduction for the home-page proof section.
+    // Assembled strictly from the client's approved form copy — flag for review.
+    homeExcerpt:
+      "Sinan Erdemir has called Don Valley East home since 2009, and for nearly fifteen years community service has been a central part of his life here. He is the co-founder and co-owner of a consulting firm that helps students, newcomers, refugees, and visitors build successful futures in Canada. His community leadership — from Turkish-Canadian cultural organizations to community policing with Toronto Police 32 Division — has been recognized by the Toronto Police Service and the Province of Ontario. Now he wants to bring that same service-first focus to City Hall.",
+    quickFacts: [
+      "Don Valley East resident since 2009",
+      "Consulting-firm co-founder and co-owner",
+      "Leader in Toronto's cultural and civic organizations",
+      "Recognized by the Toronto Police Service and the Province of Ontario",
+    ],
+    leadership: [
+      "Secretary General & Board Member — Federation of Canadian Turkish Associations",
+      "President & Board Member — Turkish Culture and Folklore Society of Canada",
+      "CPLC Consultative Committee member — Toronto Police Service, 32 Division",
+      "Board Member — Carassauga Festival of Cultures",
+    ],
+    recognition: [
+      "Certificate of Recognition — Toronto Police Service",
+      "Community Member Award — Toronto Police Services Board",
+      "King Charles III Coronation Pin — contributions to the community and the Province of Ontario",
     ],
     whyRunning: {
       eyebrow: "Why I'm Running",
@@ -182,7 +217,6 @@ export const candidate: CandidateConfig = {
   ],
 
   endorsements: {
-    enabled: false,
     eyebrow: "Endorsements",
     heading: "Endorsed By Community Leaders",
     items: [],
@@ -223,30 +257,38 @@ export const candidate: CandidateConfig = {
     carousel: {
       eyebrow: "Out in the Community",
       heading: "Around Don Valley East",
+      // focal = object-position so faces stay in frame at any crop.
+      // Captions are CLIENT-GATED (event names/dates unconfirmed) — omitted.
       photos: [
         {
           src: "/images/community/photo-01.jpg",
           alt: "Sinan Erdemir speaking with residents at a Canada Day community event",
+          focal: "50% 30%",
         },
         {
           src: "/images/community/photo-02.jpg",
           alt: "Sinan Erdemir visiting a community organization's booth at a cultural event in Toronto",
+          focal: "50% 25%",
         },
         {
           src: "/images/community/photo-03.jpg",
           alt: "Sinan Erdemir discussing neighbourhood priorities with a resident at a Don Valley East community pool",
+          focal: "50% 25%",
         },
         {
           src: "/images/community/photo-04.jpg",
           alt: "Sinan Erdemir with residents of all ages at a park in Don Valley East",
+          focal: "50% 30%",
         },
         {
           src: "/images/community/photo-05.jpg",
           alt: "Sinan Erdemir and a supporter giving thumbs up at a summer community event",
+          focal: "50% 25%",
         },
         {
           src: "/images/community/photo-06.jpg",
           alt: "Sinan Erdemir speaking with a group of neighbours at a park gathering",
+          focal: "50% 45%",
         },
       ],
     },
@@ -373,6 +415,93 @@ export const candidate: CandidateConfig = {
       },
       { platform: "instagram", url: "https://www.instagram.com/sinanerdemirdve" },
     ],
+  },
+
+  // Election facts — verify against toronto.ca before launch and update
+  // lastVerified whenever re-checked (audit 16.1/16.2).
+  voting: {
+    navLabel: "Voting Info",
+    pageTitle: "Voting Info",
+    metaDescription:
+      "How to vote in the 2026 Toronto municipal election: election day, advance voting dates, who can vote, and what ID to bring to the polls in Ward 16 — Don Valley East.",
+    ogTitle: "Voting in the 2026 Toronto Municipal Election",
+    ogDescription: "Key dates, eligibility, and ID requirements for voting in Toronto.",
+    eyebrow: "2026 Toronto Municipal Election",
+    heading: "Your Vote. Your Neighbourhood.",
+    lede: "On Monday, October 26, 2026, Toronto elects its next City Council. Here is everything you need to cast your ballot in Ward 16 — Don Valley East.",
+    lastVerified: "2026-07-15",
+    sections: [
+      {
+        icon: CalendarDays,
+        heading: "Key Dates",
+        items: [
+          "Election day: Monday, October 26, 2026 — polls open 10 a.m. to 8 p.m.",
+          "Advance voting: Tuesday, October 6 to Sunday, October 11, 2026 — 10 a.m. to 7 p.m.",
+          "Check your voting place on MyVote before you go — locations can change between elections.",
+        ],
+      },
+      {
+        icon: UserCheck,
+        heading: "Who Can Vote",
+        items: [
+          "You are a Canadian citizen, and",
+          "You are at least 18 years old on election day, and",
+          "You live in Toronto — or you (or your spouse) own or rent property in the city, and",
+          "You are not otherwise prohibited from voting by law.",
+        ],
+      },
+      {
+        icon: IdCard,
+        heading: "What to Bring",
+        items: [
+          "One piece of ID showing your name and qualifying Toronto address — a photo is not required.",
+          "Examples: Ontario driver's licence, utility bill, bank statement, or government cheque stub.",
+          "If you received a Voter Information Card in the mail, bring it along to speed things up.",
+        ],
+      },
+    ],
+    officialLinks: [
+      { label: "toronto.ca/elections", url: "https://www.toronto.ca/city-government/elections/" },
+      { label: "myvote.toronto.ca", url: "https://myvote.toronto.ca/" },
+    ],
+    disclaimer:
+      "Information on this page is a summary — the City Clerk's official instructions govern.",
+  },
+
+  // Facts the privacy policy renders. Dates, retention wording, and the
+  // privacy contact role are CLIENT-GATED (interim values shipped).
+  privacy: {
+    effectiveDate: "2026-07-15",
+    lastUpdated: "2026-07-15",
+    providers: [
+      {
+        name: "Google Sheets / Google Apps Script",
+        purpose:
+          "stores form submissions in a campaign-owned spreadsheet and sends the campaign a notification email",
+      },
+      {
+        name: "Donorbox",
+        purpose:
+          "processes credit-card contributions on its own secure site — this website never sees payment details",
+      },
+      {
+        name: "GitHub Pages",
+        purpose: "hosts the website and keeps standard, short-lived server access logs",
+      },
+    ],
+    retentionStatement:
+      "We keep supporter and contributor information for the duration of the campaign and the post-election record-keeping period required under Ontario municipal election rules, after which it is deleted.",
+    contactRole: "Campaign Manager",
+  },
+
+  forms: {
+    supporter: {
+      // CLIENT-GATED: confirm the languages the campaign can respond in.
+      languages: [
+        { value: "en", label: "English" },
+        { value: "tr", label: "Türkçe" },
+      ],
+    },
   },
 
   legal: {
