@@ -7,6 +7,7 @@ import { FinalCta } from "@/components/FinalCta";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
+import { PHOTO_WIDTHS, srcSetFor } from "@/lib/images";
 import { pageHead } from "@/lib/seo";
 import { jsonLdScripts, personJsonLd } from "@/lib/jsonld";
 
@@ -36,13 +37,27 @@ function MeetTheCandidatePage() {
         <section className="meet">
           <div className="meet__inner">
             <div className="meet__photo">
-              <img
-                src={withBase(bio.portrait.src)}
-                alt={bio.portrait.alt}
-                width={880}
-                height={1168}
-                fetchPriority="high"
-              />
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet={srcSetFor(bio.portrait.src, PHOTO_WIDTHS, "avif")}
+                  sizes="(max-width: 767px) 90vw, 40vw"
+                />
+                <source
+                  type="image/webp"
+                  srcSet={srcSetFor(bio.portrait.src, PHOTO_WIDTHS, "webp")}
+                  sizes="(max-width: 767px) 90vw, 40vw"
+                />
+                <img
+                  src={withBase(bio.portrait.src)}
+                  srcSet={srcSetFor(bio.portrait.src, PHOTO_WIDTHS, "jpg")}
+                  sizes="(max-width: 767px) 90vw, 40vw"
+                  alt={bio.portrait.alt}
+                  width={880}
+                  height={1168}
+                  fetchPriority="high"
+                />
+              </picture>
             </div>
 
             <div className="meet__copy">

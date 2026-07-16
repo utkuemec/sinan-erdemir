@@ -524,6 +524,16 @@ html[data-hero="split"] .site-header--stuck {
 }
 /* Deliberate line breaks from hero.headlineLines; balance guards odd wraps. */
 .hero__headline-line { display: block; }
+/* Real <img> hero photo (split + photo mode) fills the media panel. */
+.hero__media { position: relative; }
+.hero__media-img,
+.hero__media picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero__media-img { object-fit: cover; object-position: 50% 30%; }
 html[data-hero="split"] .hero__headline {
   text-wrap: balance;
   max-width: 13ch;

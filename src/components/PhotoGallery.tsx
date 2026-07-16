@@ -1,5 +1,8 @@
 import type { GalleryPhoto } from "@/config/types";
 import { withBase } from "@/lib/paths";
+import { PHOTO_WIDTHS, srcSetFor } from "@/lib/images";
+
+const SIZES = "(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw";
 
 interface PhotoGalleryProps {
   photos: GalleryPhoto[];
@@ -21,14 +24,20 @@ export function PhotoGallery({ photos, limit, headingId }: PhotoGalleryProps) {
     <div className="photo-gallery" role="list" aria-labelledby={headingId}>
       {visible.map((photo) => (
         <figure key={photo.src} role="listitem" className="photo-gallery__item">
-          <img
-            src={withBase(photo.src)}
-            alt={photo.alt}
-            loading="lazy"
-            width={1200}
-            height={900}
-            style={{ objectPosition: photo.focal ?? "50% 30%" }}
-          />
+          <picture>
+            <source type="image/avif" srcSet={srcSetFor(photo.src, PHOTO_WIDTHS, "avif")} sizes={SIZES} />
+            <source type="image/webp" srcSet={srcSetFor(photo.src, PHOTO_WIDTHS, "webp")} sizes={SIZES} />
+            <img
+              src={withBase(photo.src)}
+              srcSet={srcSetFor(photo.src, PHOTO_WIDTHS, "jpg")}
+              sizes={SIZES}
+              alt={photo.alt}
+              loading="lazy"
+              width={1200}
+              height={900}
+              style={{ objectPosition: photo.focal ?? "50% 30%" }}
+            />
+          </picture>
           {photo.caption && <figcaption>{photo.caption}</figcaption>}
         </figure>
       ))}

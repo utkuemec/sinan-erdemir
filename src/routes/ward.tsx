@@ -8,6 +8,7 @@ import { candidate } from "@/config/candidate";
 import { pageHead } from "@/lib/seo";
 import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
+import { variantBase } from "@/lib/images";
 
 const { ward, site } = candidate;
 const t = getStrings(candidate.locale);
@@ -50,14 +51,20 @@ function WardPage() {
             {/* Preview constrained to ~805px tall (audit 11.1); the full-size
                 map opens in a native <dialog> (Escape + backdrop close). */}
             <div className="ward-map__image-wrap">
-              <img
-                src={withBase(ward.map.src)}
-                alt={ward.map.alt}
-                className="ward-map__image"
-                width={ward.map.width}
-                height={ward.map.height}
-                loading="lazy"
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={withBase(`${variantBase(ward.map.src)}-620.webp`)}
+                />
+                <img
+                  src={withBase(`${variantBase(ward.map.src)}-620.png`)}
+                  alt={ward.map.alt}
+                  className="ward-map__image"
+                  width={620}
+                  height={Math.round((620 * ward.map.height) / ward.map.width)}
+                  loading="lazy"
+                />
+              </picture>
               <div className="ward-map__actions">
                 <button
                   type="button"

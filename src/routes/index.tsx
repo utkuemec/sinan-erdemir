@@ -10,6 +10,7 @@ import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
+import { srcSetFor } from "@/lib/images";
 import { pageHead } from "@/lib/seo";
 import { jsonLdScripts, personJsonLd } from "@/lib/jsonld";
 
@@ -33,16 +34,17 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   const { hero, pillars, priorities, endorsements, community, features } = candidate;
 
-  // The hero background is set via CSS custom properties (see styles.css
-  // `.hero`) so the image paths can come from the config and respect the
-  // base path. heroStyle "solid" swaps the photos for a palette gradient —
-  // useful before a campaign has hero photography.
+  // Split + photo mode renders a real <picture> inside .hero__media (audit
+  // 8.1/20.1: responsive sources + high fetch priority). The CSS background
+  // variables then carry `none` so the photo isn't downloaded twice. Overlay
+  // mode and heroStyle "solid" keep the CSS-variable background path.
+  const heroUsesImg = candidate.theme.hero === "split" && candidate.theme.heroStyle === "photo";
   const solidGradient = "linear-gradient(135deg, var(--c-mustard) 0%, var(--c-turquoise) 100%)";
+  const backgroundFor = (image: string) =>
+    heroUsesImg ? "none" : candidate.theme.heroStyle === "photo" ? `url(${withBase(image)})` : solidGradient;
   const heroStyle = {
-    "--hero-image-portrait":
-      candidate.theme.heroStyle === "photo" ? `url(${withBase(hero.imagePortrait)})` : solidGradient,
-    "--hero-image-landscape":
-      candidate.theme.heroStyle === "photo" ? `url(${withBase(hero.imageLandscape)})` : solidGradient,
+    "--hero-image-portrait": backgroundFor(hero.imagePortrait),
+    "--hero-image-landscape": backgroundFor(hero.imageLandscape),
   } as CSSProperties;
 
   return (
@@ -92,8 +94,52 @@ function HomePage() {
           </a>
 
           {/* Photo panel for the split hero layout (data-hero="split"); hidden
-              in overlay mode. Driven by the same --hero-image-* variables. */}
-          <div className="hero__media" aria-hidden="true" />
+              in overlay mode. Renders the portrait crop on desktop and the
+              landscape crop in the mobile band — mirroring the previous CSS
+              background swap at 767px. Decorative (identity is in the h1). */}
+          <div className="hero__media" aria-hidden="true">
+            {heroUsesImg && (
+              <picture>
+                <source
+                  media="(max-width: 767px)"
+                  type="image/avif"
+                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "avif")}
+                  sizes="100vw"
+                />
+                <source
+                  media="(max-width: 767px)"
+                  type="image/webp"
+                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "webp")}
+                  sizes="100vw"
+                />
+                <source
+                  media="(max-width: 767px)"
+                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "jpg")}
+                  sizes="100vw"
+                />
+                <source
+                  type="image/avif"
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1080], "avif")}
+                  sizes="45vw"
+                />
+                <source
+                  type="image/webp"
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1080], "webp")}
+                  sizes="45vw"
+                />
+                <img
+                  className="hero__media-img"
+                  src={withBase(hero.imagePortrait)}
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1080], "jpg")}
+                  sizes="45vw"
+                  alt=""
+                  width={1024}
+                  height={1536}
+                  fetchPriority="high"
+                />
+              </picture>
+            )}
+          </div>
         </section>
 
         <section id="join" className="join-section" aria-label={t.joinForm.title}>
@@ -187,6 +233,8 @@ function HomePage() {
             <img
               className="home-meet__photo"
               src={withBase(candidate.bio.portrait.src)}
+              srcSet={srcSetFor(candidate.bio.portrait.src, [480, 800], "jpg")}
+              sizes="(max-width: 1023px) 320px, 400px"
               alt={candidate.bio.portrait.alt}
               loading="lazy"
               width={880}

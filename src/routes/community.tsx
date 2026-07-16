@@ -8,6 +8,7 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 import { candidate } from "@/config/candidate";
 import { pageHead } from "@/lib/seo";
 import { withBase } from "@/lib/paths";
+import { PHOTO_WIDTHS, srcSetFor } from "@/lib/images";
 
 const { community, bio, site } = candidate;
 
@@ -65,6 +66,8 @@ function CommunityPage() {
             <div className="community__photo">
               <img
                 src={withBase(HEADER_PHOTO.src)}
+                srcSet={srcSetFor(HEADER_PHOTO.src, PHOTO_WIDTHS, "jpg")}
+                sizes="(max-width: 767px) 100vw, 45vw"
                 alt={HEADER_PHOTO.alt}
                 width={1200}
                 height={900}
