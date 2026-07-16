@@ -380,6 +380,18 @@ html[data-hero="split"] .site-header--stuck {
 .site-nav__link--active::after { transform: scaleX(1); }
 .site-nav__ctas { display: flex; gap: var(--sp-3); }
 
+/* Compact nav tier so everything fits on one row at 1024-1279px. */
+@media (max-width: 1279px) {
+  .site-nav { gap: var(--sp-3); }
+  .site-nav__links { gap: var(--sp-3); }
+  .site-nav__link {
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    padding: 10px 2px;
+  }
+  .site-nav__ctas .btn { padding: 10px 16px; font-size: 15px; }
+}
+
 .site-header__toggle {
   display: none;
   width: 44px; height: 44px;
