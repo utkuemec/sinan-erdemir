@@ -35,8 +35,13 @@ const COLLECT_BLOCKS: { key: string; heading: string; body: string; extra?: stri
         {
           key: "donation",
           heading: p.sections.collectByForm.donation.heading,
-          body: p.sections.collectByForm.donation.body,
-          extra: features.eTransfer ? p.sections.collectByForm.donation.etransferExtra : undefined,
+          body: features.cardDonations
+            ? p.sections.collectByForm.donation.body
+            : p.sections.collectByForm.donation.etransferExtra,
+          extra:
+            features.cardDonations && features.eTransfer
+              ? p.sections.collectByForm.donation.etransferExtra
+              : undefined,
         },
       ]
     : []),

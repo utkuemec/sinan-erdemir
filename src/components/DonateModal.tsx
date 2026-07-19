@@ -17,8 +17,8 @@ import {
  * The e-transfer flow now captures a contributor eligibility declaration
  * (see t.donateModal.eligibilityItems) — that wording is a DRAFT and must be
  * approved by the campaign's official agent before launch. If sign-off
- * stalls, set candidate.features.eTransfer to false to hide the flow while
- * keeping credit-card donations live.
+ * stalls, set candidate.features.eTransfer and donations to false to hide
+ * the flow until the campaign has an approved contribution method.
  */
 
 const DONATE_URL = candidate.integrations.donateUrl;
@@ -35,7 +35,9 @@ export function DonateModal() {
   const [view, setView] = useState<View>("choose");
   const [submitting, setSubmitting] = useState(false);
   const token = useSubmissionToken();
+  const showCreditCard = candidate.features.cardDonations && Boolean(DONATE_URL);
   const showEtransfer = candidate.features.eTransfer;
+  const defaultView: View = showCreditCard ? "choose" : showEtransfer ? "etransfer-form" : "choose";
   const [copied, setCopied] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -45,10 +47,10 @@ export function DonateModal() {
   useEffect(() => {
     if (open) {
       triggerRef.current = document.activeElement as HTMLElement | null;
-      setView("choose");
+      setView(defaultView);
       setCopied(false);
     }
-  }, [open]);
+  }, [defaultView, open]);
 
   useEffect(() => {
     if (!open) return;
@@ -89,6 +91,7 @@ export function DonateModal() {
   if (!open) return null;
 
   function handleCreditCard() {
+    if (!showCreditCard) return;
     window.open(DONATE_URL, "_blank", "noopener,noreferrer");
     closeDonateModal();
   }
@@ -175,25 +178,26 @@ export function DonateModal() {
             <p className="donate-modal__subtitle">{t.donateModal.subtitle}</p>
 
             <div className="donate-options">
-              <button
-                type="button"
-                className="donate-option donate-option--credit"
-                onClick={handleCreditCard}
-              >
-                <span className="donate-option__icon donate-option__icon--mustard">
-                  <CreditCard size={24} />
-                </span>
-                <span className="donate-option__text">
-                  <span className="donate-option__label">
-                    {t.donateModal.creditCardLabel}{" "}
-                    <ExternalLink size={14} aria-hidden="true" />
+              {showCreditCard && (
+                <button
+                  type="button"
+                  className="donate-option donate-option--credit"
+                  onClick={handleCreditCard}
+                >
+                  <span className="donate-option__icon donate-option__icon--mustard">
+                    <CreditCard size={24} />
                   </span>
-                  <span className="donate-option__sub">
-                    {t.donateModal.creditCardSub(candidate.integrations.donateProcessorName)} —{" "}
-                    {t.donateModal.opensExternal}
+                  <span className="donate-option__text">
+                    <span className="donate-option__label">
+                      {t.donateModal.creditCardLabel} <ExternalLink size={14} aria-hidden="true" />
+                    </span>
+                    <span className="donate-option__sub">
+                      {t.donateModal.creditCardSub(candidate.integrations.donateProcessorName)} —{" "}
+                      {t.donateModal.opensExternal}
+                    </span>
                   </span>
-                </span>
-              </button>
+                </button>
+              )}
 
               {showEtransfer && (
                 <button
@@ -220,9 +224,11 @@ export function DonateModal() {
 
         {view === "etransfer-form" && (
           <>
-            <button type="button" className="donate-back" onClick={() => setView("choose")}>
-              <ArrowLeft size={16} /> {t.donateModal.back}
-            </button>
+            {showCreditCard && (
+              <button type="button" className="donate-back" onClick={() => setView("choose")}>
+                <ArrowLeft size={16} /> {t.donateModal.back}
+              </button>
+            )}
             <h2 id="donate-modal-title" className="donate-modal__title">
               {t.donateModal.etransferFormTitle}
             </h2>

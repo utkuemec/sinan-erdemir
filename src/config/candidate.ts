@@ -31,6 +31,7 @@ export const candidate: CandidateConfig = {
   // agent review and the flag is the kill switch if that stalls.
   features: {
     donations: true,
+    cardDonations: false,
     eTransfer: true,
     endorsements: false,
     lawnSigns: true,
@@ -38,7 +39,7 @@ export const candidate: CandidateConfig = {
     votingInfo: true,
   },
 
-  // Brand: #B80000 red + white with Archivo Black (see the campaign lockup).
+  // Brand: #9D0202 red + black + white with Archivo Black.
   // Levers intentionally diverge from both the demo and the source campaign.
   theme: {
     palette: "victory-red",
@@ -145,8 +146,7 @@ export const candidate: CandidateConfig = {
     metaDescription:
       "Sinan Erdemir's priorities for Ward 16 — Don Valley East: safer neighbourhoods, a lower cost of everyday living, and a cleaner Toronto.",
     ogTitle: "Priorities for Ward 16 — Don Valley East",
-    ogDescription:
-      "Safer neighbourhoods, a lower cost of everyday living, and a cleaner Toronto.",
+    ogDescription: "Safer neighbourhoods, a lower cost of everyday living, and a cleaner Toronto.",
     eyebrow: "Priorities for Ward 16",
     heading: "Everyday Improvements. Real Results.",
     intro:
@@ -354,8 +354,7 @@ export const candidate: CandidateConfig = {
     metaDescription:
       "Volunteer, donate, request a lawn sign, or pledge to vote for Sinan Erdemir in Ward 16 — Don Valley East. Whether you have five minutes or five hours, there's a way to help.",
     ogTitle: "Get Involved — Join Team Sinan",
-    ogDescription:
-      "This campaign is powered by neighbours who care about Don Valley East.",
+    ogDescription: "This campaign is powered by neighbours who care about Don Valley East.",
     eyebrow: "Get Involved",
     heading: "Join Team Sinan.",
     lede: "This campaign is powered by neighbours who care about Don Valley East. Whether you have five minutes or five hours, there's a way to help.",
@@ -472,17 +471,12 @@ export const candidate: CandidateConfig = {
   // privacy contact role are CLIENT-GATED (interim values shipped).
   privacy: {
     effectiveDate: "2026-07-15",
-    lastUpdated: "2026-07-15",
+    lastUpdated: "2026-07-19",
     providers: [
       {
         name: "Google Sheets / Google Apps Script",
         purpose:
           "stores form submissions in a campaign-owned spreadsheet and sends the campaign a notification email",
-      },
-      {
-        name: "Donorbox",
-        purpose:
-          "processes credit-card contributions on its own secure site — this website never sees payment details",
       },
       {
         name: "GitHub Pages",
@@ -505,15 +499,15 @@ export const candidate: CandidateConfig = {
   },
 
   legal: {
-    authorizedBy:
-      "Authorized by the Official Agent for the Sinan Erdemir Campaign.",
+    authorizedBy: "Authorized by the Official Agent for the Sinan Erdemir Campaign.",
     copyright: "© 2026 Sinan Erdemir for City Council. All rights reserved.",
   },
 
   integrations: {
-    donateUrl:
-      "https://donorbox.org/sinan-erdemir-city-councillor-don-valley-east-ward-16",
-    donateProcessorName: "Donorbox",
+    // Card donations are paused until the campaign selects and configures a
+    // replacement processor. E-transfer remains available in the meantime.
+    donateUrl: "",
+    donateProcessorName: "",
     etransferEmail: "info@votesinan.com",
   },
 };

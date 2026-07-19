@@ -77,6 +77,8 @@ export interface GalleryPhoto extends ImageRef {
  */
 export interface FeatureFlags {
   donations: boolean;
+  /** Hosted credit-card processor; disabled while a replacement is selected. */
+  cardDonations: boolean;
   /** E-transfer flow inside the donate modal (official-agent sign-off). */
   eTransfer: boolean;
   endorsements: boolean;
@@ -387,12 +389,11 @@ export interface CandidateConfig {
 
   integrations: {
     /**
-     * Hosted donation form (Zeffy by default; any processor URL works).
-     * The form/donate submission endpoints are deploy secrets and stay in
-     * VITE_FORM_ENDPOINT / VITE_DONATE_ENDPOINT env vars, not here.
+     * Hosted credit-card donation URL. Leave blank while cardDonations is
+     * false; processor secrets never belong in client-side configuration.
      */
     donateUrl: string;
-    /** Label shown under the credit-card option, e.g. "Zeffy". */
+    /** Label shown under the credit-card option when enabled. */
     donateProcessorName: string;
     etransferEmail: string;
   };

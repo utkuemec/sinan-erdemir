@@ -30,7 +30,7 @@ export interface LeverOptionMeta<Id extends string> {
 // listed: it is the source campaign's palette and stays out of the demo.
 // Client builds may still select it in candidate.ts.
 export const PALETTES: PaletteMeta[] = [
-  { id: "victory-red", label: "Victory Red", swatches: ["#B80000", "#1F2937"] },
+  { id: "victory-red", label: "Victory Red", swatches: ["#9D0202", "#000000"] },
   { id: "heritage-red", label: "Heritage Red", swatches: ["#9E1B32", "#E8B04B"] },
   { id: "civic-blue", label: "Civic Blue", swatches: ["#1E5FA8", "#8FC3EA"] },
   { id: "grassroots-green", label: "Grassroots Green", swatches: ["#3E8E52", "#A6D786"] },

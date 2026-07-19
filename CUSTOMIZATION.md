@@ -6,32 +6,32 @@ on the site.
 
 ## `identity`
 
-| Field | Where it appears |
-|---|---|
-| `firstName` / `lastName` | Stacked two-line logo text (header + footer) |
-| `logoTagline` | Small line under the logo name ("for City Council") |
+| Field                                                             | Where it appears                                                                |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `firstName` / `lastName`                                          | Stacked two-line logo text (header + footer)                                    |
+| `logoTagline`                                                     | Small line under the logo name ("for City Council")                             |
 | `fullName`, `office`, `jurisdiction`, `wardLabel`, `electionYear` | Available for copy; ward label also appears wherever your content references it |
-| `campaignName` | SMS-consent disclaimer under the join form; logo aria-label |
-| `teamName` | Join-form button ("Join Team Alex") and success toast |
+| `campaignName`                                                    | SMS-consent disclaimer under the join form; logo aria-label                     |
+| `teamName`                                                        | Join-form button ("Join Team Alex") and success toast                           |
 
 ## `site`
 
-| Field | Where it appears |
-|---|---|
-| `url` | Base for all absolute URLs (og:image). **Must** match where the site is deployed: origin + base path, no trailing slash |
-| `title` | Root `<title>`, og:title, and the "— {page}" suffix on every page title |
-| `description` / `shortDescription` | Meta descriptions (root/home) |
-| `author` | `<meta name="author">` |
-| `ogImage` | Default social-share image (site-relative path; PNG 1200×630 recommended — many scrapers ignore SVG) |
+| Field                              | Where it appears                                                                                                        |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `url`                              | Base for all absolute URLs (og:image). **Must** match where the site is deployed: origin + base path, no trailing slash |
+| `title`                            | Root `<title>`, og:title, and the "— {page}" suffix on every page title                                                 |
+| `description` / `shortDescription` | Meta descriptions (root/home)                                                                                           |
+| `author`                           | `<meta name="author">`                                                                                                  |
+| `ogImage`                          | Default social-share image (site-relative path; PNG 1200×630 recommended — many scrapers ignore SVG)                    |
 
 ## `hero` (home page)
 
-| Field | Where it appears |
-|---|---|
-| `eyebrow` | Small all-caps line above the mega headline |
-| `headline` | Mega headline with the hand-drawn underline accent |
-| `subtitle` | Slogan line under the headline |
-| `sloganLine` | Home page `<title>` / og:title |
+| Field                              | Where it appears                                                                                                                                                                                                                                            |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eyebrow`                          | Small all-caps line above the mega headline                                                                                                                                                                                                                 |
+| `headline`                         | Mega headline with the hand-drawn underline accent                                                                                                                                                                                                          |
+| `subtitle`                         | Slogan line under the headline                                                                                                                                                                                                                              |
+| `sloganLine`                       | Home page `<title>` / og:title                                                                                                                                                                                                                              |
 | `imagePortrait` / `imageLandscape` | Hero photos as one tall (~2:3) and one wide (~3:2) crop; each hero layout uses the orientation that fits (split: portrait desktop panel + landscape mobile band; overlay: landscape desktop + portrait mobile). Ignored when `theme.heroStyle` is `"solid"` |
 
 ## `bio` (/meet-the-candidate)
@@ -105,31 +105,35 @@ in Ontario. `copyright` — the © line.
 
 ## `integrations`
 
-| Field | Where it appears |
-|---|---|
-| `donateUrl` | "Donate by Credit Card" target (opens in a new tab) — Zeffy by default, any hosted donation form works |
-| `donateProcessorName` | The "Secure payment via …" label in the donate modal |
-| `etransferEmail` | The e-transfer instructions screen (with copy-to-clipboard) |
+`features.cardDonations` controls whether the hosted credit-card option is
+shown. Keep it `false` and leave the processor fields blank until a campaign-
+approved processor is configured; e-transfer can remain available separately.
+
+| Field                 | Where it appears                                                                                                 |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `donateUrl`           | "Donate by Credit Card" target when `features.cardDonations` is enabled; any approved hosted donation form works |
+| `donateProcessorName` | The "Secure payment via …" label in the donate modal                                                             |
+| `etransferEmail`      | The e-transfer instructions screen (with copy-to-clipboard)                                                      |
 
 The **submission endpoints** are not in the config: `VITE_FORM_ENDPOINT` and
 `VITE_DONATE_ENDPOINT` are env vars / repo secrets (see README step 4).
 
 ## `theme`
 
-| Field | Effect |
-|---|---|
-| `palette` | `"heritage-red"`, `"civic-blue"`, `"grassroots-green"`, `"midnight-violet"`, or `"sunrise"` (mustard/turquoise — the `:root` fallback, deliberately excluded from the demo switcher) — rendered as `data-theme` on `<html>` |
-| `fonts` | `"bold-poster"` (Anton/Montserrat), `"civic-serif"` (Libre Franklin/Source Serif 4), `"friendly-rounded"` (Nunito) — rendered as `data-fonts`. Non-poster pairings also switch buttons to sentence case |
-| `hero` | `"overlay"` — full-bleed photo with copy + form floating over it; `"split"` — solid primary-colour panel (copy + form) beside a photo panel. See "Hero layouts" below |
-| `heroStyle` | `"photo"` uses the hero images; `"solid"` renders a palette gradient (useful before photography exists). Composes with either `hero` layout |
-| `accent` | `"underline"` — hand-drawn-style underline + accent bars; `"highlight"` — marker sweep behind the hero headline + skewed marker strokes under headings; `"minimal"` — no motifs |
-| `shape` | `"sharp"` (squared, small radii), `"soft"` (rounded), `"pill"` (fully rounded buttons) — drives the `--radius-*`/`--btn-radius` tokens |
-| `pillars` | `"band"` — full-bleed three-colour strip; `"cards"` — elevated paper cards with coloured icon chips |
-| `labels` | `"caps"` — letterspaced uppercase eyebrows; `"badge"` — pill badge chips |
-| `showDemoThemeSwitcher` | **Demo only.** Shows the floating style switcher. Set `false` for client builds |
+| Field                   | Effect                                                                                                                                                                                                                      |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `palette`               | `"heritage-red"`, `"civic-blue"`, `"grassroots-green"`, `"midnight-violet"`, or `"sunrise"` (mustard/turquoise — the `:root` fallback, deliberately excluded from the demo switcher) — rendered as `data-theme` on `<html>` |
+| `fonts`                 | `"bold-poster"` (Anton/Montserrat), `"civic-serif"` (Libre Franklin/Source Serif 4), `"friendly-rounded"` (Nunito) — rendered as `data-fonts`. Non-poster pairings also switch buttons to sentence case                     |
+| `hero`                  | `"overlay"` — full-bleed photo with copy + form floating over it; `"split"` — solid primary-colour panel (copy + form) beside a photo panel. See "Hero layouts" below                                                       |
+| `heroStyle`             | `"photo"` uses the hero images; `"solid"` renders a palette gradient (useful before photography exists). Composes with either `hero` layout                                                                                 |
+| `accent`                | `"underline"` — hand-drawn-style underline + accent bars; `"highlight"` — marker sweep behind the hero headline + skewed marker strokes under headings; `"minimal"` — no motifs                                             |
+| `shape`                 | `"sharp"` (squared, small radii), `"soft"` (rounded), `"pill"` (fully rounded buttons) — drives the `--radius-*`/`--btn-radius` tokens                                                                                      |
+| `pillars`               | `"band"` — full-bleed three-colour strip; `"cards"` — elevated paper cards with coloured icon chips                                                                                                                         |
+| `labels`                | `"caps"` — letterspaced uppercase eyebrows; `"badge"` — pill badge chips                                                                                                                                                    |
+| `showDemoThemeSwitcher` | **Demo only.** Shows the floating style switcher. Set `false` for client builds                                                                                                                                             |
 
 **Differentiation note:** the demo defaults (civic-blue / civic-serif /
-split / highlight / soft / cards / badge) are deliberately the *opposite* of
+split / highlight / soft / cards / badge) are deliberately the _opposite_ of
 the source campaign's look (sunrise / bold-poster / overlay / underline /
 sharp / band / caps). When spinning up a new candidate, vary at least the
 palette, hero layout, and accent so no two client sites read as the same
@@ -173,15 +177,15 @@ Edit that file to reword UI chrome; add a locale per the README.
 
 ## Image slots
 
-| Path | Purpose | Reference size |
-|---|---|---|
-| `public/images/hero-portrait.*` | Hero photo, tall crop (split desktop panel; overlay ≤767 px) | ~1024×1536 (~2:3) |
-| `public/images/hero-landscape.*` | Hero photo, wide crop (overlay desktop; split mobile band) | ~1536×1024 (~3:2) |
-| `public/images/candidate-portrait.*` | Bio page portrait | ~880×1168 |
-| `public/images/ward-map.*` | Ward boundary map | ~1196×1550 (update `ward.map.width/height`) |
-| `public/images/community/photo-01..12.*` | Home carousel | ~1200×1600 / 1600×1200 mix |
-| `public/images/endorsers/endorser-*.*` | Endorser headshots | small (rendered 96×96) |
-| `public/images/og-image.png` | Social share card | 1200×630 PNG |
+| Path                                     | Purpose                                                      | Reference size                              |
+| ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------- |
+| `public/images/hero-portrait.*`          | Hero photo, tall crop (split desktop panel; overlay ≤767 px) | ~1024×1536 (~2:3)                           |
+| `public/images/hero-landscape.*`         | Hero photo, wide crop (overlay desktop; split mobile band)   | ~1536×1024 (~3:2)                           |
+| `public/images/candidate-portrait.*`     | Bio page portrait                                            | ~880×1168                                   |
+| `public/images/ward-map.*`               | Ward boundary map                                            | ~1196×1550 (update `ward.map.width/height`) |
+| `public/images/community/photo-01..12.*` | Home carousel                                                | ~1200×1600 / 1600×1200 mix                  |
+| `public/images/endorsers/endorser-*.*`   | Endorser headshots                                           | small (rendered 96×96)                      |
+| `public/images/og-image.png`             | Social share card                                            | 1200×630 PNG                                |
 
 Use any format (`.jpg`/`.png`/`.webp`/`.svg`) — just keep the config paths in
 sync. All paths are resolved through the base-path helper, so they work on

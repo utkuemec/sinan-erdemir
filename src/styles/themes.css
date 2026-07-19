@@ -17,75 +17,112 @@
 
 /* ---- Palette: Civic Blue -------------------------------------------- */
 html[data-theme="civic-blue"] {
-  --c-mustard: #1E5FA8;        /* primary: deep civic blue */
-  --c-mustard-deep: #174B86;
-  --c-turquoise: #8FC3EA;      /* secondary: sky blue */
-  --c-turquoise-deep: #5E97C9;
-  --c-taupe: #64748B;          /* tertiary: slate */
+  --c-mustard: #1e5fa8; /* primary: deep civic blue */
+  --c-mustard-deep: #174b86;
+  --c-turquoise: #8fc3ea; /* secondary: sky blue */
+  --c-turquoise-deep: #5e97c9;
+  --c-taupe: #64748b; /* tertiary: slate */
   --c-taupe-deep: #526075;
-  --c-cream: #F1F5F9;          /* cool paper */
-  --c-cream-deep: #E2E8F0;
-  --fg-on-mustard: #FFFFFF;    /* dark primary → light text */
-  --fg-on-turquoise: #122A42;
+  --c-cream: #f1f5f9; /* cool paper */
+  --c-cream-deep: #e2e8f0;
+  --fg-on-mustard: #ffffff; /* dark primary → light text */
+  --fg-on-turquoise: #122a42;
 }
 
 /* ---- Palette: Grassroots Green --------------------------------------- */
 html[data-theme="grassroots-green"] {
-  --c-mustard: #3E8E52;        /* primary: grassroots green */
+  --c-mustard: #3e8e52; /* primary: grassroots green */
   --c-mustard-deep: #327544;
-  --c-turquoise: #A6D786;      /* secondary: fresh leaf */
-  --c-turquoise-deep: #7DB65B;
-  --c-taupe: #877B68;          /* tertiary: warm earth */
-  --c-taupe-deep: #746A59;
-  --c-cream: #F3F2E9;
-  --c-cream-deep: #E8E6D8;
-  --fg-on-mustard: #FFFFFF;    /* dark primary → light text */
-  --fg-on-turquoise: #1E3317;
+  --c-turquoise: #a6d786; /* secondary: fresh leaf */
+  --c-turquoise-deep: #7db65b;
+  --c-taupe: #877b68; /* tertiary: warm earth */
+  --c-taupe-deep: #746a59;
+  --c-cream: #f3f2e9;
+  --c-cream-deep: #e8e6d8;
+  --fg-on-mustard: #ffffff; /* dark primary → light text */
+  --fg-on-turquoise: #1e3317;
 }
 
 /* ---- Palette: Heritage Red -------------------------------------------- */
 html[data-theme="heritage-red"] {
-  --c-mustard: #9E1B32;        /* primary: heritage red */
-  --c-mustard-deep: #7E1526;
-  --c-turquoise: #E8B04B;      /* secondary: antique gold */
-  --c-turquoise-deep: #B37F24;
-  --c-taupe: #6B7280;          /* tertiary: slate */
-  --c-taupe-deep: #565D68;
-  --c-cream: #FAF6F0;          /* warm paper */
-  --c-cream-deep: #F0E8DA;
-  --fg-on-mustard: #FFFFFF;    /* dark primary → light text */
-  --fg-on-turquoise: #2B1A05;
+  --c-mustard: #9e1b32; /* primary: heritage red */
+  --c-mustard-deep: #7e1526;
+  --c-turquoise: #e8b04b; /* secondary: antique gold */
+  --c-turquoise-deep: #b37f24;
+  --c-taupe: #6b7280; /* tertiary: slate */
+  --c-taupe-deep: #565d68;
+  --c-cream: #faf6f0; /* warm paper */
+  --c-cream-deep: #f0e8da;
+  --fg-on-mustard: #ffffff; /* dark primary → light text */
+  --fg-on-turquoise: #2b1a05;
 }
 
-/* ---- Palette: Victory Red (Sinan Erdemir brand: #B80000 + white) ------- */
+/* ---- Palette: Victory Red (Sinan Erdemir brand: #9D0202 + black + white) */
 html[data-theme="victory-red"] {
-  --c-mustard: #B80000;        /* primary: campaign red */
-  --c-mustard-deep: #8F0000;
-  --c-turquoise: #1F2937;      /* secondary: ink navy-charcoal */
-  --c-turquoise-deep: #111827;
-  --c-taupe: #6B7280;          /* tertiary: slate */
-  --c-taupe-deep: #565D68;
-  --c-cream: #FFFFFF;          /* brand uses pure white */
-  --c-cream-deep: #F3F4F6;
-  --fg-on-mustard: #FFFFFF;    /* dark primary → light text */
-  --fg-on-turquoise: #FFFFFF;
-  /* turquoise-deep is near-black here — useless as a focus ring, so the
-     focus colour falls back to the campaign red. */
-  --color-focus: #B80000;
+  --c-mustard: #9d0202; /* primary: campaign red */
+  --c-mustard-deep: #720101;
+  --c-turquoise: #000000; /* secondary: pure black */
+  --c-turquoise-deep: #9d0202; /* secondary hover: campaign red */
+  --c-taupe: #ffffff; /* tertiary: pure white */
+  --c-taupe-deep: #000000;
+  --c-cream: #ffffff;
+  --c-cream-deep: #ffffff;
+  --c-paper: #ffffff;
+  --c-ink: #000000;
+  --c-ink-soft: #000000;
+  --fg-on-mustard: #ffffff; /* dark primary → light text */
+  --fg-on-turquoise: #ffffff;
+  --fg-muted: rgba(0, 0, 0, 0.72);
+  --border-soft: rgba(0, 0, 0, 0.12);
+  --border-medium: rgba(0, 0, 0, 0.28);
+  --border-input: rgba(0, 0, 0, 0.35);
+  --color-focus: #9d0202;
+}
+
+/* The tertiary slot is white in the campaign palette. These component
+   overrides replace the default light-on-dark assumptions for that slot. */
+html[data-theme="victory-red"] .pillar--taupe {
+  color: #000000;
+  box-shadow: inset 0 0 0 1px #000000;
+}
+
+html[data-theme="victory-red"] .action-card--taupe {
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+html[data-theme="victory-red"] .action-card--taupe:hover {
+  color: #ffffff;
+}
+
+html[data-theme="victory-red"] .action-card--taupe .action-card__icon {
+  background: #000000;
+  color: #ffffff;
+}
+
+html[data-theme="victory-red"] .action-card--taupe:hover .action-card__icon {
+  background: #ffffff;
+  color: #000000;
+}
+
+html[data-theme="victory-red"][data-pillars="cards"] .pillar--taupe .pillar__icon {
+  background: #ffffff;
+  color: #000000;
+  border-color: #000000;
 }
 
 /* ---- Palette: Midnight Violet ------------------------------------------ */
 html[data-theme="midnight-violet"] {
-  --c-mustard: #5B2D86;        /* primary: deep violet */
+  --c-mustard: #5b2d86; /* primary: deep violet */
   --c-mustard-deep: #482169;
-  --c-turquoise: #B79CDB;      /* secondary: lavender */
-  --c-turquoise-deep: #7B54AC;
-  --c-taupe: #756C82;          /* tertiary: dusk grey */
-  --c-taupe-deep: #615A6C;
-  --c-cream: #F6F3FA;          /* cool paper */
-  --c-cream-deep: #ECE6F4;
-  --fg-on-mustard: #FFFFFF;    /* dark primary → light text */
-  --fg-on-turquoise: #2A1745;
+  --c-turquoise: #b79cdb; /* secondary: lavender */
+  --c-turquoise-deep: #7b54ac;
+  --c-taupe: #756c82; /* tertiary: dusk grey */
+  --c-taupe-deep: #615a6c;
+  --c-cream: #f6f3fa; /* cool paper */
+  --c-cream-deep: #ece6f4;
+  --fg-on-mustard: #ffffff; /* dark primary → light text */
+  --fg-on-turquoise: #2a1745;
 }
 
 /* =========================================================================
