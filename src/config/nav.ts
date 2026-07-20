@@ -20,6 +20,7 @@ export const NAV_LINKS: readonly NavLink[] = [
   { label: candidate.ward.navLabel, to: "/ward" },
   { label: t.nav.community, to: "/community" },
   ...(candidate.features.votingInfo ? [{ label: t.nav.vote, to: "/vote" }] : []),
+  ...(candidate.features.rideRequests ? [{ label: candidate.ride.navLabel, to: "/ride" }] : []),
   { label: t.nav.getInvolved, to: "/get-involved" },
 ];
 

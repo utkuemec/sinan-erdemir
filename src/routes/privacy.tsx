@@ -45,7 +45,12 @@ const COLLECT_BLOCKS: { key: string; heading: string; body: string; extra?: stri
         },
       ]
     : []),
+  ...(features.rideRequests ? [{ key: "ride", ...p.sections.collectByForm.ride }] : []),
 ];
+
+const visibleProviders = privacy.providers.filter(
+  (provider) => provider.name !== "YouTube" || features.videos,
+);
 
 function PrivacyPage() {
   return (
@@ -88,7 +93,7 @@ function PrivacyPage() {
             <h2>{p.sections.providersHeading}</h2>
             <p>{p.sections.providersIntro}</p>
             <ul className="legal__providers">
-              {privacy.providers.map((provider) => (
+              {visibleProviders.map((provider) => (
                 <li key={provider.name}>
                   <strong>{provider.name}</strong> — {provider.purpose}.
                 </li>

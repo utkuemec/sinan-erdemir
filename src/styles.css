@@ -380,8 +380,8 @@ html[data-hero="split"] .site-header--stuck {
 .site-nav__link--active::after { transform: scaleX(1); }
 .site-nav__ctas { display: flex; gap: var(--sp-3); }
 
-/* Compact nav tier so everything fits on one row at 1024-1279px. */
-@media (max-width: 1279px) {
+/* Compact nav tier so the optional ride link still fits at laptop widths. */
+@media (max-width: 1499px) {
   .site-nav { gap: var(--sp-3); }
   .site-nav__links { gap: var(--sp-3); }
   .site-nav__link {
@@ -2683,4 +2683,62 @@ html[data-hero="split"] .hero__ctas .btn--mustard {
     color: var(--fg-on-mustard);
     text-shadow: none;
   }
+}
+/* Feedback round 2: donation amounts, campaign videos, and ride requests */
+.purpose-form__honeypot { display: none; }
+
+.donate-amount { border: 0; margin: 0; padding: 0; }
+.donate-amount legend { color: var(--c-ink); font-size: 14px; font-weight: 700; margin-bottom: var(--sp-2); }
+.donate-amount__presets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-2); }
+.donate-amount__chip { min-height: 44px; border: 2px solid var(--border-medium); border-radius: var(--radius-md); background: #fff; color: var(--c-ink); font-weight: 700; padding: 8px; }
+.donate-amount__chip:hover,
+.donate-amount__chip[aria-pressed="true"] { border-color: var(--c-mustard-deep); background: color-mix(in srgb, var(--c-mustard) 14%, #fff); }
+.donate-amount__custom { display: flex; flex-direction: column; gap: 6px; margin-top: var(--sp-3); color: var(--c-ink); font-size: 14px; font-weight: 700; }
+.donate-amount__input-wrap { display: grid; grid-template-columns: auto 1fr; align-items: center; border: 1px solid var(--border-input); border-radius: var(--radius-md); background: #fff; overflow: hidden; }
+.donate-amount__input-wrap > span { padding-left: 14px; color: var(--fg-muted); }
+.donate-amount__input-wrap input { min-width: 0; border: 0; padding-left: 6px; }
+.donate-amount__help,
+.donate-amount__error { font-size: var(--fs-caption); margin: 6px 0 0; }
+.donate-amount__help { color: var(--fg-muted); }
+.donate-amount__error { color: var(--c-red); font-weight: 700; }
+.donate-rebate { border-left: 4px solid var(--c-mustard); background: #fff; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: var(--sp-3); font-size: var(--fs-body-sm); }
+.donate-rebate p { margin: 0; }
+.donate-rebate p + p { margin-top: 6px; }
+.donate-rebate a { color: var(--c-red); font-weight: 700; }
+.donate-instructions__amount { border: 1px solid var(--border-soft); border-radius: var(--radius-md); background: #fff; margin: 0 0 var(--sp-4); padding: var(--sp-3); }
+.donate-form .btn--full { white-space: normal; }
+
+.campaign-videos { background: #fff; padding: var(--space-section) 0; }
+.campaign-videos__inner { display: flex; flex-direction: column; align-items: center; }
+.campaign-videos__head { max-width: 680px; text-align: center; margin-bottom: var(--sp-5); }
+.campaign-videos__head p:last-child { margin-bottom: 0; }
+.campaign-videos__frame { width: min(100%, 960px); aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius-lg); box-shadow: var(--shadow-card); overflow: hidden; }
+.campaign-videos__frame iframe { width: 100%; height: 100%; border: 0; }
+.campaign-videos__channel { margin-top: var(--sp-4); }
+
+.ride-page { background: var(--c-cream); padding: var(--space-section) 0; }
+.ride-page__head { max-width: 760px; margin: 0 auto var(--sp-7); text-align: center; }
+.ride-page__lede { font-size: var(--fs-body-lg); }
+.ride-page__layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-7); align-items: start; }
+.ride-page__details { display: grid; gap: var(--sp-3); }
+.ride-page__details article { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3); padding: var(--sp-4); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); background: #fff; }
+.ride-page__details svg { color: var(--c-red); margin-top: 2px; }
+.ride-page__details h2 { font-size: var(--fs-body); margin: 0 0 6px; }
+.ride-page__details p { margin: 0; color: var(--fg-muted); }
+.ride-page__details p + p { margin-top: 4px; }
+.ride-form { max-width: none; }
+
+@media (max-width: 800px) {
+  .ride-page__layout { grid-template-columns: 1fr; gap: var(--sp-5); }
+}
+
+@media (max-width: 1279px) {
+  .site-nav { display: none; }
+  .site-header__toggle { display: flex; }
+  .mobile-menu { display: flex; }
+}
+
+@media (max-width: 560px) {
+  .donate-amount__presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .campaign-videos__frame { border-radius: var(--radius-md); }
 }

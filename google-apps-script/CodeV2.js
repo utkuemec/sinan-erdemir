@@ -9,6 +9,7 @@
 //   contact          -> "Contact"
 //   supporter        -> "Supporters"
 //   donate-etransfer -> "ETransferIntents"
+//   ride-request     -> "RideRequests"
 //
 // SETUP (one per candidate):
 // 1. Create (or reuse) a campaign-owned Google Sheet.
@@ -35,7 +36,7 @@
 // Field values are never written to Apps Script logs.
 // ============================================================
 
-var NOTIFICATION_EMAIL = "REPLACE_ME@example.com";
+var NOTIFICATION_EMAIL = "info@votesinan.com";
 
 var CONFIG = {
   maxPayloadBytes: 8192,
@@ -45,6 +46,7 @@ var CONFIG = {
     contact: "Contact",
     supporter: "Supporters",
     "donate-etransfer": "ETransferIntents",
+    "ride-request": "RideRequests",
   },
 };
 
@@ -154,15 +156,73 @@ var SCHEMAS = {
       "Own Funds Confirmed",
       "Not On Behalf Confirmed",
       "Source",
+      "Amount",
     ],
     fields: [
       { key: "fullName", label: "Full Name", kind: "string", required: true, maxLen: 100 },
       { key: "email", label: "Email", kind: "string", required: true, maxLen: 254 },
       { key: "phone", label: "Phone", kind: "string", maxLen: 30 },
       { key: "address", label: "Residential Address", kind: "string", required: true, maxLen: 300 },
-      { key: "eligibilityConfirmed", label: "Eligibility Confirmed", kind: "boolean" },
-      { key: "ownFundsConfirmed", label: "Own Funds Confirmed", kind: "boolean" },
-      { key: "notOnBehalfConfirmed", label: "Not On Behalf Confirmed", kind: "boolean" },
+      {
+        key: "eligibilityConfirmed",
+        label: "Eligibility Confirmed",
+        kind: "boolean",
+        required: true,
+      },
+      {
+        key: "ownFundsConfirmed",
+        label: "Own Funds Confirmed",
+        kind: "boolean",
+        required: true,
+      },
+      {
+        key: "notOnBehalfConfirmed",
+        label: "Not On Behalf Confirmed",
+        kind: "boolean",
+        required: true,
+      },
+      { key: "source", label: "Source", kind: "string", maxLen: 60 },
+      { key: "amount", label: "Amount", kind: "number", min: 1, max: 1200, decimals: 2 },
+    ],
+  },
+  "ride-request": {
+    columns: [
+      "Full Name",
+      "Email",
+      "Phone",
+      "Pickup Address",
+      "Requested Voting Day",
+      "Notes",
+      "Source",
+    ],
+    fields: [
+      { key: "fullName", label: "Full Name", kind: "string", required: true, maxLen: 100 },
+      { key: "email", label: "Email", kind: "string", required: true, maxLen: 254 },
+      { key: "phone", label: "Phone", kind: "string", required: true, maxLen: 30 },
+      {
+        key: "pickupAddress",
+        label: "Pickup Address",
+        kind: "string",
+        required: true,
+        maxLen: 300,
+      },
+      {
+        key: "requestedDate",
+        label: "Requested Voting Day",
+        kind: "string",
+        required: true,
+        maxLen: 10,
+        enums: [
+          "2026-10-06",
+          "2026-10-07",
+          "2026-10-08",
+          "2026-10-09",
+          "2026-10-10",
+          "2026-10-11",
+          "2026-10-26",
+        ],
+      },
+      { key: "notes", label: "Notes", kind: "string", maxLen: 500 },
       { key: "source", label: "Source", kind: "string", maxLen: 60 },
     ],
   },
@@ -191,7 +251,12 @@ function coerce(field, value) {
   if (field.kind === "boolean") return value === true ? "Yes" : "No";
   if (field.kind === "number") {
     var n = Number(value);
-    return isFinite(n) ? Math.max(0, Math.min(99, Math.round(n))) : "";
+    if (!isFinite(n)) return "";
+    var min = typeof field.min === "number" ? field.min : 0;
+    var max = typeof field.max === "number" ? field.max : 99;
+    var decimals = typeof field.decimals === "number" ? field.decimals : 0;
+    var factor = Math.pow(10, decimals);
+    return Math.round(Math.max(min, Math.min(max, n)) * factor) / factor;
   }
   if (field.kind === "stringArray") {
     if (!Array.isArray(value)) return "";
@@ -223,12 +288,27 @@ function validate(formType, data) {
     var f = schema.fields[i];
     var raw = data[f.key];
     var isEmpty =
-      raw === undefined ||
-      raw === null ||
-      raw === "" ||
-      (Array.isArray(raw) && raw.length === 0);
+      raw === undefined || raw === null || raw === "" || (Array.isArray(raw) && raw.length === 0);
     if (f.required && isEmpty) {
       return { error: "validation: missing " + f.key };
+    }
+    if (f.kind === "boolean" && f.required && raw !== true) {
+      return { error: "validation: bad " + f.key };
+    }
+    if (f.kind === "number" && !isEmpty) {
+      var numeric = Number(raw);
+      var min = typeof f.min === "number" ? f.min : 0;
+      var max = typeof f.max === "number" ? f.max : 99;
+      var decimals = typeof f.decimals === "number" ? f.decimals : 0;
+      var factor = Math.pow(10, decimals);
+      if (
+        !isFinite(numeric) ||
+        numeric < min ||
+        numeric > max ||
+        Math.abs(Math.round(numeric * factor) / factor - numeric) > 0.0000001
+      ) {
+        return { error: "validation: bad " + f.key };
+      }
     }
     var v = isEmpty ? "" : coerce(f, raw);
     if (f.enums && v !== "" && f.enums.indexOf(v) === -1) {
@@ -247,6 +327,17 @@ function getTab(ss, formType) {
     var header = ["Timestamp", "Submission ID"].concat(SCHEMAS[formType].columns, ["Token"]);
     sheet.appendRow(header);
     sheet.setFrozenRows(1);
+  } else if (formType === "donate-etransfer") {
+    // One-time v2 migration: preserve existing rows by inserting Amount
+    // immediately before the trailing Token column.
+    var lastColumn = sheet.getLastColumn();
+    var headers = lastColumn ? sheet.getRange(1, 1, 1, lastColumn).getValues()[0] : [];
+    if (headers.indexOf("Amount") === -1) {
+      var tokenIndex = headers.indexOf("Token");
+      var insertAt = tokenIndex >= 0 ? tokenIndex + 1 : lastColumn + 1;
+      sheet.insertColumnBefore(insertAt);
+      sheet.getRange(1, insertAt).setValue("Amount");
+    }
   }
   return sheet;
 }
@@ -258,6 +349,7 @@ function notify(formType, submissionId, timestamp) {
       contact: "New contact message",
       supporter: "New supporter action",
       "donate-etransfer": "New e-transfer donation intent",
+      "ride-request": "New election-day ride request",
     };
     MailApp.sendEmail({
       to: NOTIFICATION_EMAIL,

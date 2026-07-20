@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { CampaignVideos } from "@/components/CampaignVideos";
 import { candidate } from "@/config/candidate";
 import { pageHead } from "@/lib/seo";
 
@@ -83,6 +84,7 @@ function PrioritiesPage() {
             </div>
           </div>
         </section>
+        <CampaignVideos />
       </main>
       <Footer />
     </div>

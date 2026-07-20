@@ -11,6 +11,12 @@ import {
   useSubmissionToken,
   type EtransferSubmission,
 } from "@/lib/forms";
+import {
+  calculateContributionRebate,
+  formatCurrency,
+  parseDonationAmount,
+  type DonationAmountError,
+} from "@/lib/rebate";
 
 /*
  * NOTE FOR THE CAMPAIGN:
@@ -37,8 +43,12 @@ export function DonateModal() {
   const token = useSubmissionToken();
   const showCreditCard = candidate.features.cardDonations && Boolean(DONATE_URL);
   const showEtransfer = candidate.features.eTransfer;
+  const showDonationAmounts = candidate.features.donationAmounts;
   const defaultView: View = showCreditCard ? "choose" : showEtransfer ? "etransfer-form" : "choose";
   const [copied, setCopied] = useState(false);
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const [customAmount, setCustomAmount] = useState("");
+  const [amountError, setAmountError] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
 
@@ -49,6 +59,9 @@ export function DonateModal() {
       triggerRef.current = document.activeElement as HTMLElement | null;
       setView(defaultView);
       setCopied(false);
+      setSelectedAmount(null);
+      setCustomAmount("");
+      setAmountError("");
     }
   }, [defaultView, open]);
 
@@ -90,6 +103,30 @@ export function DonateModal() {
 
   if (!open) return null;
 
+  const amountInput = customAmount || (selectedAmount === null ? "" : String(selectedAmount));
+  const parsedAmount = showDonationAmounts
+    ? parseDonationAmount(
+        amountInput,
+        candidate.donations.minimumAmount,
+        candidate.donations.contributionLimit,
+      )
+    : null;
+  const activeAmount = parsedAmount?.ok ? parsedAmount.amount : null;
+  const rebateEstimate =
+    activeAmount !== null && candidate.features.rebateCalculator
+      ? calculateContributionRebate(activeAmount, candidate.donations.rebateMaximum)
+      : null;
+
+  function amountErrorMessage(error: DonationAmountError): string {
+    if (error === "below-minimum") {
+      return t.donateModal.amountBelowMinimum(candidate.donations.minimumAmount);
+    }
+    if (error === "above-limit") {
+      return t.donateModal.amountAboveLimit(candidate.donations.contributionLimit);
+    }
+    return t.donateModal.amountRequired;
+  }
+
   function handleCreditCard() {
     if (!showCreditCard) return;
     window.open(DONATE_URL, "_blank", "noopener,noreferrer");
@@ -99,6 +136,22 @@ export function DonateModal() {
   async function handleEtransferSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (submitting) return;
+
+    let amount: number | undefined;
+    if (showDonationAmounts) {
+      const result = parseDonationAmount(
+        amountInput,
+        candidate.donations.minimumAmount,
+        candidate.donations.contributionLimit,
+      );
+      if (!result.ok) {
+        setAmountError(amountErrorMessage(result.error));
+        return;
+      }
+      amount = result.amount;
+      setAmountError("");
+    }
+
     setSubmitting(true);
 
     const form = e.target as HTMLFormElement;
@@ -117,6 +170,7 @@ export function DonateModal() {
       email: sanitize(field("donate-email"), FIELD_LIMITS.email),
       phone: sanitize(field("donate-phone"), FIELD_LIMITS.phone),
       address: sanitize(field("donate-address"), FIELD_LIMITS.address),
+      ...(amount === undefined ? {} : { amount }),
       eligibilityConfirmed: checked("donate-eligible"),
       ownFundsConfirmed: checked("donate-own-funds"),
       notOnBehalfConfirmed: checked("donate-not-behalf"),
@@ -235,6 +289,80 @@ export function DonateModal() {
             <p className="donate-modal__subtitle">{t.donateModal.etransferFormSubtitle}</p>
 
             <form onSubmit={handleEtransferSubmit} className="donate-form">
+              {showDonationAmounts && (
+                <fieldset className="donate-amount">
+                  <legend>{t.donateModal.amountLegend}</legend>
+                  <div className="donate-amount__presets">
+                    {candidate.donations.presetAmounts.map((amount) => (
+                      <button
+                        key={amount}
+                        type="button"
+                        className="donate-amount__chip"
+                        aria-pressed={selectedAmount === amount && customAmount === ""}
+                        onClick={() => {
+                          setSelectedAmount(amount);
+                          setCustomAmount("");
+                          setAmountError("");
+                        }}
+                      >
+                        {formatCurrency(amount).replace(".00", "")}
+                      </button>
+                    ))}
+                  </div>
+
+                  {candidate.donations.allowCustomAmount && (
+                    <label className="donate-amount__custom" htmlFor="donate-other-amount">
+                      <span>{t.donateModal.otherAmountLabel}</span>
+                      <span className="donate-amount__input-wrap">
+                        <span aria-hidden="true">$</span>
+                        <input
+                          id="donate-other-amount"
+                          name="donate-other-amount"
+                          type="text"
+                          inputMode="decimal"
+                          autoComplete="off"
+                          placeholder={t.donateModal.otherAmountPlaceholder}
+                          value={customAmount}
+                          aria-describedby="donate-amount-help donate-amount-error"
+                          aria-invalid={Boolean(amountError)}
+                          onChange={(event) => {
+                            setCustomAmount(event.target.value);
+                            setSelectedAmount(null);
+                            setAmountError("");
+                          }}
+                        />
+                      </span>
+                    </label>
+                  )}
+
+                  <p id="donate-amount-help" className="donate-amount__help">
+                    {t.donateModal.amountAboveLimit(candidate.donations.contributionLimit)}
+                  </p>
+                  <p id="donate-amount-error" className="donate-amount__error" aria-live="polite">
+                    {amountError}
+                  </p>
+
+                  {rebateEstimate !== null && (
+                    <div className="donate-rebate" aria-live="polite">
+                      <strong>
+                        {t.donateModal.rebateEstimate(formatCurrency(rebateEstimate))}
+                      </strong>
+                      <p>
+                        {t.donateModal.rebateDisclaimerBeforeLink}
+                        <a
+                          href={candidate.donations.rebateInfoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {t.donateModal.rebateDisclaimerLink}
+                        </a>
+                        {t.donateModal.rebateDisclaimerAfterLink}
+                      </p>
+                    </div>
+                  )}
+                </fieldset>
+              )}
+
               <label className="visually-hidden" htmlFor="donate-name">
                 {t.donateModal.fullName}
               </label>
@@ -319,6 +447,12 @@ export function DonateModal() {
               {t.donateModal.instructionsTitle}
             </h2>
             <p className="donate-modal__subtitle">{t.donateModal.instructionsSubtitle}</p>
+
+            {activeAmount !== null && (
+              <p className="donate-instructions__amount">
+                {t.donateModal.instructionsAmount(formatCurrency(activeAmount))}
+              </p>
+            )}
 
             <div className="donate-instructions__email-row">
               <span className="donate-instructions__email">{ETRANSFER_EMAIL}</span>

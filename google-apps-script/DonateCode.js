@@ -1,4 +1,7 @@
 /**
+ * RETIRED: the website now sends every form to the shared CodeV2.js deployment
+ * through VITE_FORM_ENDPOINT. Keep this file for reference only; do not deploy it.
+ *
  * Google Apps Script — Campaign E-Transfer Donation Logging
  *
  * Deployment steps (one per candidate — each campaign gets its own Sheet):

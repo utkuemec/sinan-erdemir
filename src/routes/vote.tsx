@@ -72,7 +72,11 @@ function VotePage() {
                     {i > 0 && " and "}
                     <a href={link.url} target="_blank" rel="noopener noreferrer">
                       {link.label}{" "}
-                      <ExternalLink size={14} style={{ verticalAlign: "-2px" }} aria-hidden="true" />
+                      <ExternalLink
+                        size={14}
+                        style={{ verticalAlign: "-2px" }}
+                        aria-hidden="true"
+                      />
                     </a>
                   </span>
                 ))}
@@ -89,6 +93,13 @@ function VotePage() {
                   Pledge your vote or join Team Sinan →
                 </Link>
               </p>
+
+              {candidate.features.rideRequests && (
+                <p style={{ marginTop: 16 }}>
+                  Need help getting to your assigned polling place?{" "}
+                  <Link to="/ride">Request a ride from Team Sinan →</Link>
+                </p>
+              )}
             </div>
           </div>
         </section>

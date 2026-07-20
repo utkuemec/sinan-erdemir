@@ -13,7 +13,12 @@ export function FinalCta() {
       <div className="container final-cta__inner">
         <h2 className="final-cta__heading">{t.finalCta.heading(wardShort)}</h2>
         <div className="final-cta__buttons">
-          <Link to="/get-involved" search={{ action: "volunteer" }} hash="join" className="btn btn--ink-on-red">
+          <Link
+            to="/get-involved"
+            search={{ action: "volunteer" }}
+            hash="join"
+            className="btn btn--ink-on-red"
+          >
             {t.buttons.volunteer}
           </Link>
           {candidate.features.lawnSigns && (
@@ -34,6 +39,11 @@ export function FinalCta() {
             >
               {t.buttons.donate}
             </button>
+          )}
+          {candidate.features.rideRequests && (
+            <Link to="/ride" className="btn btn--paper-on-red">
+              {candidate.ride.navLabel}
+            </Link>
           )}
           <Link to="/contact" className="btn btn--ink-on-red">
             {t.buttons.contact}

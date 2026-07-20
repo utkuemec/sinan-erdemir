@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   CalendarDays,
+  Car,
   Heart,
   MessageCircle,
   Signpost,
@@ -27,6 +28,7 @@ const KIND_ICONS: Record<BuiltinCardKind, LucideIcon> = {
   "lawn-sign": Signpost,
   "host-event": CalendarDays,
   pledge: Vote,
+  ride: Car,
 };
 
 /** Card kinds that preselect a supporter-form intent. */
@@ -45,13 +47,18 @@ interface ResolvedCard {
   title: string;
   body: string;
   cta: string;
-  action: { type: "donate" } | { type: "intent"; intent: SupporterIntent } | { type: "anchor"; href: string };
+  action:
+    | { type: "donate" }
+    | { type: "intent"; intent: SupporterIntent }
+    | { type: "route"; to: "/ride" }
+    | { type: "anchor"; href: string };
 }
 
 function cardEnabled(kind: BuiltinCardKind | "custom"): boolean {
   if (kind === "donate") return features.donations;
   if (kind === "lawn-sign") return features.lawnSigns;
   if (kind === "pledge") return features.pledge;
+  if (kind === "ride") return features.rideRequests;
   return true;
 }
 
@@ -79,9 +86,11 @@ const CARDS: ResolvedCard[] = getInvolved.cards
       action:
         card.kind === "donate"
           ? { type: "donate" as const }
-          : intent
-            ? { type: "intent" as const, intent }
-            : { type: "anchor" as const, href: "#join" },
+          : card.kind === "ride"
+            ? { type: "route" as const, to: "/ride" as const }
+            : intent
+              ? { type: "intent" as const, intent }
+              : { type: "anchor" as const, href: "#join" },
     };
   });
 
@@ -146,6 +155,13 @@ function CardShell({
         hash="join"
         className={`action-card action-card--${variant}`}
       >
+        {inner}
+      </Link>
+    );
+  }
+  if (card.action.type === "route") {
+    return (
+      <Link to={card.action.to} className={`action-card action-card--${variant}`}>
         {inner}
       </Link>
     );
@@ -225,10 +241,7 @@ function GetInvolvedPage() {
                 {t.privacy.noSaleStatement}
               </p>
             </div>
-            <SupporterActionForm
-              id="involved-supporter"
-              initialIntents={action ? [action] : []}
-            />
+            <SupporterActionForm id="involved-supporter" initialIntents={action ? [action] : []} />
           </div>
         </section>
       </main>

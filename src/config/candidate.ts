@@ -33,10 +33,68 @@ export const candidate: CandidateConfig = {
     donations: true,
     cardDonations: false,
     eTransfer: true,
+    donationAmounts: false,
+    rebateCalculator: false,
+    rideRequests: false,
+    videos: true,
     endorsements: false,
     lawnSigns: true,
     pledge: true,
     votingInfo: true,
+  },
+
+  donations: {
+    // DRAFT contribution UX — keep donationAmounts/rebateCalculator off until
+    // the Official Agent approves the limit, rebate, and receipt wording.
+    presetAmounts: [25, 50, 100, 250, 500, 1000, 1200],
+    allowCustomAmount: true,
+    minimumAmount: 1,
+    contributionLimit: 1200,
+    rebateMaximum: 1000,
+    rebateInfoUrl:
+      "https://www.toronto.ca/city-government/elections/candidates-third-party-advertisers/contribution-rebates/",
+  },
+
+  ride: {
+    navLabel: "Request a Ride",
+    pageTitle: "Request a Ride to Vote",
+    metaDescription:
+      "Request a campaign ride to your assigned polling place during advance voting or on election day in Ward 16 — Don Valley East.",
+    ogTitle: "Request a Ride to Vote — Team Sinan",
+    ogDescription:
+      "Team Sinan can help eligible Ward 16 voters get to their assigned polling place during advance voting and on election day.",
+    eyebrow: "Ride to the Polls",
+    heading: "Request a Ride to Vote.",
+    lede: "Team Sinan is coordinating rides to assigned polling places during advance voting and on election day.",
+    eligibleDates: [
+      { value: "2026-10-06", label: "Tuesday, October 6 — Advance voting" },
+      { value: "2026-10-07", label: "Wednesday, October 7 — Advance voting" },
+      { value: "2026-10-08", label: "Thursday, October 8 — Advance voting" },
+      { value: "2026-10-09", label: "Friday, October 9 — Advance voting" },
+      { value: "2026-10-10", label: "Saturday, October 10 — Advance voting" },
+      { value: "2026-10-11", label: "Sunday, October 11 — Advance voting" },
+      { value: "2026-10-26", label: "Monday, October 26 — Election day" },
+    ],
+    responseTime: "The campaign will respond within 48–72 hours.",
+    destinationNote: "Rides are available to your assigned polling place.",
+    availabilityNote:
+      "Submitting this request does not guarantee that a driver will be available. Please do not include medical or other sensitive information in the notes field.",
+    confirmationTitle: "Your ride request has been received.",
+    confirmationBody:
+      "Team Sinan will review your request and respond within 48–72 hours. A request does not guarantee driver availability.",
+  },
+
+  media: {
+    youtube: {
+      eyebrow: "Campaign Videos",
+      heading: "Hear From Sinan",
+      intro:
+        "Watch the latest campaign updates and conversations about the priorities that matter in Don Valley East.",
+      channelUrl: "https://www.youtube.com/@sinanerdemir-dve",
+      channelId: "UCMnxSBXSAIzzc6LQyTV0QDw",
+      // YouTube's automatic uploads playlist (UC… channel ID becomes UU…).
+      playlistId: "UUMnxSBXSAIzzc6LQyTV0QDw",
+    },
   },
 
   // Brand: #9D0202 red + black + white with Archivo Black.
@@ -369,6 +427,12 @@ export const candidate: CandidateConfig = {
         kind: "pledge",
         body: "Commit to voting in the 2026 Toronto municipal election.",
       },
+      {
+        kind: "ride",
+        title: "Request a Ride to Vote",
+        body: "Request a campaign ride to your assigned polling place during advance voting or on election day.",
+        cta: "Request a ride",
+      },
     ],
     volunteerRoles: {
       heading: "Ways to Help",
@@ -471,7 +535,7 @@ export const candidate: CandidateConfig = {
   // privacy contact role are CLIENT-GATED (interim values shipped).
   privacy: {
     effectiveDate: "2026-07-15",
-    lastUpdated: "2026-07-19",
+    lastUpdated: "2026-07-20",
     providers: [
       {
         name: "Google Sheets / Google Apps Script",
@@ -481,6 +545,11 @@ export const candidate: CandidateConfig = {
       {
         name: "GitHub Pages",
         purpose: "hosts the website and keeps standard, short-lived server access logs",
+      },
+      {
+        name: "YouTube",
+        purpose:
+          "provides the campaign-video player; YouTube receives technical information when the embedded player loads or is used",
       },
     ],
     retentionStatement:

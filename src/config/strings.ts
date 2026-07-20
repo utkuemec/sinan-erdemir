@@ -162,6 +162,17 @@ export interface UiStrings {
     phonePlaceholder: string;
     address: string;
     addressPlaceholder: string;
+    amountLegend: string;
+    otherAmountLabel: string;
+    otherAmountPlaceholder: string;
+    amountRequired: string;
+    amountBelowMinimum: (minimum: number) => string;
+    amountAboveLimit: (limit: number) => string;
+    rebateEstimate: (amount: string) => string;
+    rebateDisclaimerBeforeLink: string;
+    rebateDisclaimerLink: string;
+    rebateDisclaimerAfterLink: string;
+    instructionsAmount: (amount: string) => string;
     continue: string;
     submitting: string;
     instructionsTitle: string;
@@ -217,6 +228,7 @@ export interface UiStrings {
         contact: { heading: string; body: string };
         supporter: { heading: string; body: string };
         donation: { heading: string; body: string; etransferExtra: string };
+        ride: { heading: string; body: string };
       };
       technicalBody: string;
       useHeading: string;
@@ -269,7 +281,8 @@ const en: UiStrings = {
     errorTitle: "Something went wrong.",
     errorBodyBeforeEmail: "Your message was not sent. Please try again, or email us directly at ",
     errorBodyAfterEmail: ".",
-    timeoutError: "The request timed out — your submission may not have been received. Please try again.",
+    timeoutError:
+      "The request timed out — your submission may not have been received. Please try again.",
     configError: "The form isn't connected yet. Please email us instead.",
     successRefLabel: (submissionId) => `Reference: ${submissionId}`,
   },
@@ -416,6 +429,19 @@ const en: UiStrings = {
     phonePlaceholder: "Phone Number",
     address: "Full residential address",
     addressPlaceholder: "Full Residential Address",
+    amountLegend: "Contribution amount",
+    otherAmountLabel: "Other amount",
+    otherAmountPlaceholder: "Enter amount",
+    amountRequired: "Choose or enter a contribution amount.",
+    amountBelowMinimum: (minimum) => `The minimum online contribution is $${minimum.toFixed(2)}.`,
+    amountAboveLimit: (limit) =>
+      `A contributor may not contribute more than $${limit.toLocaleString("en-CA")} to this council candidate.`,
+    rebateEstimate: (amount) => `Estimated City of Toronto rebate: ${amount}`,
+    rebateDisclaimerBeforeLink:
+      "Estimate only. The City of Toronto—not the campaign—pays approved rebates based on your total contributions to all participating candidates. You must submit the City’s official Contribution Rebate Receipt & Application form. Contributions of $25 or less are not eligible, only individuals who normally reside in Ontario are eligible, and the maximum rebate is $1,000. ",
+    rebateDisclaimerLink: "Learn about contribution rebates",
+    rebateDisclaimerAfterLink: ".",
+    instructionsAmount: (amount) => `Amount to send: ${amount}`,
     continue: "Continue to E-Transfer Instructions",
     submitting: "Submitting…",
     instructionsTitle: "E-Transfer Instructions",
@@ -425,7 +451,8 @@ const en: UiStrings = {
     copyAria: "Copy email address",
     step1: "Open your bank's Interac e-Transfer page.",
     step2Prefix: "Send your contribution to",
-    step3: "In the message field, include the same full name you entered here so we can match your contribution.",
+    step3:
+      "In the message field, include the same full name you entered here so we can match your contribution.",
     step4: "We'll confirm receipt by email.",
     done: "Done",
     back: "Back",
@@ -437,9 +464,11 @@ const en: UiStrings = {
     // approve this wording before launch (audit P0-08).
     eligibilityLegend: "Contribution eligibility (required)",
     eligibilityItems: {
-      eligible: "I am an individual normally resident in Ontario and eligible to contribute under the Municipal Elections Act.",
+      eligible:
+        "I am an individual normally resident in Ontario and eligible to contribute under the Municipal Elections Act.",
       ownFunds: "This contribution comes from my own funds.",
-      notOnBehalf: "I am not contributing on behalf of a corporation, trade union, or another person.",
+      notOnBehalf:
+        "I am not contributing on behalf of a corporation, trade union, or another person.",
     },
     authorizedNote: (authorizedBy) => authorizedBy,
     opensExternal: "Opens in a new tab",
@@ -474,6 +503,11 @@ const en: UiStrings = {
       title: "Pledge to Vote",
       body: "Commit to making your voice heard on election day.",
       cta: "Make your pledge",
+    },
+    ride: {
+      title: "Request a Ride to Vote",
+      body: "Ask Team Sinan for a ride to your assigned polling place.",
+      cta: "Request a ride",
     },
   },
   notFound: {
@@ -514,6 +548,10 @@ const en: UiStrings = {
           etransferExtra:
             "If you start an Interac e-Transfer contribution, we collect your full name, email, phone number, and residential address, plus eligibility confirmations, because Ontario municipal campaign-finance rules require contributor records.",
         },
+        ride: {
+          heading: "Ride-to-the-polls requests",
+          body: "Your name, email, phone number, pickup address, requested voting day, and any optional notes you provide so the campaign can coordinate a ride to your assigned polling place.",
+        },
       },
       technicalBody:
         "Our website host also keeps standard, short-lived server access logs (browser type and approximate visit time). The site sets no analytics or advertising cookies.",
@@ -521,7 +559,8 @@ const en: UiStrings = {
       useBody:
         "We use this information to send campaign updates you've consented to, respond to your messages, organize volunteers and lawn signs, keep legally required contribution records, and understand community interest in the campaign.",
       providersHeading: "Service Providers",
-      providersIntro: "The campaign uses these services to operate the website and store submissions:",
+      providersIntro:
+        "The campaign uses these services to operate the website and store submissions:",
       retentionHeading: "Retention",
       choicesHeading: "Your Choices",
       choicesBodyBeforeEmail:

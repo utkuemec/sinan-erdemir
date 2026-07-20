@@ -1,48 +1,14 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "@/components/Toaster";
 import { DonateModal } from "@/components/DonateModal";
 import { DemoThemeSwitcher } from "@/components/DemoThemeSwitcher";
+import { NotFoundPage } from "@/components/NotFoundPage";
 import { candidate } from "@/config/candidate";
-import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
 import { jsonLdScripts, organizationJsonLd, webSiteJsonLd } from "@/lib/jsonld";
 
 import appCss from "../styles.css?url";
 import themesCss from "../styles/themes.css?url";
-
-const t = getStrings(candidate.locale);
-
-function NotFoundComponent() {
-  return (
-    <div className="page">
-      <main
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "120px 24px",
-        }}
-      >
-        <div style={{ maxWidth: 480, textAlign: "center" }}>
-          <p className="t-eyebrow">{t.notFound.eyebrow}</p>
-          <h1 className="section-heading" style={{ margin: "16px 0" }}>
-            {t.notFound.title}
-            <span
-              className="accent-bar"
-              aria-hidden="true"
-              style={{ marginLeft: "auto", marginRight: "auto" }}
-            />
-          </h1>
-          <p style={{ marginBottom: 24 }}>{t.notFound.body}</p>
-          <Link to="/" className="btn btn--mustard btn--lg">
-            {t.buttons.goHome}
-          </Link>
-        </div>
-      </main>
-    </div>
-  );
-}
 
 export const Route = createRootRoute({
   head: () => ({
@@ -72,7 +38,7 @@ export const Route = createRootRoute({
   }),
   shellComponent: RootShell,
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: NotFoundPage,
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {

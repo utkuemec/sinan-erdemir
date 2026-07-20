@@ -14,6 +14,7 @@ export const PAGES = [
   "/vote",
   "/contact",
   "/privacy",
+  ...(process.env.ENABLE_RIDE_REQUESTS === "true" ? ["/ride"] : []),
 ];
 
 /** Used when SITE_URL is not provided by the environment (preview builds). */

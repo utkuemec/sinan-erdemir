@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WardRouteImport } from './routes/ward'
 import { Route as VoteRouteImport } from './routes/vote'
+import { Route as RideRouteImport } from './routes/ride'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PrioritiesRouteImport } from './routes/priorities'
 import { Route as MeetTheCandidateRouteImport } from './routes/meet-the-candidate'
@@ -27,6 +28,11 @@ const WardRoute = WardRouteImport.update({
 const VoteRoute = VoteRouteImport.update({
   id: '/vote',
   path: '/vote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RideRoute = RideRouteImport.update({
+  id: '/ride',
+  path: '/ride',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/meet-the-candidate': typeof MeetTheCandidateRoute
   '/priorities': typeof PrioritiesRoute
   '/privacy': typeof PrivacyRoute
+  '/ride': typeof RideRoute
   '/vote': typeof VoteRoute
   '/ward': typeof WardRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/meet-the-candidate': typeof MeetTheCandidateRoute
   '/priorities': typeof PrioritiesRoute
   '/privacy': typeof PrivacyRoute
+  '/ride': typeof RideRoute
   '/vote': typeof VoteRoute
   '/ward': typeof WardRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/meet-the-candidate': typeof MeetTheCandidateRoute
   '/priorities': typeof PrioritiesRoute
   '/privacy': typeof PrivacyRoute
+  '/ride': typeof RideRoute
   '/vote': typeof VoteRoute
   '/ward': typeof WardRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/meet-the-candidate'
     | '/priorities'
     | '/privacy'
+    | '/ride'
     | '/vote'
     | '/ward'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/meet-the-candidate'
     | '/priorities'
     | '/privacy'
+    | '/ride'
     | '/vote'
     | '/ward'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/meet-the-candidate'
     | '/priorities'
     | '/privacy'
+    | '/ride'
     | '/vote'
     | '/ward'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   MeetTheCandidateRoute: typeof MeetTheCandidateRoute
   PrioritiesRoute: typeof PrioritiesRoute
   PrivacyRoute: typeof PrivacyRoute
+  RideRoute: typeof RideRoute
   VoteRoute: typeof VoteRoute
   WardRoute: typeof WardRoute
 }
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/vote'
       fullPath: '/vote'
       preLoaderRoute: typeof VoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ride': {
+      id: '/ride'
+      path: '/ride'
+      fullPath: '/ride'
+      preLoaderRoute: typeof RideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   MeetTheCandidateRoute: MeetTheCandidateRoute,
   PrioritiesRoute: PrioritiesRoute,
   PrivacyRoute: PrivacyRoute,
+  RideRoute: RideRoute,
   VoteRoute: VoteRoute,
   WardRoute: WardRoute,
 }

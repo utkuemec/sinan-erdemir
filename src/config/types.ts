@@ -81,6 +81,14 @@ export interface FeatureFlags {
   cardDonations: boolean;
   /** E-transfer flow inside the donate modal (official-agent sign-off). */
   eTransfer: boolean;
+  /** Amount chooser for donations; disabled until official-agent sign-off. */
+  donationAmounts: boolean;
+  /** City of Toronto rebate estimate; disabled until official-agent sign-off. */
+  rebateCalculator: boolean;
+  /** Campaign-operated ride request workflow; disabled until backend/ops are ready. */
+  rideRequests: boolean;
+  /** Campaign YouTube section. */
+  videos: boolean;
   endorsements: boolean;
   lawnSigns: boolean;
   pledge: boolean;
@@ -102,6 +110,43 @@ export interface VotingConfig {
   sections: { icon: LucideIcon; heading: string; items: string[] }[];
   officialLinks: { label: string; url: string }[];
   disclaimer: string;
+}
+
+export interface DonationsConfig {
+  presetAmounts: number[];
+  allowCustomAmount: boolean;
+  minimumAmount: number;
+  contributionLimit: number;
+  rebateMaximum: number;
+  rebateInfoUrl: string;
+}
+
+export interface RideConfig {
+  navLabel: string;
+  pageTitle: string;
+  metaDescription: string;
+  ogTitle: string;
+  ogDescription: string;
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  eligibleDates: { value: string; label: string }[];
+  responseTime: string;
+  destinationNote: string;
+  availabilityNote: string;
+  confirmationTitle: string;
+  confirmationBody: string;
+}
+
+export interface MediaConfig {
+  youtube: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    channelUrl: string;
+    channelId: string;
+    playlistId: string;
+  };
 }
 
 /** Facts the privacy policy renders so it always matches real data flows. */
@@ -156,7 +201,8 @@ export type BuiltinCardKind =
   | "endorse"
   | "lawn-sign"
   | "host-event"
-  | "pledge";
+  | "pledge"
+  | "ride";
 
 export type GetInvolvedCard =
   | { kind: BuiltinCardKind; title?: string; body?: string; cta?: string }
@@ -230,6 +276,12 @@ export interface CandidateConfig {
   };
 
   features: FeatureFlags;
+
+  donations: DonationsConfig;
+
+  ride: RideConfig;
+
+  media: MediaConfig;
 
   voting: VotingConfig;
 

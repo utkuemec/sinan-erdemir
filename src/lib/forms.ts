@@ -27,7 +27,7 @@ import type {
 
 const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT as string | undefined;
 
-export type FormType = "signup" | "contact" | "supporter" | "donate-etransfer";
+export type FormType = "signup" | "contact" | "supporter" | "donate-etransfer" | "ride-request";
 
 /** Field caps — mirrored in the Apps Script SCHEMAS; keep both in sync. */
 export const FIELD_LIMITS = {
@@ -100,16 +100,29 @@ export interface EtransferSubmission extends BaseSubmission {
   email: string;
   phone: string;
   address: string;
+  /** Optional until the Official Agent approves and enables the amount chooser. */
+  amount?: number;
   eligibilityConfirmed: boolean;
   ownFundsConfirmed: boolean;
   notOnBehalfConfirmed: boolean;
+}
+
+export interface RideRequestSubmission extends BaseSubmission {
+  formType: "ride-request";
+  fullName: string;
+  email: string;
+  phone: string;
+  pickupAddress: string;
+  requestedDate: string;
+  notes: string;
 }
 
 export type AnySubmission =
   | SignupSubmission
   | ContactSubmission
   | SupporterSubmission
-  | EtransferSubmission;
+  | EtransferSubmission
+  | RideRequestSubmission;
 
 export type SubmitOutcome =
   | { status: "ok"; submissionId: string }
