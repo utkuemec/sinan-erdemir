@@ -34,8 +34,7 @@ export const candidate: CandidateConfig = {
     eTransfer: true,
     donationAmounts: true,
     rebateCalculator: true,
-    // Keep hidden until CodeV2.js is deployed and VITE_FORM_ENDPOINT is set.
-    rideRequests: false,
+    rideRequests: true,
     videos: true,
     endorsements: false,
     lawnSigns: true,

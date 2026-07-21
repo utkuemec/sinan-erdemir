@@ -43,6 +43,7 @@ jobs:
           # Used by scripts/generate-seo-files.mjs for sitemap/robots URLs.
           # AT LAUNCH: change to https://votesinan.com
           SITE_URL: https://lumin8hub.github.io/sinan-erdemir
+          ENABLE_RIDE_REQUESTS: "true"
           VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
         run: bun run build
 
