@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
-import { openDonateModal } from "@/lib/donateModal";
 import { trapFocus } from "@/lib/focusTrap";
 import { candidate } from "@/config/candidate";
 import { NAV_LINKS } from "@/config/nav";
@@ -77,15 +76,9 @@ export function Header({ variant = "overlay" }: HeaderProps) {
           </ul>
           <div className="site-nav__ctas">
             {candidate.features.donations && (
-              <button
-                type="button"
-                className="btn btn--primary"
-                onClick={() => {
-                  openDonateModal();
-                }}
-              >
+              <Link to="/donate" className="btn btn--primary">
                 {t.buttons.donate}
-              </button>
+              </Link>
             )}
           </div>
         </nav>
@@ -132,16 +125,13 @@ export function Header({ variant = "overlay" }: HeaderProps) {
             {t.buttons.volunteer}
           </Link>
           {candidate.features.donations && (
-            <button
-              type="button"
+            <Link
+              to="/donate"
               className="btn btn--primary btn--lg"
-              onClick={() => {
-                setMenuOpen(false);
-                openDonateModal();
-              }}
+              onClick={() => setMenuOpen(false)}
             >
               {t.buttons.donate}
-            </button>
+            </Link>
           )}
         </div>
       </div>

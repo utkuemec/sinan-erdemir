@@ -16,6 +16,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PrioritiesRouteImport } from './routes/priorities'
 import { Route as MeetTheCandidateRouteImport } from './routes/meet-the-candidate'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
+import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
@@ -55,6 +56,11 @@ const GetInvolvedRoute = GetInvolvedRouteImport.update({
   path: '/get-involved',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/meet-the-candidate': typeof MeetTheCandidateRoute
   '/priorities': typeof PrioritiesRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/meet-the-candidate': typeof MeetTheCandidateRoute
   '/priorities': typeof PrioritiesRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
   '/meet-the-candidate': typeof MeetTheCandidateRoute
   '/priorities': typeof PrioritiesRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/contact'
+    | '/donate'
     | '/get-involved'
     | '/meet-the-candidate'
     | '/priorities'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/contact'
+    | '/donate'
     | '/get-involved'
     | '/meet-the-candidate'
     | '/priorities'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/contact'
+    | '/donate'
     | '/get-involved'
     | '/meet-the-candidate'
     | '/priorities'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
+  DonateRoute: typeof DonateRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
   MeetTheCandidateRoute: typeof MeetTheCandidateRoute
   PrioritiesRoute: typeof PrioritiesRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GetInvolvedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
+  DonateRoute: DonateRoute,
   GetInvolvedRoute: GetInvolvedRoute,
   MeetTheCandidateRoute: MeetTheCandidateRoute,
   PrioritiesRoute: PrioritiesRoute,

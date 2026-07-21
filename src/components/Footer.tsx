@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Linkedin, Mail, Music2, Phone, Twitter, Youtube, type LucideIcon } from "lucide-react";
 import { Logo } from "./Logo";
-import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { FOOTER_LINKS } from "@/config/nav";
 import { getStrings } from "@/config/strings";
@@ -31,9 +30,9 @@ export function Footer() {
             {t.buttons.volunteer}
           </Link>
           {candidate.features.donations && (
-            <button type="button" className="btn btn--primary" onClick={() => openDonateModal()}>
+            <Link to="/donate" className="btn btn--primary">
               {t.buttons.donate}
-            </button>
+            </Link>
           )}
         </div>
       </div>

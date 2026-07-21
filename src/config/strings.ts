@@ -203,6 +203,36 @@ export interface UiStrings {
     authorizedNote: (authorizedBy: string) => string;
     opensExternal: string;
   };
+  donatePage: {
+    pageTitle: string;
+    metaDescription: string;
+    ogDescription: string;
+    eyebrow: string;
+    heading: string;
+    appeal: string[];
+    photoAlt: string;
+    limitHeading: string;
+    limitBody: string;
+    rebateHeading: string;
+    rebateIntro: string;
+    rebateRules: string[];
+    rebateNotes: string;
+    chartHeading: string;
+    chartIntro: string;
+    chartColDonation: string;
+    chartColRebate: string;
+    chartColCost: string;
+    chartFootnote: string;
+    amountHeading: string;
+    amountIntro: string;
+    yourDonation: (amount: string) => string;
+    costAfterRebate: (cost: string) => string;
+    paymentHeading: string;
+    paymentIntro: string;
+    creditCardCta: string;
+    etransferCta: string;
+    chooseAmountFirst: string;
+  };
   getInvolvedCards: Record<BuiltinCardKind, { title: string; body: string; cta: string }>;
   notFound: {
     eyebrow: string;
@@ -472,6 +502,52 @@ const en: UiStrings = {
     },
     authorizedNote: (authorizedBy) => authorizedBy,
     opensExternal: "Opens in a new tab",
+  },
+  donatePage: {
+    pageTitle: "Donate",
+    metaDescription:
+      "Support Sinan Erdemir's campaign for Toronto City Council in Ward 16 — Don Valley East. Give by credit card or e-transfer and see your City of Toronto rebate estimate.",
+    ogDescription:
+      "Chip in to a resident-powered campaign for Ward 16 — Don Valley East. Most of your contribution comes back through the City of Toronto rebate.",
+    eyebrow: "Support the Campaign",
+    heading: "Chip In for Don Valley East",
+    appeal: [
+      "Campaigns in Don Valley East are powered by neighbours, not developers. Every contribution goes straight into the work that reaches residents — lawn signs, printed literature for the doors, and the digital outreach that tells people who is on the ballot and why.",
+      "A strong local campaign costs money, but it should never depend on big money. Your contribution keeps this one accountable to the people it hopes to represent.",
+      "Whatever you can give makes a real difference — and because of the City of Toronto's rebate program, most of it comes back to you. Thank you for standing with us.",
+    ],
+    photoAlt: "Sinan Erdemir talking with residents in Don Valley East",
+    limitHeading: "Contribution limit & eligibility",
+    limitBody:
+      "The most you may contribute to a Toronto council candidate is $1,200. Contributions may only be made by individuals who normally reside in Ontario, using your own funds. Political contributions are not tax deductible — but most of your contribution is eligible for a City of Toronto rebate, explained below.",
+    rebateHeading: "How the City of Toronto rebate works",
+    rebateIntro:
+      "Toronto's Contribution Rebate Program returns most of your contribution to you. The rebate is calculated in tiers:",
+    rebateRules: [
+      "75% of the first $300",
+      "50% of the amount from $300.01 to $1,000",
+      "33⅓% of the amount over $1,000",
+    ],
+    rebateNotes:
+      "The maximum rebate is $1,000. Contributions of $25 or less are not eligible, and only individuals who normally reside in Ontario can claim a rebate.",
+    chartHeading: "What your contribution really costs",
+    chartIntro:
+      "After the City's rebate, your out-of-pocket cost is far lower than your contribution. A few examples:",
+    chartColDonation: "Your contribution",
+    chartColRebate: "Estimated rebate",
+    chartColCost: "Actual cost after rebate",
+    chartFootnote:
+      "Estimates based on the City of Toronto rebate formula. The City — not the campaign — pays approved rebates based on your total contributions to all participating candidates.",
+    amountHeading: "Choose your contribution",
+    amountIntro: "Pick an amount to see your estimated rebate and actual cost after the rebate.",
+    yourDonation: (amount) => `Your contribution: ${amount}`,
+    costAfterRebate: (cost) => `Actual cost after rebate: ${cost}`,
+    paymentHeading: "How would you like to give?",
+    paymentIntro:
+      "Credit-card contributions are processed securely off-site. E-transfer is handled directly by the campaign.",
+    creditCardCta: "Donate by credit card",
+    etransferCta: "Donate by e-transfer",
+    chooseAmountFirst: "Please choose or enter a contribution amount above first.",
   },
   getInvolvedCards: {
     volunteer: {

@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
 
@@ -32,13 +31,9 @@ export function FinalCta() {
             </Link>
           )}
           {candidate.features.donations && (
-            <button
-              type="button"
-              className="btn btn--paper-on-red"
-              onClick={() => openDonateModal()}
-            >
+            <Link to="/donate" className="btn btn--paper-on-red">
               {t.buttons.donate}
-            </button>
+            </Link>
           )}
           {candidate.features.rideRequests && (
             <Link to="/ride" className="btn btn--paper-on-red">

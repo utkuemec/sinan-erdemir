@@ -12,7 +12,6 @@ import {
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SupporterActionForm } from "@/components/forms/SupporterActionForm";
-import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { pageHead } from "@/lib/seo";
 import { getStrings } from "@/config/strings";
@@ -138,13 +137,9 @@ function CardShell({
 
   if (card.action.type === "donate") {
     return (
-      <button
-        type="button"
-        className={`action-card action-card--${variant}`}
-        onClick={() => openDonateModal()}
-      >
+      <Link to="/donate" className={`action-card action-card--${variant}`}>
         {inner}
-      </button>
+      </Link>
     );
   }
   if (card.action.type === "intent") {

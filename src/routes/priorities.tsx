@@ -84,7 +84,7 @@ function PrioritiesPage() {
             </div>
           </div>
         </section>
-        <CampaignVideos />
+        {candidate.features.videos && <CampaignVideos />}
       </main>
       <Footer />
     </div>

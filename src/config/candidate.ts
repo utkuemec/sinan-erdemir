@@ -35,7 +35,9 @@ export const candidate: CandidateConfig = {
     donationAmounts: true,
     rebateCalculator: true,
     rideRequests: true,
-    videos: true,
+    // Temporarily hidden until a campaign video exists (feedback round 2 #3).
+    // This also drops the YouTube data-processor row on the privacy page.
+    videos: false,
     endorsements: false,
     lawnSigns: true,
     pledge: true,
@@ -344,6 +346,51 @@ export const candidate: CandidateConfig = {
           src: "/images/community/photo-06.jpg",
           alt: "Sinan Erdemir speaking with a group of neighbours at a park gathering",
           focal: "50% 45%",
+        },
+        {
+          src: "/images/community/photo-07.jpg",
+          alt: "Sinan Erdemir with a Toronto school crossing guard beside a hand-painted Merry Christmas stop sign",
+          focal: "50% 35%",
+        },
+        {
+          src: "/images/community/photo-08.jpg",
+          alt: "Sinan Erdemir talking with residents seated in the shade at a Don Valley East park",
+          focal: "50% 30%",
+        },
+        {
+          src: "/images/community/photo-09.jpg",
+          alt: "Sinan Erdemir giving a thumbs up with a Toronto police officer at a neighbourhood event",
+          focal: "50% 30%",
+        },
+        {
+          src: "/images/community/photo-10.jpg",
+          alt: "Sinan Erdemir at a campaign outreach table with a volunteer and a Toronto police officer",
+          focal: "50% 40%",
+        },
+        {
+          src: "/images/community/photo-11.jpg",
+          alt: "Sinan Erdemir listening to two residents during a one-on-one conversation at a park",
+          focal: "50% 35%",
+        },
+        {
+          src: "/images/community/photo-12.jpg",
+          alt: "Sinan Erdemir talking with neighbours in a parking lot at a community outing",
+          focal: "50% 30%",
+        },
+        {
+          src: "/images/community/photo-13.jpg",
+          alt: "Sinan Erdemir with members of the Toronto Police Service at a 32 Division community meeting",
+          focal: "50% 30%",
+        },
+        {
+          src: "/images/community/photo-14.jpg",
+          alt: "Sinan Erdemir sharing a meal with two Toronto police officers at a local restaurant",
+          focal: "50% 35%",
+        },
+        {
+          src: "/images/community/photo-15.jpg",
+          alt: "Sinan Erdemir in conversation with residents at a summer park gathering",
+          focal: "50% 35%",
         },
       ],
     },

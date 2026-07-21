@@ -65,41 +65,43 @@ function VotePage() {
                 })}
               </div>
 
-              <p style={{ marginTop: 32 }}>
-                Official details, accessible-voting options, and your exact voting place:{" "}
-                {voting.officialLinks.map((link, i) => (
-                  <span key={link.url}>
-                    {i > 0 && " and "}
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      {link.label}{" "}
-                      <ExternalLink
-                        size={14}
-                        style={{ verticalAlign: "-2px" }}
-                        aria-hidden="true"
-                      />
-                    </a>
-                  </span>
-                ))}
-                . {voting.disclaimer}
-              </p>
-
-              <p className="voting__verified">
-                Last verified against the City Clerk's information: {voting.lastVerified}.
-              </p>
-
-              <p style={{ marginTop: 16 }}>
-                Ready to help before election day?{" "}
-                <Link to="/get-involved" search={{ action: "pledge" }} hash="join">
-                  Pledge your vote or join Team Sinan →
-                </Link>
-              </p>
-
-              {candidate.features.rideRequests && (
-                <p style={{ marginTop: 16 }}>
-                  Need help getting to your assigned polling place?{" "}
-                  <Link to="/ride">Request a ride from Team Sinan →</Link>
+              <div className="ward-map__notes">
+                <p>
+                  Official details, accessible-voting options, and your exact voting place:{" "}
+                  {voting.officialLinks.map((link, i) => (
+                    <span key={link.url}>
+                      {i > 0 && " and "}
+                      <a href={link.url} target="_blank" rel="noopener noreferrer">
+                        {link.label}{" "}
+                        <ExternalLink
+                          size={14}
+                          style={{ verticalAlign: "-2px" }}
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </span>
+                  ))}
+                  . {voting.disclaimer}
                 </p>
-              )}
+
+                <p className="voting__verified">
+                  Last verified against the City Clerk's information: {voting.lastVerified}.
+                </p>
+
+                <p>
+                  Ready to help before election day?{" "}
+                  <Link to="/get-involved" search={{ action: "pledge" }} hash="join">
+                    Pledge your vote or join Team Sinan →
+                  </Link>
+                </p>
+
+                {candidate.features.rideRequests && (
+                  <p>
+                    Need help getting to your assigned polling place?{" "}
+                    <Link to="/ride">Request a ride from Team Sinan →</Link>
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </section>

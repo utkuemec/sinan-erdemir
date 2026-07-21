@@ -12,6 +12,7 @@ export const PAGES = [
   "/community",
   "/get-involved",
   "/vote",
+  "/donate",
   "/contact",
   "/privacy",
   ...(process.env.ENABLE_RIDE_REQUESTS === "true" ? ["/ride"] : []),

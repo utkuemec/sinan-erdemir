@@ -57,6 +57,12 @@
   --c-ink: #1A1A1A;
   --c-ink-soft: #3A3A3A;
 
+  /* Blush — a light tint of the brand primary, mixed live from --c-mustard so
+     it tracks every palette (under victory-red ≈ #f2e0e0). Background tint
+     ONLY: body text on blush stays --c-ink; never white text on blush. */
+  --c-blush: color-mix(in srgb, var(--c-mustard) 9%, #ffffff);       /* soft section / callout bg */
+  --c-blush-deep: color-mix(in srgb, var(--c-mustard) 14%, #ffffff); /* chips, hovers, row striping */
+
   /* Display-font weight — 400 for Anton (single-weight); font-pairing
      presets that use multi-weight families override this (see themes.css). */
   --fw-display: 400;
@@ -667,7 +673,7 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
    HOMEPAGE PRIORITIES
    ========================================================================= */
 .priorities--home {
-  background: var(--c-paper);
+  background: var(--c-blush);
   padding: var(--space-section) 0;
 }
 .priorities--home .priorities__inner {
@@ -703,7 +709,7 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   margin-bottom: var(--sp-8);
 }
 .priorities--home .priority-card {
-  background: var(--c-cream);
+  background: var(--c-paper);
   border-radius: var(--radius-lg);
   padding: var(--sp-6);
   position: relative;
@@ -1351,6 +1357,24 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   color: var(--c-mustard);
   font-weight: 700;
 }
+/* Trailing voting notes: a centred blush callout that lines up with the
+   700px school grid above (fixes the off-centre trailing paragraphs —
+   feedback round 2 #4 — and adds the blush accent from #2). Text stays
+   --c-ink on blush for AA contrast. */
+.ward-map__notes {
+  max-width: 700px;
+  margin: var(--sp-7) auto 0;
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--c-blush);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+.ward-map__notes p {
+  margin: 0;
+  color: var(--c-ink);
+}
+.ward-map__notes p + p { margin-top: var(--sp-3); }
+.ward-map__notes .voting__verified { margin-top: var(--sp-2); }
 
 /* =========================================================================
    COMMUNITY
@@ -1441,7 +1465,7 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   width: 56px; height: 56px;
   flex-shrink: 0;
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--c-mustard) 10%, #ffffff);
+  background: var(--c-blush-deep);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2095,7 +2119,7 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
    ========================================================================= */
 .photo-gallery-section {
   padding: var(--space-section) 0;
-  background: var(--c-cream);
+  background: var(--c-blush);
 }
 .photo-gallery-section__eyebrow { text-align: center; margin-bottom: var(--sp-2); }
 .photo-gallery-section__heading {
@@ -2255,11 +2279,11 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 .intent-pill input { width: 18px; height: 18px; accent-color: var(--c-mustard); }
 .intent-pill--active {
   border-color: var(--c-mustard);
-  background: color-mix(in srgb, var(--c-mustard) 8%, #ffffff);
+  background: var(--c-blush);
 }
 
 .form-error {
-  background: color-mix(in srgb, var(--c-mustard) 10%, #ffffff);
+  background: var(--c-blush);
   border: 1px solid var(--c-mustard);
   border-radius: var(--radius-md);
   color: var(--c-ink);
@@ -2786,7 +2810,7 @@ html[data-hero="split"] .hero__ctas .btn--mustard {
 .donate-amount__presets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-2); }
 .donate-amount__chip { min-height: 44px; border: 2px solid var(--border-medium); border-radius: var(--radius-md); background: #fff; color: var(--c-ink); font-weight: 700; padding: 8px; }
 .donate-amount__chip:hover,
-.donate-amount__chip[aria-pressed="true"] { border-color: var(--c-mustard-deep); background: color-mix(in srgb, var(--c-mustard) 14%, #fff); }
+.donate-amount__chip[aria-pressed="true"] { border-color: var(--c-mustard-deep); background: var(--c-blush-deep); }
 .donate-amount__custom { display: flex; flex-direction: column; gap: 6px; margin-top: var(--sp-3); color: var(--c-ink); font-size: 14px; font-weight: 700; }
 .donate-amount__input-wrap { display: grid; grid-template-columns: auto 1fr; align-items: center; border: 1px solid var(--border-input); border-radius: var(--radius-md); background: #fff; overflow: hidden; }
 .donate-amount__input-wrap > span { padding-left: 14px; color: var(--fg-muted); }
@@ -2801,6 +2825,174 @@ html[data-hero="split"] .hero__ctas .btn--mustard {
 .donate-rebate a { color: var(--c-red); font-weight: 700; }
 .donate-instructions__amount { border: 1px solid var(--border-soft); border-radius: var(--radius-md); background: #fff; margin: 0 0 var(--sp-4); padding: var(--sp-3); }
 .donate-form .btn--full { white-space: normal; }
+
+/* =========================================================================
+   DONATE PAGE (/donate)
+   =========================================================================
+   Full donation page (replaces the modal-only flow): appeal + photo, the
+   contribution limit, a blush rebate explainer + a rebate chart generated
+   from calculateContributionRebate, a live amount picker, and the payment
+   options. Reuses the modal's .donate-option / .donate-amount / .donate-form
+   / .donate-rebate component styles. */
+.donate-hero {
+  background: var(--c-paper);
+  padding: var(--space-section) 0 var(--sp-6);
+}
+.donate-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--sp-7);
+  align-items: center;
+}
+.donate-hero__appeal {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--c-ink-soft);
+  margin: 0 0 var(--sp-3);
+  max-width: 60ch;
+}
+.donate-hero__appeal:last-child { margin-bottom: 0; }
+.donate-hero__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 30%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.donate-body {
+  background: var(--c-paper);
+  padding: 0 0 var(--space-section);
+}
+.donate-body__inner {
+  max-width: var(--container-reading);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-7);
+}
+.donate-section-heading {
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+  margin: 0 0 var(--sp-3);
+}
+.donate-section-heading--sm { font-size: 22px; }
+.donate-limit p { color: var(--c-ink-soft); margin: 0; }
+
+/* Rebate explainer — blush callout (Alaa Adib-style). Text stays --c-ink. */
+.donate-rebate-box {
+  background: var(--c-blush);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+}
+.donate-rebate-box > p { margin: 0; }
+.donate-rebate-box__rules {
+  list-style: none;
+  padding: 0;
+  margin: var(--sp-3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.donate-rebate-box__rules li {
+  position: relative;
+  padding-left: 1.7em;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+.donate-rebate-box__rules li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  color: var(--c-mustard);
+  font-weight: 700;
+}
+.donate-rebate-box__notes {
+  font-size: var(--fs-body-sm);
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+/* Rebate chart — brand-red header, blush row striping (Curran-style). */
+.donate-chart-scroll { overflow-x: auto; }
+.donate-chart {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-body-sm);
+  margin-top: var(--sp-3);
+}
+.donate-chart th,
+.donate-chart td {
+  padding: var(--sp-3) var(--sp-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border-soft);
+  white-space: nowrap;
+}
+.donate-chart thead th {
+  background: var(--c-mustard);
+  color: var(--fg-on-mustard);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 13px;
+}
+.donate-chart tbody tr:nth-child(even) { background: var(--c-blush); }
+.donate-chart td:first-child { font-weight: 700; }
+.donate-chart td:last-child { font-weight: 700; color: var(--c-mustard); }
+.donate-chart__footnote {
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+  margin-top: var(--sp-3);
+}
+
+/* Live estimate: stack the summary lines and emphasise the cost line. */
+.donate-rebate strong { display: block; }
+.donate-rebate__cost { color: var(--c-mustard); font-size: var(--fs-body); margin-top: 2px; }
+
+/* Payment options laid out as side-by-side cards with a visible border. */
+.donate-pay .donate-options {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: var(--sp-4);
+}
+.donate-pay .donate-option {
+  flex: 1 1 240px;
+  border: 2px solid var(--border-medium);
+  text-decoration: none;
+}
+.donate-etransfer-panel {
+  margin-top: var(--sp-5);
+  padding: var(--sp-6);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--c-paper);
+}
+.donate-etransfer-panel > p { color: var(--c-ink-soft); margin-top: 0; }
+.donate-pay__authorized {
+  margin-top: var(--sp-5);
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+}
+.donate-instructions__title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 0 0 var(--sp-2);
+}
+.donate-instructions p { color: var(--c-ink-soft); }
+
+@media (max-width: 899px) {
+  .donate-hero__inner { grid-template-columns: 1fr; gap: var(--sp-6); }
+}
 
 .campaign-videos { background: #fff; padding: var(--space-section) 0; }
 .campaign-videos__inner { display: flex; flex-direction: column; align-items: center; }

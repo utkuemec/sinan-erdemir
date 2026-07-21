@@ -6,7 +6,6 @@ import { Footer } from "@/components/Footer";
 import { CompactSignupForm } from "@/components/forms/CompactSignupForm";
 import { FinalCta } from "@/components/FinalCta";
 import { PhotoGallery } from "@/components/PhotoGallery";
-import { openDonateModal } from "@/lib/donateModal";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
@@ -77,13 +76,9 @@ function HomePage() {
                   {t.buttons.volunteer}
                 </a>
                 {features.donations && (
-                  <button
-                    type="button"
-                    className="btn btn--paper-on-red btn--lg"
-                    onClick={() => openDonateModal()}
-                  >
+                  <Link to="/donate" className="btn btn--paper-on-red btn--lg">
                     {t.buttons.donate}
-                  </button>
+                  </Link>
                 )}
               </div>
             </div>
@@ -154,13 +149,9 @@ function HomePage() {
                 <p className="pillar__body">{p.body}</p>
                 {p.cta &&
                   ("action" in p.cta ? (
-                    <button
-                      type="button"
-                      className="btn btn--ink btn--sm pillar__cta"
-                      onClick={() => openDonateModal()}
-                    >
+                    <Link to="/donate" className="btn btn--ink btn--sm pillar__cta">
                       {p.cta.label}
-                    </button>
+                    </Link>
                   ) : (
                     <Link to={p.cta.to} className="btn btn--ink btn--sm pillar__cta">
                       {p.cta.label}

@@ -21,6 +21,15 @@ const MANIFEST = [
   { src: "community/photo-04.jpg", widths: [480, 800] },
   { src: "community/photo-05.jpg", widths: [480, 800] },
   { src: "community/photo-06.jpg", widths: [480, 800] },
+  { src: "community/photo-07.jpg", widths: [480, 800] },
+  { src: "community/photo-08.jpg", widths: [480, 800] },
+  { src: "community/photo-09.jpg", widths: [480, 800] },
+  { src: "community/photo-10.jpg", widths: [480, 800] },
+  { src: "community/photo-11.jpg", widths: [480, 800] },
+  { src: "community/photo-12.jpg", widths: [480, 800] },
+  { src: "community/photo-13.jpg", widths: [480, 800] },
+  { src: "community/photo-14.jpg", widths: [480, 800] },
+  { src: "community/photo-15.jpg", widths: [480, 800] },
   { src: "ward-map.png", widths: [620], formats: ["webp", "png"] },
 ];
 
