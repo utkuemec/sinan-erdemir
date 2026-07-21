@@ -66,41 +66,53 @@ function VotePage() {
               </div>
 
               <div className="ward-map__notes">
-                <p>
-                  Official details, accessible-voting options, and your exact voting place:{" "}
-                  {voting.officialLinks.map((link, i) => (
-                    <span key={link.url}>
-                      {i > 0 && " and "}
-                      <a href={link.url} target="_blank" rel="noopener noreferrer">
-                        {link.label}{" "}
-                        <ExternalLink
-                          size={14}
-                          style={{ verticalAlign: "-2px" }}
-                          aria-hidden="true"
-                        />
-                      </a>
-                    </span>
-                  ))}
-                  . {voting.disclaimer}
+                <p className="ward-map__notes-lead">
+                  Official details, accessible-voting options, and your exact voting place:
                 </p>
-
+                <ul className="ward-map__official-links">
+                  {voting.officialLinks.map((link) => (
+                    <li key={link.url}>
+                      <a
+                        className="ward-map__official-link"
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label}
+                        <ExternalLink size={14} aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p className="ward-map__notes-fine">{voting.disclaimer}</p>
                 <p className="voting__verified">
                   Last verified against the City Clerk's information: {voting.lastVerified}.
                 </p>
 
-                <p>
-                  Ready to help before election day?{" "}
-                  <Link to="/get-involved" search={{ action: "pledge" }} hash="join">
-                    Pledge your vote or join Team Sinan →
+                <div className="ward-map__notes-actions">
+                  <Link
+                    className="ward-map__action-link"
+                    to="/get-involved"
+                    search={{ action: "pledge" }}
+                    hash="join"
+                  >
+                    <span className="ward-map__action-q">Ready to help before election day?</span>
+                    <strong className="ward-map__action-cta">
+                      Pledge your vote or join Team Sinan →
+                    </strong>
                   </Link>
-                </p>
 
-                {candidate.features.rideRequests && (
-                  <p>
-                    Need help getting to your assigned polling place?{" "}
-                    <Link to="/ride">Request a ride from Team Sinan →</Link>
-                  </p>
-                )}
+                  {candidate.features.rideRequests && (
+                    <Link className="ward-map__action-link" to="/ride">
+                      <span className="ward-map__action-q">
+                        Need help getting to your assigned polling place?
+                      </span>
+                      <strong className="ward-map__action-cta">
+                        Request a ride from Team Sinan →
+                      </strong>
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>

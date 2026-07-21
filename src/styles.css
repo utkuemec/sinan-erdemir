@@ -1357,24 +1357,85 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   color: var(--c-mustard);
   font-weight: 700;
 }
-/* Trailing voting notes: a centred blush callout that lines up with the
-   700px school grid above (fixes the off-centre trailing paragraphs —
-   feedback round 2 #4 — and adds the blush accent from #2). Text stays
-   --c-ink on blush for AA contrast. */
+/* Trailing voting notes: a left-aligned blush callout centred as a block over
+   the 700px school grid above (feedback round 2 #4). Official links render as
+   chips with the external-link glyph locked to the label; the two follow-up
+   actions become distinct cards. Text stays --c-ink on blush for AA contrast. */
 .ward-map__notes {
-  max-width: 700px;
+  max-width: 720px;
   margin: var(--sp-7) auto 0;
-  padding: var(--sp-5) var(--sp-6);
+  padding: var(--sp-6);
   background: var(--c-blush);
   border-radius: var(--radius-lg);
-  text-align: center;
+  text-align: left;
 }
-.ward-map__notes p {
-  margin: 0;
+.ward-map__notes-lead {
+  margin: 0 0 var(--sp-3);
   color: var(--c-ink);
+  font-weight: 600;
 }
-.ward-map__notes p + p { margin-top: var(--sp-3); }
-.ward-map__notes .voting__verified { margin-top: var(--sp-2); }
+.ward-map__official-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--sp-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.ward-map__official-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 8px 14px;
+  background: var(--c-paper);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  color: var(--c-ink);
+  text-decoration: none;
+  transition: border-color 140ms ease, transform 140ms ease;
+}
+.ward-map__official-link:hover {
+  border-color: var(--c-mustard);
+  transform: translateY(-1px);
+}
+.ward-map__official-link svg {
+  flex-shrink: 0;
+  color: var(--c-mustard);
+}
+.ward-map__notes-fine {
+  font-size: var(--fs-body-sm);
+  color: var(--c-ink-soft);
+  margin: 0 0 var(--sp-2);
+}
+.ward-map__notes .voting__verified { margin: 0; }
+.ward-map__notes-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border-soft);
+}
+.ward-map__action-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--sp-4);
+  background: var(--c-paper);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+.ward-map__action-link:hover {
+  border-color: var(--c-mustard);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.ward-map__action-q { font-size: var(--fs-body-sm); color: var(--c-ink-soft); }
+.ward-map__action-cta { color: var(--c-mustard); font-weight: 700; }
 
 /* =========================================================================
    COMMUNITY
