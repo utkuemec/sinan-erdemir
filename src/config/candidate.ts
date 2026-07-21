@@ -26,15 +26,15 @@ import type { CandidateConfig } from "./types";
 export const candidate: CandidateConfig = {
   locale: "en",
 
-  // Feature switches — flip without deleting code. eTransfer stays on per
-  // the campaign's decision; wording inside the flow is pending official-
-  // agent review and the flag is the kill switch if that stalls.
+  // Live campaign features. Zeffy handles card donations, while the existing
+  // campaign-record flow remains available for e-transfer contributions.
   features: {
     donations: true,
-    cardDonations: false,
+    cardDonations: true,
     eTransfer: true,
-    donationAmounts: false,
-    rebateCalculator: false,
+    donationAmounts: true,
+    rebateCalculator: true,
+    // Keep hidden until CodeV2.js is deployed and VITE_FORM_ENDPOINT is set.
     rideRequests: false,
     videos: true,
     endorsements: false,
@@ -44,8 +44,6 @@ export const candidate: CandidateConfig = {
   },
 
   donations: {
-    // DRAFT contribution UX — keep donationAmounts/rebateCalculator off until
-    // the Official Agent approves the limit, rebate, and receipt wording.
     presetAmounts: [25, 50, 100, 250, 500, 1000, 1200],
     allowCustomAmount: true,
     minimumAmount: 1,
@@ -573,10 +571,8 @@ export const candidate: CandidateConfig = {
   },
 
   integrations: {
-    // Card donations are paused until the campaign selects and configures a
-    // replacement processor. E-transfer remains available in the meantime.
-    donateUrl: "",
-    donateProcessorName: "",
+    donateUrl: "https://www.zeffy.com/en-CA/donation-form/support-sinan-erdemirs-campaign",
+    donateProcessorName: "Zeffy",
     etransferEmail: "info@votesinan.com",
   },
 };
