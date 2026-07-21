@@ -81,22 +81,22 @@ function PrivacyPage() {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "avif")}
+                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "avif")}
                   sizes="(max-width: 767px) 100vw, 40vw"
                 />
                 <source
                   type="image/webp"
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "webp")}
+                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "webp")}
                   sizes="(max-width: 767px) 100vw, 40vw"
                 />
                 <img
                   className="privacy-hero__img"
-                  src={withBase(hero.imagePortrait)}
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "jpg")}
+                  src={withBase(hero.imageLandscape)}
+                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "jpg")}
                   sizes="(max-width: 767px) 100vw, 40vw"
                   alt=""
-                  width={1024}
-                  height={1536}
+                  width={1536}
+                  height={1152}
                   loading="lazy"
                 />
               </picture>

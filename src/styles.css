@@ -1742,7 +1742,9 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  /* Landscape full-body crop: bias slightly high so the subject stays framed
+     when the panel is taller/narrower than the source (mobile band). */
+  object-position: center 30%;
 }
 
 @media (max-width: 767px) {
