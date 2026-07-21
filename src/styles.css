@@ -1677,6 +1677,98 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 .page-hero .accent-bar { margin-left: auto; margin-right: auto; }
 
 /* =========================================================================
+   PRIVACY HERO
+   =========================================================================
+   Compact split hero (~half the home hero's height) that reuses the home
+   split-hero language on a utility page: a solid campaign-red copy panel
+   beside the same studio portrait the home hero uses. The photo is
+   decorative (identity is in the H1) — the media wrapper is aria-hidden and
+   the img alt is empty. Modelled on `html[data-hero="split"] .hero` but
+   self-contained; it does not touch the home `.hero` rules. */
+.privacy-hero {
+  background: var(--c-mustard);
+  overflow: hidden;
+}
+.privacy-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 12fr) minmax(0, 8fr);
+  align-items: stretch;
+  min-height: clamp(320px, 46vh, 460px);
+}
+.privacy-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--sp-3);
+  /* Left-align the copy to the shared container edge; right pad separates it
+     from the photo panel, which bleeds to the viewport edge like the home
+     hero. */
+  padding: var(--sp-7) var(--sp-6) var(--sp-7)
+    max(var(--container-pad), calc((100vw - var(--container-max)) / 2));
+}
+.privacy-hero__copy .t-eyebrow {
+  color: var(--fg-on-mustard);
+  opacity: 0.85;
+}
+.privacy-hero__copy .section-heading {
+  color: var(--fg-on-mustard);
+  margin: 0;
+}
+/* data-accent="minimal" hides .accent-bar globally (as on the home hero); if
+   a campaign switches the accent lever back on, keep the bar in the panel's
+   contrast colour so it reads on red. */
+.privacy-hero__copy .accent-bar { background: var(--c-turquoise); }
+.privacy-hero__lede {
+  color: var(--fg-on-mustard);
+  opacity: 0.94;
+  font-size: 18px;
+  max-width: 48ch;
+  margin: 0;
+}
+.privacy-hero__copy .legal__dates {
+  color: var(--fg-on-mustard);
+  opacity: 0.82;
+  margin: 0;
+}
+.privacy-hero__media {
+  position: relative;
+  min-height: 100%;
+}
+.privacy-hero__media picture { display: block; height: 100%; }
+.privacy-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (max-width: 767px) {
+  /* Stack: red copy panel first, photo band below (header is in-flow). */
+  .privacy-hero__inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .privacy-hero__copy {
+    order: 1;
+    padding: var(--sp-6) var(--container-pad);
+  }
+  .privacy-hero__media {
+    order: 2;
+    width: 100%;
+    min-height: 40svh;
+  }
+}
+@media (max-width: 480px) {
+  /* The portrait crop crowds the copy on the narrowest phones — drop the
+     band and let the red panel carry the hero on its own. */
+  .privacy-hero__media { display: none; }
+}
+
+/* =========================================================================
    LEGAL
    ========================================================================= */
 .legal { background: var(--c-cream); padding: var(--space-section) 0; }

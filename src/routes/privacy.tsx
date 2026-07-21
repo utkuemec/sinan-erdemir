@@ -4,8 +4,10 @@ import { Footer } from "@/components/Footer";
 import { candidate } from "@/config/candidate";
 import { pageHead } from "@/lib/seo";
 import { getStrings } from "@/config/strings";
+import { withBase } from "@/lib/paths";
+import { srcSetFor } from "@/lib/images";
 
-const { site, contact, features, privacy } = candidate;
+const { site, contact, features, privacy, hero } = candidate;
 const t = getStrings(candidate.locale);
 const p = t.privacy;
 
@@ -57,17 +59,48 @@ function PrivacyPage() {
     <div className="page">
       <Header variant="solid" />
       <main id="main" tabIndex={-1}>
-        <section className="page-hero">
-          <div className="page-hero__inner">
-            <p className="t-eyebrow">{p.eyebrow}</p>
-            <h1 className="section-heading">
-              {p.heading}
-              <span className="accent-bar" aria-hidden="true" />
-            </h1>
-            <p className="page-hero__lede">{p.lede}</p>
-            <p className="legal__dates">
-              {p.effectiveLabel}: {privacy.effectiveDate} · {p.updatedLabel}: {privacy.lastUpdated}
-            </p>
+        {/* Compact split hero mirroring the home page's split layout: red
+            brand copy panel + the same portrait as the home hero. The photo
+            is decorative here (identity lives in the H1), so the media
+            wrapper is aria-hidden and the img alt is empty. */}
+        <section className="privacy-hero">
+          <div className="privacy-hero__inner">
+            <div className="privacy-hero__copy">
+              <p className="t-eyebrow">{p.eyebrow}</p>
+              <h1 className="section-heading">
+                {p.heading}
+                <span className="accent-bar" aria-hidden="true" />
+              </h1>
+              <p className="privacy-hero__lede">{p.lede}</p>
+              <p className="legal__dates">
+                {p.effectiveLabel}: {privacy.effectiveDate} · {p.updatedLabel}:{" "}
+                {privacy.lastUpdated}
+              </p>
+            </div>
+            <div className="privacy-hero__media" aria-hidden="true">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "avif")}
+                  sizes="(max-width: 767px) 100vw, 40vw"
+                />
+                <source
+                  type="image/webp"
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "webp")}
+                  sizes="(max-width: 767px) 100vw, 40vw"
+                />
+                <img
+                  className="privacy-hero__img"
+                  src={withBase(hero.imagePortrait)}
+                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "jpg")}
+                  sizes="(max-width: 767px) 100vw, 40vw"
+                  alt=""
+                  width={1024}
+                  height={1536}
+                  loading="lazy"
+                />
+              </picture>
+            </div>
           </div>
         </section>
 
