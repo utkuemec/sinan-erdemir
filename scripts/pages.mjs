@@ -19,4 +19,4 @@ export const PAGES = [
 ];
 
 /** Used when SITE_URL is not provided by the environment (preview builds). */
-export const SITE_URL_FALLBACK = "https://lumin8hub.github.io/sinan-erdemir";
+export const SITE_URL_FALLBACK = "https://votesinan.com";
