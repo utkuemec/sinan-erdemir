@@ -334,8 +334,8 @@ export const candidate: CandidateConfig = {
         },
         {
           src: "/images/community/photo-04.jpg",
-          alt: "Sinan Erdemir with residents of all ages at a park in Don Valley East",
-          focal: "50% 30%",
+          alt: "Sinan Erdemir with community members at an indoor cultural celebration in Toronto",
+          focal: "30% 55%",
         },
         {
           src: "/images/community/photo-05.jpg",
@@ -354,8 +354,8 @@ export const candidate: CandidateConfig = {
         },
         {
           src: "/images/community/photo-08.jpg",
-          alt: "Sinan Erdemir talking with residents seated in the shade at a Don Valley East park",
-          focal: "50% 30%",
+          alt: "Sinan Erdemir joining children and families on a community walk",
+          focal: "40% 45%",
         },
         {
           src: "/images/community/photo-09.jpg",
@@ -369,8 +369,8 @@ export const candidate: CandidateConfig = {
         },
         {
           src: "/images/community/photo-11.jpg",
-          alt: "Sinan Erdemir listening to two residents during a one-on-one conversation at a park",
-          focal: "50% 35%",
+          alt: "Sinan Erdemir volunteering at a warehouse collecting earthquake relief donations for Türkiye",
+          focal: "25% 40%",
         },
         {
           src: "/images/community/photo-12.jpg",
