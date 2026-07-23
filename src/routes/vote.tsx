@@ -67,7 +67,8 @@ function VotePage() {
 
               <div className="ward-map__notes">
                 <p className="ward-map__notes-lead">
-                  Official details, accessible-voting options, and your exact voting place:
+                  Official election details — and where to register to vote if you aren&apos;t
+                  already registered:
                 </p>
                 <ul className="ward-map__official-links">
                   {voting.officialLinks.map((link) => (

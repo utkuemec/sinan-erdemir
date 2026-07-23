@@ -544,7 +544,7 @@ export const candidate: CandidateConfig = {
         items: [
           "Election day: Monday, October 26, 2026 — polls open 10 a.m. to 8 p.m.",
           "Advance voting: Tuesday, October 6 to Sunday, October 11, 2026 — 10 a.m. to 7 p.m.",
-          "Check your voting place on MyVote before you go — locations can change between elections.",
+          "Not yet on the voters' list? Register at registertovoteon.ca before you go.",
         ],
       },
       {
@@ -569,7 +569,7 @@ export const candidate: CandidateConfig = {
     ],
     officialLinks: [
       { label: "toronto.ca/elections", url: "https://www.toronto.ca/city-government/elections/" },
-      { label: "myvote.toronto.ca", url: "https://myvote.toronto.ca/" },
+      { label: "registertovoteon.ca", url: "https://www.registertovoteon.ca/" },
     ],
     disclaimer:
       "Information on this page is a summary — the City Clerk's official instructions govern.",
