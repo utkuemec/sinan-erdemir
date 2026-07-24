@@ -2537,11 +2537,13 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   min-height: 72px;
   font-family: var(--font-body);
 }
+/* Blush (not --c-cream-deep): under victory-red that token is #ffffff, which
+   made this row invisible against the white panel it sits on. */
 .donate-instructions__email-row {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  background: var(--c-cream-deep);
+  background: var(--c-blush);
   border-radius: var(--radius-md);
   padding: var(--sp-3);
   margin-bottom: var(--sp-4);
@@ -2563,6 +2565,9 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   padding: 6px 12px;
   border-radius: var(--radius-sm);
   background: var(--c-paper);
+  /* Border keeps the button visible on palettes where --c-paper matches the
+     surrounding surface (victory-red makes both #ffffff). */
+  border: 1px solid var(--border-medium);
   transition: background-color 120ms ease;
   white-space: nowrap;
 }
@@ -2573,7 +2578,8 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 .donate-instructions__steps {
   list-style: decimal;
   padding-left: var(--sp-4);
-  margin: 0 0 var(--sp-4);
+  /* No trailing margin — the modal used to put a "Done" button here. */
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
@@ -3047,9 +3053,73 @@ html[data-hero="split"] .hero__ctas .btn--mustard {
   font-weight: var(--fw-display);
   font-size: 22px;
   text-transform: uppercase;
-  margin: 0 0 var(--sp-2);
+  margin: 0 0 var(--sp-3);
 }
 .donate-instructions p { color: var(--c-ink-soft); }
+
+/* Bank callout: the load-bearing point that the donor sends the money from
+   their own bank. Blush background with a brand-red spine; ink text for AA. */
+.donate-callout {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  background: var(--c-blush);
+  border-left: var(--border-w-thick) solid var(--c-mustard);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--sp-4);
+  margin: 0 0 var(--sp-4);
+}
+.donate-callout__icon {
+  flex-shrink: 0;
+  color: var(--c-mustard);
+  display: flex;
+  margin-top: 2px;
+}
+.donate-callout__title {
+  font-weight: 700;
+  color: var(--c-ink);
+  margin: 0 0 4px;
+}
+.donate-instructions .donate-callout__body {
+  color: var(--c-ink);
+  font-size: var(--fs-body-sm);
+  margin: 0;
+}
+
+/* Optional "ask the campaign for help" step, divided off from the
+   instructions so it reads as secondary. */
+.donate-help {
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border-soft);
+}
+.donate-help > p { color: var(--c-ink-soft); }
+.donate-help__note {
+  font-size: var(--fs-body-sm);
+  font-weight: 700;
+  color: var(--c-ink);
+}
+.donate-help__toggle { margin-top: var(--sp-2); }
+
+/* Labelled optional fields in the help request (amount, notes). */
+.donate-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--c-ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.donate-interest-done__title {
+  font-weight: 700;
+  color: var(--c-ink);
+  margin: 0 0 var(--sp-2);
+}
+.donate-interest-done:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
 
 @media (max-width: 899px) {
   .donate-hero__inner { grid-template-columns: 1fr; gap: var(--sp-6); }

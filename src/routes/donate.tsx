@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { CreditCard, Mail, ExternalLink } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { DonateAmountPicker } from "@/components/donate/DonateAmountPicker";
-import { EtransferForm } from "@/components/donate/EtransferForm";
+import { EtransferInstructions } from "@/components/donate/EtransferInstructions";
+import { DonationInterestForm } from "@/components/donate/DonationInterestForm";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
 import { pageHead } from "@/lib/seo";
@@ -40,7 +41,7 @@ function DonatePage() {
   const [customAmount, setCustomAmount] = useState("");
   const [amountError, setAmountError] = useState("");
   const [etransferOpen, setEtransferOpen] = useState(false);
-  const amountRef = useRef<HTMLDivElement>(null);
+  const [helpOpen, setHelpOpen] = useState(false);
 
   const showAmounts = features.donationAmounts;
   const showCreditCard = features.cardDonations && Boolean(integrations.donateUrl);
@@ -52,11 +53,6 @@ function DonatePage() {
     ? parseDonationAmount(amountInput, donations.minimumAmount, donations.contributionLimit)
     : null;
   const activeAmount = parsed?.ok ? parsed.amount : null;
-
-  function handleAmountMissing() {
-    setAmountError(t.donateModal.amountRequired);
-    amountRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
 
   return (
     <div className="page">
@@ -160,7 +156,7 @@ function DonatePage() {
 
             {/* Amount selection + live estimate (Diana Chan McNally-style). */}
             {showAmounts && (
-              <div className="donate-choose" ref={amountRef}>
+              <div className="donate-choose">
                 <h2 className="donate-section-heading">{d.amountHeading}</h2>
                 <p>{d.amountIntro}</p>
                 <DonateAmountPicker
@@ -228,17 +224,36 @@ function DonatePage() {
                 )}
               </div>
 
+              {/* Instructions FIRST (client feedback): a donor who can send an
+                  e-transfer themselves never has to fill in a form. The help
+                  request below is optional and is not a contribution. */}
               {showEtransfer && etransferOpen && (
                 <div className="donate-etransfer-panel" id="donate-etransfer-panel">
-                  <h3 className="donate-section-heading donate-section-heading--sm">
-                    {t.donateModal.etransferFormTitle}
-                  </h3>
-                  <p>{t.donateModal.etransferFormSubtitle}</p>
-                  <EtransferForm
-                    amount={activeAmount}
-                    requireAmount={showAmounts}
-                    onAmountMissing={handleAmountMissing}
-                  />
+                  <EtransferInstructions amount={activeAmount} />
+
+                  <div className="donate-help">
+                    <h3 className="donate-section-heading donate-section-heading--sm">
+                      {d.helpHeading}
+                    </h3>
+                    <p>{d.helpBody}</p>
+                    <p className="donate-help__note">{d.helpNotADonation}</p>
+
+                    {helpOpen ? (
+                      <div id="donate-help-panel">
+                        <DonationInterestForm amount={activeAmount} />
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn--outline donate-help__toggle"
+                        onClick={() => setHelpOpen(true)}
+                        aria-expanded={false}
+                        aria-controls="donate-help-panel"
+                      >
+                        {d.helpToggle}
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
 

@@ -9,6 +9,7 @@
 //   contact          -> "Contact"
 //   supporter        -> "Supporters"
 //   donate-etransfer -> "ETransferIntents"
+//   donate-interest  -> "DonationInterest"   (help request, not a contribution)
 //   ride-request     -> "RideRequests"
 //
 // SETUP (one per candidate):
@@ -46,6 +47,7 @@ var CONFIG = {
     contact: "Contact",
     supporter: "Supporters",
     "donate-etransfer": "ETransferIntents",
+    "donate-interest": "DonationInterest",
     "ride-request": "RideRequests",
   },
 };
@@ -183,6 +185,38 @@ var SCHEMAS = {
       },
       { key: "source", label: "Source", kind: "string", maxLen: 60 },
       { key: "amount", label: "Amount", kind: "number", min: 1, max: 1200, decimals: 2 },
+    ],
+  },
+  // Donation help request — NOT a contribution. The donate page shows the
+  // e-transfer instructions first; this form only asks the campaign to get in
+  // touch (help sending an e-transfer, arranging a cheque drop-off, or a
+  // question). No residential address and no eligibility declaration are
+  // collected here because no money has moved yet — the campaign captures
+  // those when the contribution is actually processed.
+  "donate-interest": {
+    columns: [
+      "Full Name",
+      "Email",
+      "Phone",
+      "Amount Considering",
+      "Help Needed",
+      "Notes",
+      "Source",
+    ],
+    fields: [
+      { key: "fullName", label: "Full Name", kind: "string", required: true, maxLen: 100 },
+      { key: "email", label: "Email", kind: "string", required: true, maxLen: 254 },
+      { key: "phone", label: "Phone", kind: "string", maxLen: 30 },
+      { key: "amount", label: "Amount Considering", kind: "number", min: 1, max: 1200, decimals: 2 },
+      {
+        key: "helpKind",
+        label: "Help Needed",
+        kind: "string",
+        maxLen: 30,
+        enums: ["etransfer", "cheque", "other"],
+      },
+      { key: "notes", label: "Notes", kind: "string", maxLen: 500 },
+      { key: "source", label: "Source", kind: "string", maxLen: 60 },
     ],
   },
   "ride-request": {
@@ -349,6 +383,7 @@ function notify(formType, submissionId, timestamp) {
       contact: "New contact message",
       supporter: "New supporter action",
       "donate-etransfer": "New e-transfer donation intent",
+      "donate-interest": "New donation help request",
       "ride-request": "New election-day ride request",
     };
     MailApp.sendEmail({

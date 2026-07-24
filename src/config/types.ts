@@ -62,6 +62,8 @@ export type AvailabilitySlot = "weekday" | "weekend" | "daytime" | "evening";
 export type PropertyType = "house" | "townhouse" | "condo-apartment" | "business" | "other";
 export type SignTiming = "asap" | "campaign-start" | "no-preference";
 export type PreferredResponse = "email" | "phone";
+/** What a donor wants help with on the /donate help request. */
+export type HelpKind = "etransfer" | "cheque" | "other";
 
 /** Gallery photo: focal point steers object-position so faces never crop. */
 export interface GalleryPhoto extends ImageRef {

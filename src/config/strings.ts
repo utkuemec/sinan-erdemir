@@ -2,6 +2,7 @@ import type {
   AvailabilitySlot,
   BuiltinCardKind,
   ContactTopic,
+  HelpKind,
   Locale,
   PreferredResponse,
   PropertyType,
@@ -231,7 +232,23 @@ export interface UiStrings {
     paymentIntro: string;
     creditCardCta: string;
     etransferCta: string;
-    chooseAmountFirst: string;
+    /** Callout making clear the donor sends the transfer from their own bank. */
+    bankCalloutTitle: string;
+    bankCalloutBody: string;
+    /** Optional "ask the campaign for help" step below the instructions. */
+    helpHeading: string;
+    helpBody: string;
+    helpNotADonation: string;
+    helpToggle: string;
+    amountConsideringLabel: string;
+    amountConsideringPlaceholder: string;
+    helpKindLegend: string;
+    helpKindOptions: Record<HelpKind, string>;
+    notesLabel: string;
+    notesPlaceholder: string;
+    helpSubmit: string;
+    helpSuccessTitle: string;
+    helpSuccessBody: (email: string) => string;
   };
   getInvolvedCards: Record<BuiltinCardKind, { title: string; body: string; cta: string }>;
   notFound: {
@@ -447,7 +464,7 @@ const en: UiStrings = {
     creditCardLabel: "Donate by Credit Card",
     creditCardSub: (processorName) => `Secure payment via ${processorName}`,
     etransferLabel: "Donate by E-Transfer",
-    etransferSub: "Interac e-Transfer instructions",
+    etransferSub: "See how to send from your bank",
     etransferFormTitle: "E-Transfer Donation",
     etransferFormSubtitle:
       "Please provide your contact details to proceed with your e-transfer donation.",
@@ -474,16 +491,15 @@ const en: UiStrings = {
     instructionsAmount: (amount) => `Amount to send: ${amount}`,
     continue: "Continue to E-Transfer Instructions",
     submitting: "Submitting…",
-    instructionsTitle: "E-Transfer Instructions",
+    instructionsTitle: "How to send your e-transfer",
     instructionsSubtitle: "Thanks! Here's how to complete your e-transfer.",
     copy: "Copy",
     copied: "Copied",
     copyAria: "Copy email address",
-    step1: "Open your bank's Interac e-Transfer page.",
-    step2Prefix: "Send your contribution to",
-    step3:
-      "In the message field, include the same full name you entered here so we can match your contribution.",
-    step4: "We'll confirm receipt by email.",
+    step1: "Sign in to your online banking or bank app.",
+    step2Prefix: "Send an Interac e-Transfer to",
+    step3: "Put your full name in the message field so we can match your contribution.",
+    step4: "We'll email you to confirm we got it.",
     done: "Done",
     back: "Back",
     close: "Close",
@@ -547,7 +563,28 @@ const en: UiStrings = {
       "Credit-card contributions are processed securely off-site. E-transfer is handled directly by the campaign.",
     creditCardCta: "Donate by credit card",
     etransferCta: "Donate by e-transfer",
-    chooseAmountFirst: "Please choose or enter a contribution amount above first.",
+    bankCalloutTitle: "You send this from your own bank",
+    bankCalloutBody:
+      "An Interac e-Transfer has to come from you, through your own online banking or bank app. The campaign can't take the payment for you from this page.",
+    helpHeading: "Want help, or another way to give?",
+    helpBody:
+      "The campaign can walk you through an e-transfer, arrange a cheque drop-off, or answer questions before you give. Leave your details and someone from the team will get in touch.",
+    helpNotADonation: "This form isn't a donation. It only asks the campaign to contact you.",
+    helpToggle: "Ask the campaign for help",
+    amountConsideringLabel: "Amount you're considering (optional)",
+    amountConsideringPlaceholder: "e.g. 100",
+    helpKindLegend: "How can we help?",
+    helpKindOptions: {
+      etransfer: "Help me send an e-transfer",
+      cheque: "I'd like to drop off a cheque",
+      other: "Something else",
+    },
+    notesLabel: "Anything else? (optional)",
+    notesPlaceholder: "Tell us anything that would help",
+    helpSubmit: "Ask the campaign to contact me",
+    helpSuccessTitle: "Thanks! We'll be in touch.",
+    helpSuccessBody: (email) =>
+      `Someone from the campaign team will contact you soon. If it's urgent, email ${email}.`,
   },
   getInvolvedCards: {
     volunteer: {

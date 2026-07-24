@@ -2,6 +2,7 @@ import { useCallback, useRef } from "react";
 import type {
   AvailabilitySlot,
   ContactTopic,
+  HelpKind,
   PreferredResponse,
   PropertyType,
   SignTiming,
@@ -27,7 +28,13 @@ import type {
 
 const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT as string | undefined;
 
-export type FormType = "signup" | "contact" | "supporter" | "donate-etransfer" | "ride-request";
+export type FormType =
+  | "signup"
+  | "contact"
+  | "supporter"
+  | "donate-etransfer"
+  | "donate-interest"
+  | "ride-request";
 
 /** Field caps — mirrored in the Apps Script SCHEMAS; keep both in sync. */
 export const FIELD_LIMITS = {
@@ -107,6 +114,23 @@ export interface EtransferSubmission extends BaseSubmission {
   notOnBehalfConfirmed: boolean;
 }
 
+/**
+ * Donation help request — NOT a contribution. The donate page shows the
+ * e-transfer instructions up front; this only asks the campaign to get in
+ * touch. No residential address or eligibility declaration is collected,
+ * because no money has moved yet.
+ */
+export interface DonationInterestSubmission extends BaseSubmission {
+  formType: "donate-interest";
+  fullName: string;
+  email: string;
+  phone: string;
+  /** Amount the donor is considering — informational, never required. */
+  amount?: number;
+  helpKind?: HelpKind;
+  notes?: string;
+}
+
 export interface RideRequestSubmission extends BaseSubmission {
   formType: "ride-request";
   fullName: string;
@@ -122,6 +146,7 @@ export type AnySubmission =
   | ContactSubmission
   | SupporterSubmission
   | EtransferSubmission
+  | DonationInterestSubmission
   | RideRequestSubmission;
 
 export type SubmitOutcome =
