@@ -498,7 +498,10 @@ const en: UiStrings = {
     copyAria: "Copy email address",
     step1: "Sign in to your online banking or bank app.",
     step2Prefix: "Send an Interac e-Transfer to",
-    step3: "Put your full name in the message field so we can match your contribution.",
+    // Name AND address are needed here so the campaign can issue a correct
+    // contribution rebate receipt — client-supplied wording, keep verbatim.
+    step3:
+      "Please enter your full name and address in the message field to ensure your contribution rebate receipt is issued with the correct information.",
     step4: "We'll email you to confirm we got it.",
     done: "Done",
     back: "Back",
