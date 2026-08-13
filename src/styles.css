@@ -1466,9 +1466,7 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 }
 .community__photo img {
   width: 100%;
-  aspect-ratio: 4 / 3;
   height: auto;
-  object-fit: cover;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }

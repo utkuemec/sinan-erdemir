@@ -25,8 +25,11 @@ export const Route = createFileRoute("/community")({
   component: CommunityPage,
 });
 
-// Split-header photo: the widest approved group shot from the gallery.
-const HEADER_PHOTO = community.carousel.photos[3] ?? community.carousel.photos[0];
+// Split-header photo: dedicated group shot (not part of the gallery).
+const HEADER_PHOTO = {
+  src: "/images/community/photo-21.jpg",
+  alt: "Sinan Erdemir with players and volunteers at a community flag football event",
+};
 
 function CommunityPage() {
   return (
@@ -55,9 +58,8 @@ function CommunityPage() {
                 srcSet={srcSetFor(HEADER_PHOTO.src, PHOTO_WIDTHS, "jpg")}
                 sizes="(max-width: 767px) 100vw, 45vw"
                 alt={HEADER_PHOTO.alt}
-                width={1200}
+                width={1600}
                 height={900}
-                style={{ objectPosition: HEADER_PHOTO.focal ?? "50% 30%" }}
                 fetchPriority="high"
               />
             </div>
