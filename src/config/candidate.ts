@@ -348,11 +348,6 @@ export const candidate: CandidateConfig = {
           focal: "50% 45%",
         },
         {
-          src: "/images/community/photo-07.jpg",
-          alt: "Sinan Erdemir with a Toronto school crossing guard beside a hand-painted Merry Christmas stop sign",
-          focal: "50% 35%",
-        },
-        {
           src: "/images/community/photo-08.jpg",
           alt: "Sinan Erdemir joining children and families on a community walk",
           focal: "40% 45%",

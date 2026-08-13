@@ -21,7 +21,6 @@ const MANIFEST = [
   { src: "community/photo-04.jpg", widths: [480, 800] },
   { src: "community/photo-05.jpg", widths: [480, 800] },
   { src: "community/photo-06.jpg", widths: [480, 800] },
-  { src: "community/photo-07.jpg", widths: [480, 800] },
   { src: "community/photo-08.jpg", widths: [480, 800] },
   { src: "community/photo-11.jpg", widths: [480, 800] },
   { src: "community/photo-12.jpg", widths: [480, 800] },
