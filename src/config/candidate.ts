@@ -518,7 +518,7 @@ export const candidate: CandidateConfig = {
     socials: [
       {
         platform: "facebook",
-        url: "https://www.facebook.com/profile.php?id=61591975916283",
+        url: "https://www.facebook.com/profile.php?id=61592866483705",
       },
       { platform: "instagram", url: "https://www.instagram.com/sinanerdemirdve" },
     ],
