@@ -129,7 +129,7 @@ function HomePage() {
                   sizes="40vw"
                   alt=""
                   width={1024}
-                  height={1536}
+                  height={1820}
                   fetchPriority="high"
                 />
               </picture>
