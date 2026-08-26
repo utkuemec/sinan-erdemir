@@ -2777,6 +2777,26 @@ html[data-hero="split"] .hero__media {
   display: block;
   background: var(--hero-image-portrait) center / cover no-repeat;
 }
+/* Desktop photo panel shows the portrait whole: the image sits in flow so its
+   own aspect sets the panel height instead of being cover-cropped. */
+@media (min-width: 768px) {
+  /* The photo sets the hero's height, so the viewport-height floor would only
+     add empty panel below it. */
+  html[data-hero="split"] .hero {
+    min-height: 0;
+  }
+  html[data-hero="split"] .hero__media picture {
+    display: block;
+    position: static;
+    height: auto;
+  }
+  html[data-hero="split"] .hero__media-img {
+    position: static;
+    width: 100%;
+    height: auto;
+    object-fit: fill;
+  }
+}
 html[data-hero="split"] .hero__inner {
   display: flex;
   align-items: center;
