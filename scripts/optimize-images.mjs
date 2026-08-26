@@ -12,7 +12,7 @@ import { join } from "path";
 const IMAGES = "public/images";
 
 const MANIFEST = [
-  { src: "hero-portrait.jpg", widths: [480, 768, 1024] },
+  { src: "hero-portrait-studio.jpg", widths: [480, 768, 1024] },
   { src: "hero-landscape.jpg", widths: [480, 768, 1080, 1440] },
   { src: "candidate-portrait.jpg", widths: [480, 800] },
   { src: "community/photo-01.jpg", widths: [480, 800] },

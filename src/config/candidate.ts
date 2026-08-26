@@ -142,7 +142,7 @@ export const candidate: CandidateConfig = {
     headlineLines: ["Everyday", "Improvements."],
     subtitle: "Real Results.",
     sloganLine: "Everyday Improvements. Real Results.",
-    imagePortrait: "/images/hero-portrait.jpg",
+    imagePortrait: "/images/hero-portrait-studio.jpg",
     imageLandscape: "/images/hero-landscape.jpg",
   },
 
