@@ -161,19 +161,20 @@ export const candidate: CandidateConfig = {
       alt: "Portrait of Sinan Erdemir",
     },
     paragraphs: [
-      "Sinan Erdemir has called Don Valley East home since 2009. For nearly fifteen years he has made community service a central part of his life here — drawing on his own multicultural journey and international perspective to help neighbours overcome barriers, connect with their communities, and build meaningful lives in Canada.",
+      "Sinan Erdemir has called Don Valley East home since 2009, after moving from Sweden, Ireland, and Turkiye. For nearly fifteen years he has made community service a central part of his life here — drawing on his own multicultural journey and international perspective to help neighbours overcome barriers, connect with their communities, and build meaningful lives in Canada.",
       "Professionally, Sinan is the co-founder and co-owner of a consulting firm that supports international and domestic students, newcomers, refugees, and visitors in navigating opportunities and building successful futures in Canada. That work means listening carefully, solving practical problems, and delivering results people can count on — the same skills a city councillor needs.",
     ],
     // 80-120 word introduction for the home-page proof section.
     // Assembled strictly from the client's approved form copy — flag for review.
     homeExcerpt:
-      "Sinan Erdemir has called Don Valley East home since 2009, and for nearly fifteen years community service has been a central part of his life here. He is the co-founder and co-owner of a consulting firm that helps students, newcomers, refugees, and visitors build successful futures in Canada. His community leadership — from Turkish-Canadian cultural organizations to community policing with Toronto Police 32 Division — has been recognized by the Toronto Police Service and the Province of Ontario. Now he wants to bring that same service-first focus to City Hall.",
+      "Sinan Erdemir has called Don Valley East home since 2009, after moving from Sweden, Ireland, and Turkiye, and for nearly fifteen years community service has been a central part of his life here. He is the co-founder and co-owner of a consulting firm that helps students, newcomers, refugees, and visitors build successful futures in Canada. His previous community leadership — from Turkish-Canadian cultural organizations to community policing with Toronto Police 32 Division — has been recognized by the Toronto Police Service and the Province of Ontario. Now he wants to bring that same service-first focus to City Hall.",
     quickFacts: [
       "Don Valley East resident since 2009",
       "Consulting-firm co-founder and co-owner",
-      "Leader in Toronto's cultural and civic organizations",
+      "Former leader in Toronto's cultural and civic organizations",
       "Recognized by the Toronto Police Service and the Province of Ontario",
     ],
+    leadershipNote: "Past roles:",
     leadership: [
       "Secretary General & Board Member — Federation of Canadian Turkish Associations",
       "President & Board Member — Turkish Culture and Folklore Society of Canada",
@@ -299,16 +300,16 @@ export const candidate: CandidateConfig = {
       {
         icon: Users,
         label:
-          "Leadership in Turkish-Canadian community organizations — Federation of Canadian Turkish Associations and Turkish Culture and Folklore Society of Canada",
+          "Previous leadership in Turkish-Canadian community organizations — Federation of Canadian Turkish Associations and Turkish Culture and Folklore Society of Canada",
       },
       {
         icon: ShieldCheck,
         label:
-          "Community policing through the CPLC Consultative Committee with Toronto Police 32 Division",
+          "Previous community policing through the CPLC Consultative Committee with Toronto Police 32 Division",
       },
       {
         icon: PartyPopper,
-        label: "Board Member of the Carassauga Festival of Cultures",
+        label: "Previous board member of the Carassauga Festival of Cultures",
       },
     ],
     carousel: {

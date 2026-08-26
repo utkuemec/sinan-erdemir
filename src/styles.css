@@ -2131,6 +2131,11 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 @media (max-width: 767px) {
   .meet-record__grid { grid-template-columns: 1fr; gap: var(--sp-5); }
 }
+.meet-record__note {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  margin-bottom: var(--sp-3);
+}
 .why__ctas {
   display: flex;
   flex-wrap: wrap;

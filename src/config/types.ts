@@ -331,6 +331,8 @@ export interface CandidateConfig {
     homeExcerpt: string;
     /** Short scannable proof chips ("Resident since 2009", …). */
     quickFacts: string[];
+    /** Qualifier shown above the leadership list, e.g. "Past roles:". */
+    leadershipNote: string;
     /** Leadership roles, exact titles (client-approved wording). */
     leadership: string[];
     /** Awards / recognitions, exact names (client-approved wording). */

@@ -94,6 +94,7 @@ function MeetTheCandidatePage() {
                 <Users size={18} strokeWidth={2} style={{ verticalAlign: "-3px", marginRight: 8 }} aria-hidden="true" />
                 Community Leadership
               </h2>
+              <p className="meet-record__note">{bio.leadershipNote}</p>
               <ul className="ward-map__school-list">
                 {bio.leadership.map((item) => (
                   <li key={item}>{item}</li>
