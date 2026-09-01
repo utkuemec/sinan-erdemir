@@ -451,8 +451,8 @@ html[data-hero="split"] .site-header--stuck {
      --hero-image-portrait / --hero-image-landscape as inline custom
      properties. Each layout picks the orientation that fits its frame:
      overlay is a wide full-bleed, so it takes the landscape crop here and
-     the portrait crop in the ≤767px media query; the split layout does the
-     reverse (see HERO — SPLIT). "center 25%" keeps the subject's face in
+     the portrait crop in the ≤767px media query; the split layout uses the
+     portrait crop at every width (see HERO — SPLIT). "center 25%" keeps the subject's face in
      frame when wide viewports crop the image vertically. */
   background: var(--hero-image-landscape) center 25% / cover no-repeat;
   padding-top: 120px;
@@ -558,10 +558,6 @@ html[data-hero="split"] .site-header--stuck {
    fully visible at any panel aspect — only the torso bottom ever trims.
    (`contain` would letterbox against the studio backdrop gradient.) */
 .hero__media-img { object-fit: cover; object-position: center top; }
-@media (max-width: 767px) {
-  /* Mobile band uses the landscape crop — keep the subject-centred framing. */
-  .hero__media-img { object-position: 50% 30%; }
-}
 html[data-hero="split"] .hero__headline {
   text-wrap: balance;
   max-width: 13ch;
@@ -2782,25 +2778,23 @@ html[data-hero="split"] .hero__media {
   display: block;
   background: var(--hero-image-portrait) center / cover no-repeat;
 }
-/* Desktop photo panel shows the portrait whole: the image sits in flow so its
-   own aspect sets the panel height instead of being cover-cropped. */
-@media (min-width: 768px) {
-  /* The photo sets the hero's height, so the viewport-height floor would only
-     add empty panel below it. */
-  html[data-hero="split"] .hero {
-    min-height: 0;
-  }
-  html[data-hero="split"] .hero__media picture {
-    display: block;
-    position: static;
-    height: auto;
-  }
-  html[data-hero="split"] .hero__media-img {
-    position: static;
-    width: 100%;
-    height: auto;
-    object-fit: fill;
-  }
+/* The photo panel shows the portrait whole at every width — desktop side panel
+   and mobile band alike. The image sits in flow so its own aspect sets the
+   panel height instead of being cover-cropped, which also means the
+   viewport-height floor would only add empty panel below it. */
+html[data-hero="split"] .hero {
+  min-height: 0;
+}
+html[data-hero="split"] .hero__media picture {
+  display: block;
+  position: static;
+  height: auto;
+}
+html[data-hero="split"] .hero__media-img {
+  position: static;
+  width: 100%;
+  height: auto;
+  object-fit: fill;
 }
 html[data-hero="split"] .hero__inner {
   display: flex;
@@ -2878,10 +2872,9 @@ html[data-hero="split"] .hero__ctas .btn--mustard {
   html[data-hero="split"] .hero__media {
     order: 2;
     width: 100%;
-    min-height: 46svh;
-    /* Full-body subject is centred in the landscape composition; keep the
-       crop centred and biased slightly high so his face stays in frame. */
-    background: var(--hero-image-landscape) center 30% / cover no-repeat;
+    /* No min-height: the photo runs full-bleed at its own aspect, same as the
+       desktop panel, so the band is exactly as tall as the image. */
+    background: var(--hero-image-portrait) center / cover no-repeat;
   }
   html[data-hero="split"] .hero__headline {
     white-space: normal;

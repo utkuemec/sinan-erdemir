@@ -307,8 +307,8 @@ export interface CandidateConfig {
     /**
      * Provide one portrait (tall, ~2:3) and one landscape (wide, ~3:2) crop
      * of the hero photo; each hero layout picks the orientation that fits:
-     * split uses portrait for the desktop panel and landscape for the mobile
-     * band, overlay uses landscape on desktop and portrait on mobile.
+     * split uses portrait for both the desktop panel and the mobile band,
+     * overlay uses landscape on desktop and portrait on mobile.
      */
     imagePortrait: string;
     imageLandscape: string;

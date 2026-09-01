@@ -30,6 +30,10 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
+// The hero portrait is a 40vw panel on desktop and full-bleed on mobile.
+const HERO_PORTRAIT_WIDTHS = [480, 768, 1024, 1440];
+const HERO_PORTRAIT_SIZES = "(max-width: 767px) 100vw, 40vw";
+
 function HomePage() {
   const { hero, pillars, priorities, endorsements, community, features } = candidate;
 
@@ -89,47 +93,30 @@ function HomePage() {
           </a>
 
           {/* Photo panel for the split hero layout (data-hero="split"); hidden
-              in overlay mode. Renders the portrait crop on desktop and the
-              landscape crop in the mobile band — mirroring the previous CSS
-              background swap at 767px. Decorative (identity is in the h1). */}
+              in overlay mode. The portrait runs at every width — desktop panel
+              and mobile band alike — so both show the same photo whole.
+              Decorative (identity is in the h1). */}
           <div className="hero__media" aria-hidden="true">
             {heroUsesImg && (
               <picture>
                 <source
-                  media="(max-width: 767px)"
                   type="image/avif"
-                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "avif")}
-                  sizes="100vw"
-                />
-                <source
-                  media="(max-width: 767px)"
-                  type="image/webp"
-                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "webp")}
-                  sizes="100vw"
-                />
-                <source
-                  media="(max-width: 767px)"
-                  srcSet={srcSetFor(hero.imageLandscape, [480, 768, 1080, 1440], "jpg")}
-                  sizes="100vw"
-                />
-                <source
-                  type="image/avif"
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "avif")}
-                  sizes="40vw"
+                  srcSet={srcSetFor(hero.imagePortrait, HERO_PORTRAIT_WIDTHS, "avif")}
+                  sizes={HERO_PORTRAIT_SIZES}
                 />
                 <source
                   type="image/webp"
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "webp")}
-                  sizes="40vw"
+                  srcSet={srcSetFor(hero.imagePortrait, HERO_PORTRAIT_WIDTHS, "webp")}
+                  sizes={HERO_PORTRAIT_SIZES}
                 />
                 <img
                   className="hero__media-img"
                   src={withBase(hero.imagePortrait)}
-                  srcSet={srcSetFor(hero.imagePortrait, [480, 768, 1024], "jpg")}
-                  sizes="40vw"
+                  srcSet={srcSetFor(hero.imagePortrait, HERO_PORTRAIT_WIDTHS, "jpg")}
+                  sizes={HERO_PORTRAIT_SIZES}
                   alt=""
-                  width={1024}
-                  height={1820}
+                  width={1440}
+                  height={2559}
                   fetchPriority="high"
                 />
               </picture>

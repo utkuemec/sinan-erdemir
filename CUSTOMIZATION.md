@@ -32,7 +32,7 @@ on the site.
 | `headline`                         | Mega headline with the hand-drawn underline accent                                                                                                                                                                                                          |
 | `subtitle`                         | Slogan line under the headline                                                                                                                                                                                                                              |
 | `sloganLine`                       | Home page `<title>` / og:title                                                                                                                                                                                                                              |
-| `imagePortrait` / `imageLandscape` | Hero photos as one tall (~2:3) and one wide (~3:2) crop; each hero layout uses the orientation that fits (split: portrait desktop panel + landscape mobile band; overlay: landscape desktop + portrait mobile). Ignored when `theme.heroStyle` is `"solid"` |
+| `imagePortrait` / `imageLandscape` | Hero photos as one tall (~2:3) and one wide (~3:2) crop; each hero layout uses the orientation that fits (split: portrait at every width; overlay: landscape desktop + portrait mobile). Ignored when `theme.heroStyle` is `"solid"` |
 
 ## `bio` (/meet-the-candidate)
 
