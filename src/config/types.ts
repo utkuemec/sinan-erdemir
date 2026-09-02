@@ -391,8 +391,6 @@ export interface CandidateConfig {
     video: {
       eyebrow: string;
       heading: string;
-      /** Shown under the player — say what language it is in. */
-      description: string;
       src: string;
       poster: string;
       /** Describes the clip for people who can't play it. */

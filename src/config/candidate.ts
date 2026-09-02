@@ -458,7 +458,6 @@ export const candidate: CandidateConfig = {
     video: {
       eyebrow: "From the Campaign Trail",
       heading: "Out in Don Valley East",
-      description: "This message is in Turkish, with Turkish on-screen captions.",
       src: "/videos/community-message.mp4",
       poster: "/videos/community-message-poster.jpg",
       alt: "Sinan Erdemir and a community member speaking to camera in Don Valley East",

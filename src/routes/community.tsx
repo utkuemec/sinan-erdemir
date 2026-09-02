@@ -128,7 +128,6 @@ function CommunityPage() {
               >
                 <source src={withBase(community.video.src)} type="video/mp4" />
               </video>
-              <p className="community-video__note">{community.video.description}</p>
             </div>
           </div>
         </section>

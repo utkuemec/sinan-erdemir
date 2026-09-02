@@ -2237,11 +2237,6 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-lg);
   background: var(--c-ink);
 }
-.community-video__note {
-  font-size: var(--fs-caption);
-  color: var(--fg-muted);
-  margin-top: var(--sp-3);
-}
 
 /* =========================================================================
    SUPPORTER SECTION (get-involved) — copy left, form right
