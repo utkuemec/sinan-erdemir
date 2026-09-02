@@ -7,12 +7,17 @@ import { FinalCta } from "@/components/FinalCta";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
-import { PHOTO_WIDTHS, srcSetFor } from "@/lib/images";
+import { srcSetFor } from "@/lib/images";
 import { pageHead } from "@/lib/seo";
 import { jsonLdScripts, personJsonLd } from "@/lib/jsonld";
 
 const { bio, site } = candidate;
 const t = getStrings(candidate.locale);
+
+// .meet__photo caps the portrait well below the column width, so the slot is a
+// fixed pixel size rather than a viewport fraction. 1200 serves 3x screens.
+const PORTRAIT_WIDTHS = [480, 800, 1200];
+const PORTRAIT_SIZES = "(max-width: 767px) 320px, 380px";
 
 export const Route = createFileRoute("/meet-the-candidate")({
   head: () => ({
@@ -40,21 +45,21 @@ function MeetTheCandidatePage() {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet={srcSetFor(bio.portrait.src, PHOTO_WIDTHS, "avif")}
-                  sizes="(max-width: 767px) 90vw, 40vw"
+                  srcSet={srcSetFor(bio.portrait.src, PORTRAIT_WIDTHS, "avif")}
+                  sizes={PORTRAIT_SIZES}
                 />
                 <source
                   type="image/webp"
-                  srcSet={srcSetFor(bio.portrait.src, PHOTO_WIDTHS, "webp")}
-                  sizes="(max-width: 767px) 90vw, 40vw"
+                  srcSet={srcSetFor(bio.portrait.src, PORTRAIT_WIDTHS, "webp")}
+                  sizes={PORTRAIT_SIZES}
                 />
                 <img
                   src={withBase(bio.portrait.src)}
-                  srcSet={srcSetFor(bio.portrait.src, PHOTO_WIDTHS, "jpg")}
-                  sizes="(max-width: 767px) 90vw, 40vw"
+                  srcSet={srcSetFor(bio.portrait.src, PORTRAIT_WIDTHS, "jpg")}
+                  sizes={PORTRAIT_SIZES}
                   alt={bio.portrait.alt}
-                  width={880}
-                  height={1168}
+                  width={1440}
+                  height={2559}
                   fetchPriority="high"
                 />
               </picture>

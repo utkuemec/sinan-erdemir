@@ -15,7 +15,7 @@ const MANIFEST = [
   // Also runs full-bleed in the mobile hero band, so it needs phone-DPR widths.
   { src: "hero-portrait-studio.jpg", widths: [480, 768, 1024, 1440] },
   { src: "hero-landscape.jpg", widths: [480, 768, 1080, 1440] },
-  { src: "candidate-portrait.jpg", widths: [480, 800] },
+  { src: "candidate-portrait-street.jpg", widths: [480, 800, 1200] },
   { src: "community/photo-01.jpg", widths: [480, 800] },
   { src: "community/photo-02.jpg", widths: [480, 800] },
   { src: "community/photo-03.jpg", widths: [480, 800] },

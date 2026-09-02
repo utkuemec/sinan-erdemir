@@ -1050,12 +1050,15 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 }
 .meet__photo {
   position: relative;
+  /* No fixed aspect: the full-body portrait sets its own height rather than
+     being cropped to a frame. */
+  max-width: 380px;
+  justify-self: center;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-card);
-  aspect-ratio: 4 / 5;
 }
-.meet__photo img { width: 100%; height: 100%; object-fit: cover; }
+.meet__photo img { display: block; width: 100%; height: auto; }
 .meet__photo-tag {
   position: absolute;
   bottom: -18px;
@@ -2003,7 +2006,7 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   .photo-carousel__arrow { width: 40px; height: 40px; }
 
   .meet__inner { grid-template-columns: 1fr; gap: var(--sp-6); }
-  .meet__photo { max-width: 480px; margin: 0 auto; width: 100%; }
+  .meet__photo { max-width: 320px; margin: 0 auto; width: 100%; }
   .meet__photo-tag { font-size: 18px; padding: 6px 14px; bottom: -14px; }
 
   .why__quote { padding: 0; }
@@ -2072,10 +2075,10 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 }
 .home-meet__photo {
   width: 100%;
-  max-width: 400px;
-  aspect-ratio: 3 / 4;
+  /* Narrow cap because the portrait is a tall full-body crop shown whole: this
+     width lands it at roughly the height of the copy column beside it. */
+  max-width: 300px;
   height: auto;
-  object-fit: cover;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   justify-self: center;
@@ -2098,7 +2101,6 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 }
 @media (max-width: 1023px) {
   .home-meet__inner { grid-template-columns: 1fr; gap: var(--sp-5); }
-  .home-meet__photo { max-width: 320px; }
 }
 
 .meet__facts {

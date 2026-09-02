@@ -212,12 +212,12 @@ function HomePage() {
             <img
               className="home-meet__photo"
               src={withBase(candidate.bio.portrait.src)}
-              srcSet={srcSetFor(candidate.bio.portrait.src, [480, 800], "jpg")}
-              sizes="(max-width: 1023px) 320px, 400px"
+              srcSet={srcSetFor(candidate.bio.portrait.src, [480, 800, 1200], "jpg")}
+              sizes="300px"
               alt={candidate.bio.portrait.alt}
               loading="lazy"
-              width={880}
-              height={1168}
+              width={1440}
+              height={2559}
             />
             <div className="home-meet__copy">
               <p className="t-eyebrow">{candidate.bio.eyebrow}</p>

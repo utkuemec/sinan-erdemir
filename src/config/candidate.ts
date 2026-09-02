@@ -157,7 +157,7 @@ export const candidate: CandidateConfig = {
     eyebrow: "Meet Sinan Erdemir",
     headingLines: ["A Neighbour Who", "Shows Up."],
     portrait: {
-      src: "/images/candidate-portrait.jpg",
+      src: "/images/candidate-portrait-street.jpg",
       alt: "Portrait of Sinan Erdemir",
     },
     paragraphs: [
