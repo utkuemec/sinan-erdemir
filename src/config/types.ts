@@ -387,6 +387,17 @@ export interface CandidateConfig {
       heading: string;
       photos: GalleryPhoto[];
     };
+    /** Self-hosted clip below the gallery on the community page. */
+    video: {
+      eyebrow: string;
+      heading: string;
+      /** Shown under the player — say what language it is in. */
+      description: string;
+      src: string;
+      poster: string;
+      /** Describes the clip for people who can't play it. */
+      alt: string;
+    };
   };
 
   ward: {

@@ -2216,6 +2216,33 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   .photo-gallery { grid-template-columns: 1fr; }
 }
 
+/* Vertical campaign clip below the gallery. The player is capped narrow so a
+   9:16 video doesn't tower over the photo grid above it. */
+.community-video {
+  margin-top: var(--sp-7);
+  text-align: center;
+}
+.community-video__heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  margin: 0 0 var(--sp-4);
+}
+.community-video__player {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  background: var(--c-ink);
+}
+.community-video__note {
+  font-size: var(--fs-caption);
+  color: var(--fg-muted);
+  margin-top: var(--sp-3);
+}
+
 /* =========================================================================
    SUPPORTER SECTION (get-involved) — copy left, form right
    ========================================================================= */

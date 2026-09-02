@@ -32,6 +32,18 @@ const MANIFEST = [
   { src: "community/photo-19.jpg", widths: [480, 800] },
   { src: "community/photo-20.jpg", widths: [480, 800] },
   { src: "community/photo-21.jpg", widths: [480, 800] },
+  { src: "community/photo-22.jpg", widths: [480, 800] },
+  { src: "community/photo-23.jpg", widths: [480, 800] },
+  { src: "community/photo-24.jpg", widths: [480, 800] },
+  { src: "community/photo-25.jpg", widths: [480, 800] },
+  { src: "community/photo-26.jpg", widths: [480, 800] },
+  { src: "community/photo-27.jpg", widths: [480, 800] },
+  { src: "community/photo-28.jpg", widths: [480, 800] },
+  { src: "community/photo-29.jpg", widths: [480, 800] },
+  { src: "community/photo-30.jpg", widths: [480, 800] },
+  { src: "community/photo-31.jpg", widths: [480, 800] },
+  { src: "community/photo-32.jpg", widths: [480, 800] },
+  { src: "community/photo-33.jpg", widths: [480, 800] },
   { src: "ward-map.png", widths: [620], formats: ["webp", "png"] },
 ];
 

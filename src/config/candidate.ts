@@ -393,7 +393,75 @@ export const candidate: CandidateConfig = {
           alt: "Sinan Erdemir greeting a community member with a handshake at a local event",
           focal: "60% 30%",
         },
+        {
+          src: "/images/community/photo-22.jpg",
+          alt: "Sinan Erdemir with a group of local teenagers outside the York Mills Gardens plaza",
+          focal: "50% 25%",
+        },
+        {
+          src: "/images/community/photo-23.jpg",
+          alt: "Sinan Erdemir with two supporters holding a campaign flyer at a neighbourhood event",
+          focal: "50% 25%",
+        },
+        {
+          src: "/images/community/photo-24.jpg",
+          alt: "Two young residents with cold drinks at a Don Valley East community event",
+          focal: "50% 20%",
+        },
+        {
+          src: "/images/community/photo-25.jpg",
+          alt: "Sinan Erdemir talking with a resident beside the ball diamond at a park event",
+          focal: "50% 30%",
+        },
+        {
+          src: "/images/community/photo-26.jpg",
+          alt: "Sinan Erdemir in conversation with a group of neighbours at a park gathering",
+          focal: "50% 35%",
+        },
+        {
+          src: "/images/community/photo-27.jpg",
+          alt: "Sinan Erdemir on the path at a Don Valley East community event",
+          focal: "50% 30%",
+        },
+        {
+          src: "/images/community/photo-28.jpg",
+          alt: "Sinan Erdemir shaking hands with a young resident beside an ice cream truck",
+          focal: "50% 16%",
+        },
+        {
+          src: "/images/community/photo-29.jpg",
+          alt: "Sinan Erdemir listening to a resident at an outdoor community event",
+          focal: "50% 35%",
+        },
+        {
+          src: "/images/community/photo-30.jpg",
+          alt: "Sinan Erdemir with a neighbour at a summer park event",
+          focal: "50% 25%",
+        },
+        {
+          src: "/images/community/photo-31.jpg",
+          alt: "Sinan Erdemir speaking with a group of residents at a park event",
+          focal: "50% 38%",
+        },
+        {
+          src: "/images/community/photo-32.jpg",
+          alt: "Sinan Erdemir chatting with neighbours over ice cream at a park event",
+          focal: "50% 32%",
+        },
+        {
+          src: "/images/community/photo-33.jpg",
+          alt: "Sinan Erdemir with campaign volunteers on a Don Valley East street",
+          focal: "50% 35%",
+        },
       ],
+    },
+    video: {
+      eyebrow: "From the Campaign Trail",
+      heading: "Out in Don Valley East",
+      description: "This message is in Turkish, with Turkish on-screen captions.",
+      src: "/videos/community-message.mp4",
+      poster: "/videos/community-message-poster.jpg",
+      alt: "Sinan Erdemir and a community member speaking to camera in Don Valley East",
     },
   },
 

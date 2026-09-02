@@ -110,6 +110,26 @@ function CommunityPage() {
               {community.carousel.heading}
             </h2>
             <PhotoGallery photos={community.carousel.photos} headingId="community-gallery-heading" />
+
+            {/* Self-hosted clip sits directly under the gallery. preload="none"
+                keeps the file off the wire until someone presses play. */}
+            <div className="community-video">
+              <p className="t-eyebrow community-video__eyebrow">{community.video.eyebrow}</p>
+              <h3 className="community-video__heading">{community.video.heading}</h3>
+              <video
+                className="community-video__player"
+                controls
+                preload="none"
+                playsInline
+                poster={withBase(community.video.poster)}
+                width={720}
+                height={1280}
+                aria-label={community.video.alt}
+              >
+                <source src={withBase(community.video.src)} type="video/mp4" />
+              </video>
+              <p className="community-video__note">{community.video.description}</p>
+            </div>
           </div>
         </section>
 
