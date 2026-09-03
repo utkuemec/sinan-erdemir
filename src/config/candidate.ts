@@ -455,12 +455,59 @@ export const candidate: CandidateConfig = {
         },
       ],
     },
-    video: {
+    videos: {
       eyebrow: "From the Campaign Trail",
-      heading: "Out in Don Valley East",
-      src: "/videos/community-message.mp4",
-      poster: "/videos/community-message-poster.jpg",
-      alt: "Sinan Erdemir and a community member speaking to camera in Don Valley East",
+      heading: "Campaign Videos",
+      items: [
+        {
+          title: "Why I'm Running",
+          src: "/videos/why-im-running.mp4",
+          poster: "/videos/why-im-running-poster.jpg",
+          alt: "Sinan Erdemir on why he is running, with the Toronto skyline behind him",
+        },
+        {
+          title: "Why I'm Running, Part 2",
+          src: "/videos/why-im-running-2.mp4",
+          poster: "/videos/why-im-running-2-poster.jpg",
+          alt: "Sinan Erdemir explaining his decision to run for City Councillor",
+        },
+        {
+          title: "Maintaining Our Streets",
+          src: "/videos/maintaining-our-streets.mp4",
+          poster: "/videos/maintaining-our-streets-poster.jpg",
+          alt: "Cracked and broken road surface outside a Don Valley East school",
+        },
+        {
+          title: "Neglected",
+          src: "/videos/neglected.mp4",
+          poster: "/videos/neglected-poster.jpg",
+          alt: "Rusted fencing and overgrown public space in the ward",
+        },
+        {
+          title: "City Hall Meeting",
+          src: "/videos/city-hall-meeting.mp4",
+          poster: "/videos/city-hall-meeting-poster.jpg",
+          alt: "Sinan Erdemir speaking to camera outside Toronto City Hall",
+        },
+        {
+          title: "Community Event",
+          src: "/videos/community-event.mp4",
+          poster: "/videos/community-event-poster.jpg",
+          alt: "Sinan Erdemir speaking to camera at a community event in a local park",
+        },
+        {
+          title: "ConnecTR",
+          src: "/videos/connectr.mp4",
+          poster: "/videos/connectr-poster.jpg",
+          alt: "Sinan Erdemir speaking to camera about the ConnecTR community initiative",
+        },
+        {
+          title: "Out in Don Valley East",
+          src: "/videos/community-message.mp4",
+          poster: "/videos/community-message-poster.jpg",
+          alt: "Sinan Erdemir and a community member speaking to camera in Don Valley East",
+        },
+      ],
     },
   },
 

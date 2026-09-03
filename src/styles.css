@@ -2216,26 +2216,46 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   .photo-gallery { grid-template-columns: 1fr; }
 }
 
-/* Vertical campaign clip below the gallery. The player is capped narrow so a
-   9:16 video doesn't tower over the photo grid above it. */
-.community-video {
+/* Vertical campaign clips below the gallery. Four across keeps a wall of 9:16
+   players from towering over the photo grid; each cell caps its own width so
+   the last, part-filled row lines up with the ones above it. */
+.community-videos {
   margin-top: var(--sp-7);
   text-align: center;
 }
-.community-video__heading {
+.community-videos__heading {
   font-family: var(--font-display);
   font-size: var(--fs-h3);
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
 }
-.community-video__player {
+.community-videos__grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-5) var(--sp-4);
+}
+.community-videos__item { margin: 0; }
+.community-videos__player {
   display: block;
   width: 100%;
-  max-width: 340px;
   height: auto;
-  margin: 0 auto;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
   background: var(--c-ink);
+}
+.community-videos__title {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  margin-top: var(--sp-2);
+}
+@media (max-width: 1023px) {
+  .community-videos__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .community-videos__grid { grid-template-columns: 1fr; }
+  .community-videos__item { max-width: 340px; margin: 0 auto; }
 }
 
 /* =========================================================================

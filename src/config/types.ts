@@ -73,6 +73,16 @@ export interface GalleryPhoto extends ImageRef {
   caption?: string;
 }
 
+/** Self-hosted campaign clip. Files live in public/videos/. */
+export interface CampaignClip {
+  /** Shown under the player. */
+  title: string;
+  src: string;
+  poster: string;
+  /** Describes the clip for people who can't play it. */
+  alt: string;
+}
+
 /**
  * Feature switches. Sections and workflows check these so the campaign can
  * enable/disable functionality without deleting code.
@@ -387,14 +397,11 @@ export interface CandidateConfig {
       heading: string;
       photos: GalleryPhoto[];
     };
-    /** Self-hosted clip below the gallery on the community page. */
-    video: {
+    /** Self-hosted clips below the gallery on the community page. */
+    videos: {
       eyebrow: string;
       heading: string;
-      src: string;
-      poster: string;
-      /** Describes the clip for people who can't play it. */
-      alt: string;
+      items: CampaignClip[];
     };
   };
 
