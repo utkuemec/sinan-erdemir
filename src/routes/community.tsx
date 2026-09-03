@@ -131,7 +131,6 @@ function CommunityPage() {
                     >
                       <source src={withBase(clip.src)} type="video/mp4" />
                     </video>
-                    <p className="community-videos__title">{clip.title}</p>
                   </li>
                 ))}
               </ul>

@@ -2245,11 +2245,6 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   background: var(--c-ink);
 }
-.community-videos__title {
-  font-size: var(--fs-body-sm);
-  font-weight: 600;
-  margin-top: var(--sp-2);
-}
 @media (max-width: 1023px) {
   .community-videos__grid { grid-template-columns: repeat(2, 1fr); }
 }

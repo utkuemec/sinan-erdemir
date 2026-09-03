@@ -75,8 +75,6 @@ export interface GalleryPhoto extends ImageRef {
 
 /** Self-hosted campaign clip. Files live in public/videos/. */
 export interface CampaignClip {
-  /** Shown under the player. */
-  title: string;
   src: string;
   poster: string;
   /** Describes the clip for people who can't play it. */
