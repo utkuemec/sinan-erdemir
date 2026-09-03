@@ -21,6 +21,23 @@ When swapping a photo, check that every `<source media=...>` and every
 background-image custom property points at the new file, then confirm the
 rendered result at both widths.
 
+## Adding a campaign video
+
+Clips are self-hosted in `public/videos/` and listed in `community.videos.items`.
+Phone originals arrive at 1080x1920 and 20-160MB, which is far more than the
+~300px-wide player needs, so re-encode before committing:
+
+```
+ffmpeg -i in.mp4 -vf scale=720:1280 -c:v libx264 -crf 26 -preset slow \
+  -profile:v high -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 96k -ac 1 out.mp4
+```
+
+Handheld or driving footage defeats CRF and can still land at 60MB; add
+`-crf 28 -maxrate 1500k -bufsize 3000k` for those. Grab a poster from a frame
+a second or two in and resize it to 600px wide — posters load eagerly even
+though the players are `preload="none"`, so eight full-size ones would cost a
+megabyte before anyone presses play.
+
 ## Content lives in one file
 
 Site copy is in `src/config/candidate.ts`. Prefer editing it over hardcoding
