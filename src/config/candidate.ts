@@ -465,21 +465,6 @@ export const candidate: CandidateConfig = {
           alt: "Sinan Erdemir on why he is running, with the Toronto skyline behind him",
         },
         {
-          src: "/videos/why-im-running-2.mp4",
-          poster: "/videos/why-im-running-2-poster.jpg",
-          alt: "Sinan Erdemir explaining his decision to run for City Councillor",
-        },
-        {
-          src: "/videos/maintaining-our-streets.mp4",
-          poster: "/videos/maintaining-our-streets-poster.jpg",
-          alt: "Cracked and broken road surface outside a Don Valley East school",
-        },
-        {
-          src: "/videos/neglected.mp4",
-          poster: "/videos/neglected-poster.jpg",
-          alt: "Rusted fencing and overgrown public space in the ward",
-        },
-        {
           src: "/videos/city-hall-meeting.mp4",
           poster: "/videos/city-hall-meeting-poster.jpg",
           alt: "Sinan Erdemir speaking to camera outside Toronto City Hall",

@@ -2217,8 +2217,8 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 }
 
 /* Vertical campaign clips below the gallery. Four across keeps a wall of 9:16
-   players from towering over the photo grid; each cell caps its own width so
-   the last, part-filled row lines up with the ones above it. */
+   players from towering over the photo grid. Wrapping flex rather than a grid
+   so a part-filled last row centres instead of stranding a clip on the left. */
 .community-videos {
   margin-top: var(--sp-7);
   text-align: center;
@@ -2232,11 +2232,15 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--sp-5) var(--sp-4);
 }
-.community-videos__item { margin: 0; }
+.community-videos__item {
+  margin: 0;
+  flex: 0 1 290px;
+}
 .community-videos__player {
   display: block;
   width: 100%;
@@ -2245,12 +2249,8 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   background: var(--c-ink);
 }
-@media (max-width: 1023px) {
-  .community-videos__grid { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 600px) {
-  .community-videos__grid { grid-template-columns: 1fr; }
-  .community-videos__item { max-width: 340px; margin: 0 auto; }
+  .community-videos__item { flex-basis: 340px; }
 }
 
 /* =========================================================================
