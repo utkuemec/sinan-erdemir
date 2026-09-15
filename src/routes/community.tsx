@@ -118,19 +118,39 @@ function CommunityPage() {
               <h3 className="community-videos__heading">{community.videos.heading}</h3>
               <ul className="community-videos__grid">
                 {community.videos.items.map((clip) => (
-                  <li key={clip.src} className="community-videos__item">
-                    <video
-                      className="community-videos__player"
-                      controls
-                      preload="none"
-                      playsInline
-                      poster={withBase(clip.poster)}
-                      width={720}
-                      height={1280}
-                      aria-label={clip.alt}
-                    >
-                      <source src={withBase(clip.src)} type="video/mp4" />
-                    </video>
+                  <li
+                    key={clip.youtubeId ?? clip.src}
+                    className={
+                      clip.youtubeId
+                        ? "community-videos__item community-videos__item--wide"
+                        : "community-videos__item"
+                    }
+                  >
+                    {clip.youtubeId ? (
+                      <div className="community-videos__embed">
+                        <iframe
+                          src={`https://www.youtube-nocookie.com/embed/${clip.youtubeId}?rel=0`}
+                          title={clip.alt}
+                          loading="lazy"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : (
+                      <video
+                        className="community-videos__player"
+                        controls
+                        preload="none"
+                        playsInline
+                        poster={withBase(clip.poster!)}
+                        width={720}
+                        height={1280}
+                        aria-label={clip.alt}
+                      >
+                        <source src={withBase(clip.src!)} type="video/mp4" />
+                      </video>
+                    )}
                   </li>
                 ))}
               </ul>
