@@ -319,16 +319,6 @@ export const candidate: CandidateConfig = {
       // Captions are CLIENT-GATED (event names/dates unconfirmed) — omitted.
       photos: [
         {
-          src: "/images/community/photo-01.jpg",
-          alt: "Sinan Erdemir speaking with residents at a Canada Day community event",
-          focal: "50% 30%",
-        },
-        {
-          src: "/images/community/photo-02.jpg",
-          alt: "Sinan Erdemir visiting a community organization's booth at a cultural event in Toronto",
-          focal: "50% 25%",
-        },
-        {
           src: "/images/community/photo-03.jpg",
           alt: "Sinan Erdemir discussing neighbourhood priorities with a resident at a Don Valley East community pool",
           focal: "50% 25%",
