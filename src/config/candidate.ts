@@ -379,11 +379,6 @@ export const candidate: CandidateConfig = {
           focal: "50% 35%",
         },
         {
-          src: "/images/community/photo-20.jpg",
-          alt: "Sinan Erdemir greeting a community member with a handshake at a local event",
-          focal: "60% 30%",
-        },
-        {
           src: "/images/community/photo-22.jpg",
           alt: "Sinan Erdemir with a group of local teenagers outside the York Mills Gardens plaza",
           focal: "50% 25%",
