@@ -460,6 +460,11 @@ export const candidate: CandidateConfig = {
           alt: "Cracked and broken road surface outside a Don Valley East school",
         },
         {
+          src: "/videos/neglected.mp4",
+          poster: "/videos/neglected-poster.jpg",
+          alt: "Rusted fencing and overgrown public space in the ward",
+        },
+        {
           src: "/videos/city-hall-meeting.mp4",
           poster: "/videos/city-hall-meeting-poster.jpg",
           alt: "Sinan Erdemir speaking to camera outside Toronto City Hall",
