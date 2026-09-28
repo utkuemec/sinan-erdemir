@@ -2249,8 +2249,9 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   background: var(--c-ink);
 }
-/* Landscape embeds share the same 9:16 card as the self-hosted clips so they
-   sit in the grid instead of stretching across a row. */
+/* Landscape embeds use the same 9:16 card as the self-hosted clips. The
+   iframe is scaled to cover that frame (object-fit: cover) so CP24 / YouTube
+   fill the tile instead of sitting in a letterboxed strip. */
 .community-videos__embed {
   position: relative;
   width: 100%;
@@ -2259,14 +2260,14 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   overflow: hidden;
   background: var(--c-ink);
-  display: flex;
-  align-items: center;
 }
 .community-videos__embed iframe {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: calc(100% * 16 / 9 * 16 / 9);
   border: 0;
 }
 @media (max-width: 600px) {
