@@ -446,7 +446,7 @@ export const candidate: CandidateConfig = {
       items: [
         {
           src: "/videos/cp24-your-30-seconds.mp4",
-          poster: "/videos/cp24-your-30-seconds-poster.jpg",
+          poster: "/videos/cp24-your-30-seconds-cover.jpg",
           alt: "Sinan Erdemir on CP24 Your 30 Seconds, running in Ward 16 — Don Valley East",
         },
         {
