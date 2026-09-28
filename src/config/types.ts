@@ -76,6 +76,7 @@ export interface GalleryPhoto extends ImageRef {
 /** Campaign clip: a self-hosted file, a YouTube id, or an external embed URL. */
 export interface CampaignClip {
   src?: string;
+  /** Still frame. For embeds it fills the 9:16 tile behind the 16:9 player. */
   poster?: string;
   /** 11-character YouTube video id. When set, the grid renders an embed. */
   youtubeId?: string;

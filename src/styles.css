@@ -2249,9 +2249,10 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   background: var(--c-ink);
 }
-/* Landscape embeds use the same 9:16 card as the self-hosted clips. The
-   iframe is scaled to cover that frame (object-fit: cover) so CP24 / YouTube
-   fill the tile instead of sitting in a letterboxed strip. */
+/* Landscape embeds share the 9:16 card with the self-hosted clips. The player
+   must stay at its own 16:9 size: third-party players lay out their video
+   relative to the iframe, so cropping the iframe hides the picture. A blurred
+   still fills the space above and below instead of black bars. */
 .community-videos__embed {
   position: relative;
   width: 100%;
@@ -2260,14 +2261,22 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   overflow: hidden;
   background: var(--c-ink);
+  display: flex;
+  align-items: center;
+}
+.community-videos__backdrop {
+  position: absolute;
+  inset: -24px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(18px) brightness(0.7);
 }
 .community-videos__embed iframe {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 100%;
-  width: calc(100% * 16 / 9 * 16 / 9);
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
   border: 0;
 }
 @media (max-width: 600px) {

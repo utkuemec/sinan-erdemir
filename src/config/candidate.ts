@@ -447,6 +447,7 @@ export const candidate: CandidateConfig = {
         {
           embedUrl:
             "https://embed.jasperplayer.com/?brand=cp24&destination=cp24_web&language=EN&contentId=3450991",
+          poster: "/videos/cp24-your-30-seconds-poster.jpg",
           alt: "Sinan Erdemir on CP24 Your 30 Seconds, running in Ward 16 — Don Valley East",
         },
         {
@@ -491,6 +492,7 @@ export const candidate: CandidateConfig = {
         },
         {
           youtubeId: "PVUpvA4pdhU",
+          poster: "/videos/cruzing-with-phil-poster.jpg",
           alt: "Sinan Erdemir, Ward 16 councillor candidate — 2026 Toronto municipal election",
         },
       ],

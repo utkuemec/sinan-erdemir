@@ -128,6 +128,13 @@ function CommunityPage() {
                   >
                     {embedSrc ? (
                       <div className="community-videos__embed">
+                        {clip.poster && (
+                          <div
+                            className="community-videos__backdrop"
+                            style={{ backgroundImage: `url(${withBase(clip.poster)})` }}
+                            aria-hidden="true"
+                          />
+                        )}
                         <iframe
                           src={embedSrc}
                           title={clip.alt}
