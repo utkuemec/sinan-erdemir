@@ -124,11 +124,7 @@ function CommunityPage() {
                   return (
                   <li
                     key={embedSrc ?? clip.src}
-                    className={
-                      embedSrc
-                        ? "community-videos__item community-videos__item--wide"
-                        : "community-videos__item"
-                    }
+                    className="community-videos__item"
                   >
                     {embedSrc ? (
                       <div className="community-videos__embed">
