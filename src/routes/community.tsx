@@ -117,19 +117,23 @@ function CommunityPage() {
               <p className="t-eyebrow community-videos__eyebrow">{community.videos.eyebrow}</p>
               <h3 className="community-videos__heading">{community.videos.heading}</h3>
               <ul className="community-videos__grid">
-                {community.videos.items.map((clip) => (
+                {community.videos.items.map((clip) => {
+                  const embedSrc = clip.youtubeId
+                    ? `https://www.youtube-nocookie.com/embed/${clip.youtubeId}?rel=0`
+                    : clip.embedUrl;
+                  return (
                   <li
-                    key={clip.youtubeId ?? clip.src}
+                    key={embedSrc ?? clip.src}
                     className={
-                      clip.youtubeId
+                      embedSrc
                         ? "community-videos__item community-videos__item--wide"
                         : "community-videos__item"
                     }
                   >
-                    {clip.youtubeId ? (
+                    {embedSrc ? (
                       <div className="community-videos__embed">
                         <iframe
-                          src={`https://www.youtube-nocookie.com/embed/${clip.youtubeId}?rel=0`}
+                          src={embedSrc}
                           title={clip.alt}
                           loading="lazy"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -152,7 +156,8 @@ function CommunityPage() {
                       </video>
                     )}
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
           </div>

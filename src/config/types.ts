@@ -73,12 +73,14 @@ export interface GalleryPhoto extends ImageRef {
   caption?: string;
 }
 
-/** Campaign clip: either a self-hosted file in public/videos/ or a YouTube id. */
+/** Campaign clip: a self-hosted file, a YouTube id, or an external embed URL. */
 export interface CampaignClip {
   src?: string;
   poster?: string;
   /** 11-character YouTube video id. When set, the grid renders an embed. */
   youtubeId?: string;
+  /** Full iframe src for a third-party player (e.g. CP24 Jasper). */
+  embedUrl?: string;
   /** Describes the clip for people who can't play it. */
   alt: string;
 }

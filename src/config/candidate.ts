@@ -445,6 +445,11 @@ export const candidate: CandidateConfig = {
       heading: "Campaign Videos",
       items: [
         {
+          embedUrl:
+            "https://embed.jasperplayer.com/?brand=cp24&destination=cp24_web&language=EN&contentId=3450991",
+          alt: "Sinan Erdemir on CP24 Your 30 Seconds, running in Ward 16 — Don Valley East",
+        },
+        {
           src: "/videos/why-im-running.mp4",
           poster: "/videos/why-im-running-poster.jpg",
           alt: "Sinan Erdemir on why he is running, with the Toronto skyline behind him",
