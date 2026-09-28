@@ -445,8 +445,7 @@ export const candidate: CandidateConfig = {
       heading: "Campaign Videos",
       items: [
         {
-          embedUrl:
-            "https://embed.jasperplayer.com/?brand=cp24&destination=cp24_web&language=EN&contentId=3450991",
+          src: "/videos/cp24-your-30-seconds.mp4",
           poster: "/videos/cp24-your-30-seconds-poster.jpg",
           alt: "Sinan Erdemir on CP24 Your 30 Seconds, running in Ward 16 — Don Valley East",
         },
