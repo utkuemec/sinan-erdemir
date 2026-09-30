@@ -491,7 +491,7 @@ export const candidate: CandidateConfig = {
         },
         {
           youtubeId: "PVUpvA4pdhU",
-          poster: "/videos/cruzing-with-phil-poster.jpg",
+          poster: "/videos/cruzing-with-phil-cover.jpg",
           alt: "Sinan Erdemir, Ward 16 councillor candidate — 2026 Toronto municipal election",
         },
         {

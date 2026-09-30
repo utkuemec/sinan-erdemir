@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
 import { PhotoGallery } from "@/components/PhotoGallery";
+import { EmbedClip } from "@/components/EmbedClip";
 import { candidate } from "@/config/candidate";
 import { pageHead } from "@/lib/seo";
 import { withBase } from "@/lib/paths";
@@ -127,23 +128,7 @@ function CommunityPage() {
                     className="community-videos__item"
                   >
                     {embedSrc ? (
-                      <div className="community-videos__embed">
-                        {clip.poster && (
-                          <div
-                            className="community-videos__backdrop"
-                            style={{ backgroundImage: `url(${withBase(clip.poster)})` }}
-                            aria-hidden="true"
-                          />
-                        )}
-                        <iframe
-                          src={embedSrc}
-                          title={clip.alt}
-                          loading="lazy"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          referrerPolicy="strict-origin-when-cross-origin"
-                          allowFullScreen
-                        />
-                      </div>
+                      <EmbedClip src={embedSrc} poster={clip.poster!} alt={clip.alt} />
                     ) : (
                       <video
                         className="community-videos__player"

@@ -2251,35 +2251,97 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   background: var(--c-ink);
 }
-/* Landscape embeds share the 9:16 card with the self-hosted clips. The player
-   must stay at its own 16:9 size: third-party players lay out their video
-   relative to the iframe, so cropping the iframe hides the picture. A blurred
-   still fills the space above and below instead of black bars. */
-.community-videos__embed {
+/* Landscape embeds (YouTube etc.) show a 9:16 cover in the grid and play in
+   a dialog: third-party players can't be cropped to the tile's shape. */
+.community-videos__cover {
   position: relative;
+  display: block;
   width: 100%;
   aspect-ratio: 9 / 16;
+  padding: 0;
+  border: 0;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   overflow: hidden;
   background: var(--c-ink);
-  display: flex;
-  align-items: center;
+  cursor: pointer;
 }
-.community-videos__backdrop {
-  position: absolute;
-  inset: -24px;
-  background-size: cover;
-  background-position: center;
-  filter: blur(18px) brightness(0.7);
-}
-.community-videos__embed iframe {
-  position: relative;
+.community-videos__cover img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+}
+.community-videos__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.55);
+  color: #fff;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.community-videos__cover:hover .community-videos__play,
+.community-videos__cover:focus-visible .community-videos__play {
+  background: rgb(0 0 0 / 0.75);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+.community-videos__cover:focus-visible {
+  outline: 3px solid var(--c-ink);
+  outline-offset: 3px;
+}
+
+.video-dialog {
+  width: min(960px, calc(100vw - 32px));
+  max-width: none;
+  margin: auto;
+  padding: 0;
   border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.video-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-3);
+}
+.video-dialog::backdrop {
+  background: rgb(0 0 0 / 0.85);
+}
+.video-dialog__frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.video-dialog__frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-dialog__close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.15);
+  color: #fff;
+  cursor: pointer;
+}
+.video-dialog__close:hover,
+.video-dialog__close:focus-visible {
+  background: rgb(255 255 255 / 0.3);
 }
 @media (max-width: 600px) {
   .community-videos__item { flex-basis: 340px; }
