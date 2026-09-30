@@ -491,12 +491,12 @@ export const candidate: CandidateConfig = {
         },
         {
           youtubeId: "PVUpvA4pdhU",
-          poster: "/videos/cruzing-with-phil-cover.jpg",
+          poster: "/videos/cruzing-with-phil-thumb.jpg",
           alt: "Sinan Erdemir, Ward 16 councillor candidate — 2026 Toronto municipal election",
         },
         {
           youtubeId: "Mizo_6HjmtU",
-          poster: "/videos/tvc-interview-cover.jpg",
+          poster: "/videos/tvc-interview-thumb.jpg",
           alt: "Sinan Erdemir and Eda Dede interviewed by Turkish Voice of Canada (in Turkish)",
         },
       ],

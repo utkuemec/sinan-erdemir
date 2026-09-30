@@ -10,9 +10,10 @@ interface EmbedClipProps {
 }
 
 /**
- * Landscape third-party clip shown as a 9:16 cover like the self-hosted
- * clips. The player can't be cropped to that shape, so it opens full size in
- * a dialog and is only loaded once someone asks to watch.
+ * Landscape third-party clip in a 9:16 tile like the self-hosted clips: the
+ * whole 16:9 thumbnail sits over a blurred copy of itself. The player can't be
+ * cropped to that shape, so it opens full size in a dialog and is only loaded
+ * once someone asks to watch.
  */
 export function EmbedClip({ src, poster, alt }: EmbedClipProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -28,7 +29,12 @@ export function EmbedClip({ src, poster, alt }: EmbedClipProps) {
   return (
     <>
       <button type="button" className="community-videos__cover" onClick={show}>
-        <img src={withBase(poster)} alt="" width={600} height={1067} loading="lazy" />
+        <span
+          className="community-videos__cover-fill"
+          style={{ backgroundImage: `url(${withBase(poster)})` }}
+          aria-hidden="true"
+        />
+        <img src={withBase(poster)} alt="" width={800} height={450} loading="lazy" />
         <span className="community-videos__play" aria-hidden="true">
           <Play size={28} fill="currentColor" strokeWidth={0} />
         </span>
