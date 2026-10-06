@@ -459,6 +459,8 @@ export interface CandidateConfig {
   legal: {
     /** Required in Ontario: "Authorized by the Official Agent for …". */
     authorizedBy: string;
+    /** Ad disclaimer. Rendered in the root shell so it is in the static HTML. */
+    paidFor: string;
     copyright: string;
   };
 

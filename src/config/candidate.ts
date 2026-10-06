@@ -720,6 +720,7 @@ export const candidate: CandidateConfig = {
 
   legal: {
     authorizedBy: "Authorized by the Official Agent for the Sinan Erdemir Campaign.",
+    paidFor: "Paid for by the Sinan Erdemir Campaign · info@votesinan.com · (647) 558-0364",
     copyright: "© 2026 Sinan Erdemir for City Council. All rights reserved.",
   },
 

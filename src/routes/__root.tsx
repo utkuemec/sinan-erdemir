@@ -62,6 +62,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        {/* Must stay in the shell: page content is client-rendered, and Meta's
+            ad review needs this disclaimer in the raw HTML. */}
+        <div className="paid-for">
+          <div className="container">
+            <p>{candidate.legal.paidFor}</p>
+          </div>
+        </div>
         <DonateModal />
         <Toaster />
         {candidate.theme.showDemoThemeSwitcher && <DemoThemeSwitcher />}
