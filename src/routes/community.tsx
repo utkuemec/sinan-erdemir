@@ -104,19 +104,11 @@ function CommunityPage() {
 
         <section className="photo-gallery-section">
           <div className="container">
-            <p className="t-eyebrow photo-gallery-section__eyebrow">
-              {community.carousel.eyebrow}
-            </p>
-            <h2 id="community-gallery-heading" className="photo-gallery-section__heading t-section">
-              {community.carousel.heading}
-            </h2>
-            <PhotoGallery photos={community.carousel.photos} headingId="community-gallery-heading" />
-
-            {/* Self-hosted clips sit directly under the gallery. preload="none"
-                keeps every file off the wire until someone presses play. */}
+            {/* Videos lead the section, photos follow. preload="none" keeps
+                every file off the wire until someone presses play. */}
             <div className="community-videos">
-              <p className="t-eyebrow community-videos__eyebrow">{community.videos.eyebrow}</p>
-              <h3 className="community-videos__heading">{community.videos.heading}</h3>
+              <p className="t-eyebrow photo-gallery-section__eyebrow">{community.videos.eyebrow}</p>
+              <h2 className="photo-gallery-section__heading t-section">{community.videos.heading}</h2>
               <ul className="community-videos__grid">
                 {community.videos.items.map((clip) => {
                   const embedSrc = clip.youtubeId
@@ -147,6 +139,16 @@ function CommunityPage() {
                   );
                 })}
               </ul>
+            </div>
+
+            <div className="community-photos">
+              <p className="t-eyebrow photo-gallery-section__eyebrow">
+                {community.carousel.eyebrow}
+              </p>
+              <h2 id="community-gallery-heading" className="photo-gallery-section__heading t-section">
+                {community.carousel.heading}
+              </h2>
+              <PhotoGallery photos={community.carousel.photos} headingId="community-gallery-heading" />
             </div>
           </div>
         </section>
