@@ -445,8 +445,8 @@ export const candidate: CandidateConfig = {
       heading: "Campaign Videos",
       items: [
         {
-          src: "/videos/campaign-event-speech.mp4",
-          poster: "/videos/campaign-event-speech-poster.jpg",
+          src: "/videos/meeting-speech.mp4",
+          poster: "/videos/meeting-speech-poster.jpg",
           alt: "Sinan Erdemir speaking to supporters and volunteers at a Ward 16 campaign event",
         },
         {
