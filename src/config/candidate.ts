@@ -440,6 +440,51 @@ export const candidate: CandidateConfig = {
         },
       ],
     },
+    plan: {
+      heading: "THE PLAN",
+      items: [
+        {
+          src: "/videos/plan-what-you-want.mp4",
+          poster: "/videos/plan-what-you-want-poster.jpg",
+          alt: "Sinan Erdemir: what do you want from a city councillor?",
+        },
+        {
+          src: "/videos/plan-clean-city.mp4",
+          poster: "/videos/plan-clean-city-poster.jpg",
+          alt: "Sinan Erdemir's plan for a clean city",
+        },
+        {
+          src: "/videos/plan-getting-around-1.mp4",
+          poster: "/videos/plan-getting-around-1-poster.jpg",
+          alt: "Sinan Erdemir on better ways to get around, part 1",
+        },
+        {
+          src: "/videos/plan-getting-around-2.mp4",
+          poster: "/videos/plan-getting-around-2-poster.jpg",
+          alt: "Sinan Erdemir on better ways to get around, part 2",
+        },
+        {
+          src: "/videos/plan-getting-around-3.mp4",
+          poster: "/videos/plan-getting-around-3-poster.jpg",
+          alt: "Sinan Erdemir on better ways to get around, part 3",
+        },
+        {
+          src: "/videos/plan-ontario-works.mp4",
+          poster: "/videos/plan-ontario-works-poster.jpg",
+          alt: "Sinan Erdemir on Ontario Works",
+        },
+        {
+          src: "/videos/flemington-community.mp4",
+          poster: "/videos/flemington-community-poster.jpg",
+          alt: "Sinan Erdemir's message to the Flemington community",
+        },
+        {
+          src: "/videos/filipino-community.mp4",
+          poster: "/videos/filipino-community-poster.jpg",
+          alt: "Sinan Erdemir's message to the Filipino community",
+        },
+      ],
+    },
     videos: {
       eyebrow: "From the Campaign Trail",
       heading: "Campaign Videos",

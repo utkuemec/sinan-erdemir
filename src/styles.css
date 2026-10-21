@@ -2234,6 +2234,9 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
 .community-videos {
   text-align: center;
 }
+.community-videos + .community-videos {
+  margin-top: var(--space-section);
+}
 .community-photos {
   margin-top: var(--space-section);
 }

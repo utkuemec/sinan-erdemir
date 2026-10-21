@@ -73,6 +73,12 @@ export interface GalleryPhoto extends ImageRef {
   caption?: string;
 }
 
+export interface VideoGroup {
+  eyebrow?: string;
+  heading: string;
+  items: CampaignClip[];
+}
+
 /** Campaign clip: a self-hosted file, a YouTube id, or an external embed URL. */
 export interface CampaignClip {
   src?: string;
@@ -400,12 +406,10 @@ export interface CandidateConfig {
       heading: string;
       photos: GalleryPhoto[];
     };
-    /** Self-hosted clips below the gallery on the community page. */
-    videos: {
-      eyebrow: string;
-      heading: string;
-      items: CampaignClip[];
-    };
+    /** Policy clips, first video grid on the community page. */
+    plan: VideoGroup;
+    /** Campaign clips, between the plan and the photo gallery. */
+    videos: VideoGroup;
   };
 
   ward: {
