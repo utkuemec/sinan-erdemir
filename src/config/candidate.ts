@@ -445,6 +445,11 @@ export const candidate: CandidateConfig = {
       heading: "Campaign Videos",
       items: [
         {
+          youtubeId: "m1Uw4RGUG9c",
+          poster: "/videos/cruzing-forum-thumb.jpg",
+          alt: "Sinan Erdemir at the Cruzing With Phil pre-election candidates forum, 2026 Toronto municipal election",
+        },
+        {
           src: "/videos/meeting-speech.mp4",
           poster: "/videos/meeting-speech-poster.jpg",
           alt: "Sinan Erdemir speaking to supporters and volunteers at a Ward 16 campaign event",
