@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { CompactSignupForm } from "@/components/forms/CompactSignupForm";
 import { FinalCta } from "@/components/FinalCta";
 import { PhotoGallery } from "@/components/PhotoGallery";
+import { VideoClipList } from "@/components/VideoClipList";
 import { candidate } from "@/config/candidate";
 import { getStrings } from "@/config/strings";
 import { withBase } from "@/lib/paths";
@@ -35,7 +36,7 @@ const HERO_PORTRAIT_WIDTHS = [480, 768, 1024, 1440];
 const HERO_PORTRAIT_SIZES = "(max-width: 767px) 100vw, 40vw";
 
 function HomePage() {
-  const { hero, pillars, priorities, endorsements, community, features } = candidate;
+  const { hero, pillars, priorities, plan, endorsements, community, features } = candidate;
 
   // Split + photo mode renders a real <picture> inside .hero__media (audit
   // 8.1/20.1: responsive sources + high fetch priority). The CSS background
@@ -202,6 +203,16 @@ function HomePage() {
                 ))}
               </ul>
             </div>
+          </div>
+        </section>
+
+        <section className="home-plan" aria-labelledby="home-plan-heading">
+          <div className="container">
+            {plan.eyebrow && <p className="t-eyebrow home-plan__eyebrow">{plan.eyebrow}</p>}
+            <h2 id="home-plan-heading" className="home-plan__heading t-section">
+              {plan.heading}
+            </h2>
+            <VideoClipList items={plan.items} />
           </div>
         </section>
 

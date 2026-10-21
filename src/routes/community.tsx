@@ -5,9 +5,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
 import { PhotoGallery } from "@/components/PhotoGallery";
-import { EmbedClip } from "@/components/EmbedClip";
+import { VideoClipList } from "@/components/VideoClipList";
 import { candidate } from "@/config/candidate";
-import type { VideoGroup } from "@/config/types";
 import { pageHead } from "@/lib/seo";
 import { withBase } from "@/lib/paths";
 import { PHOTO_WIDTHS, srcSetFor } from "@/lib/images";
@@ -106,8 +105,11 @@ function CommunityPage() {
         <section className="photo-gallery-section">
           <div className="container">
             {/* Videos lead the section, photos follow. */}
-            <VideoGroupGrid group={community.plan} />
-            <VideoGroupGrid group={community.videos} />
+            <div className="community-videos">
+              <p className="t-eyebrow photo-gallery-section__eyebrow">{community.videos.eyebrow}</p>
+              <h2 className="photo-gallery-section__heading t-section">{community.videos.heading}</h2>
+              <VideoClipList items={community.videos.items} />
+            </div>
 
             <div className="community-photos">
               <p className="t-eyebrow photo-gallery-section__eyebrow">
@@ -124,43 +126,6 @@ function CommunityPage() {
         <FinalCta />
       </main>
       <Footer />
-    </div>
-  );
-}
-
-/** preload="none" keeps every file off the wire until someone presses play. */
-function VideoGroupGrid({ group }: { group: VideoGroup }) {
-  return (
-    <div className="community-videos">
-      {group.eyebrow && <p className="t-eyebrow photo-gallery-section__eyebrow">{group.eyebrow}</p>}
-      <h2 className="photo-gallery-section__heading t-section">{group.heading}</h2>
-      <ul className="community-videos__grid">
-        {group.items.map((clip) => {
-          const embedSrc = clip.youtubeId
-            ? `https://www.youtube-nocookie.com/embed/${clip.youtubeId}?rel=0`
-            : clip.embedUrl;
-          return (
-            <li key={embedSrc ?? clip.src} className="community-videos__item">
-              {embedSrc ? (
-                <EmbedClip src={embedSrc} poster={clip.poster!} alt={clip.alt} />
-              ) : (
-                <video
-                  className="community-videos__player"
-                  controls
-                  preload="none"
-                  playsInline
-                  poster={withBase(clip.poster!)}
-                  width={720}
-                  height={1280}
-                  aria-label={clip.alt}
-                >
-                  <source src={withBase(clip.src!)} type="video/mp4" />
-                </video>
-              )}
-            </li>
-          );
-        })}
-      </ul>
     </div>
   );
 }

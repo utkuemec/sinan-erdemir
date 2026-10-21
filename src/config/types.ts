@@ -391,6 +391,9 @@ export interface CandidateConfig {
     items: Endorsement[];
   };
 
+  /** Policy videos on the homepage, between priorities and Meet Sinan. */
+  plan: VideoGroup;
+
   community: {
     pageTitle: string;
     metaDescription: string;
@@ -406,9 +409,7 @@ export interface CandidateConfig {
       heading: string;
       photos: GalleryPhoto[];
     };
-    /** Policy clips, first video grid on the community page. */
-    plan: VideoGroup;
-    /** Campaign clips, between the plan and the photo gallery. */
+    /** Campaign clips, above the photo gallery. */
     videos: VideoGroup;
   };
 
