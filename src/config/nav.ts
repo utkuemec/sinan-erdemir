@@ -16,8 +16,8 @@ export interface NavLink {
 
 export const NAV_LINKS: readonly NavLink[] = [
   { label: candidate.bio.navLabel, to: "/meet-the-candidate" },
-  { label: candidate.priorities.navLabel, to: "/priorities" },
   { label: candidate.plan.navLabel, to: "/the-plan" },
+  { label: candidate.priorities.navLabel, to: "/priorities" },
   { label: candidate.ward.navLabel, to: "/ward" },
   { label: t.nav.community, to: "/community" },
   ...(candidate.features.votingInfo ? [{ label: t.nav.vote, to: "/vote" }] : []),
