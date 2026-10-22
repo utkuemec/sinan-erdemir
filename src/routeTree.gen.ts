@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WardRouteImport } from './routes/ward'
 import { Route as VoteRouteImport } from './routes/vote'
+import { Route as ThePlanRouteImport } from './routes/the-plan'
 import { Route as RideRouteImport } from './routes/ride'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PrioritiesRouteImport } from './routes/priorities'
@@ -29,6 +30,11 @@ const WardRoute = WardRouteImport.update({
 const VoteRoute = VoteRouteImport.update({
   id: '/vote',
   path: '/vote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThePlanRoute = ThePlanRouteImport.update({
+  id: '/the-plan',
+  path: '/the-plan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RideRoute = RideRouteImport.update({
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/priorities': typeof PrioritiesRoute
   '/privacy': typeof PrivacyRoute
   '/ride': typeof RideRoute
+  '/the-plan': typeof ThePlanRoute
   '/vote': typeof VoteRoute
   '/ward': typeof WardRoute
 }
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/priorities': typeof PrioritiesRoute
   '/privacy': typeof PrivacyRoute
   '/ride': typeof RideRoute
+  '/the-plan': typeof ThePlanRoute
   '/vote': typeof VoteRoute
   '/ward': typeof WardRoute
 }
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/priorities': typeof PrioritiesRoute
   '/privacy': typeof PrivacyRoute
   '/ride': typeof RideRoute
+  '/the-plan': typeof ThePlanRoute
   '/vote': typeof VoteRoute
   '/ward': typeof WardRoute
 }
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/priorities'
     | '/privacy'
     | '/ride'
+    | '/the-plan'
     | '/vote'
     | '/ward'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/priorities'
     | '/privacy'
     | '/ride'
+    | '/the-plan'
     | '/vote'
     | '/ward'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/priorities'
     | '/privacy'
     | '/ride'
+    | '/the-plan'
     | '/vote'
     | '/ward'
   fileRoutesById: FileRoutesById
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   PrioritiesRoute: typeof PrioritiesRoute
   PrivacyRoute: typeof PrivacyRoute
   RideRoute: typeof RideRoute
+  ThePlanRoute: typeof ThePlanRoute
   VoteRoute: typeof VoteRoute
   WardRoute: typeof WardRoute
 }
@@ -187,6 +200,13 @@ declare module '@tanstack/react-router' {
       path: '/vote'
       fullPath: '/vote'
       preLoaderRoute: typeof VoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/the-plan': {
+      id: '/the-plan'
+      path: '/the-plan'
+      fullPath: '/the-plan'
+      preLoaderRoute: typeof ThePlanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ride': {
@@ -265,6 +285,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrioritiesRoute: PrioritiesRoute,
   PrivacyRoute: PrivacyRoute,
   RideRoute: RideRoute,
+  ThePlanRoute: ThePlanRoute,
   VoteRoute: VoteRoute,
   WardRoute: WardRoute,
 }

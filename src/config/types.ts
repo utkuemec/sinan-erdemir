@@ -391,8 +391,12 @@ export interface CandidateConfig {
     items: Endorsement[];
   };
 
-  /** Policy videos on the homepage, between priorities and Meet Sinan. */
-  plan: VideoGroup;
+  /** Policy videos on their own page (/the-plan), linked from the main menu. */
+  plan: VideoGroup & {
+    navLabel: string;
+    pageTitle: string;
+    metaDescription: string;
+  };
 
   community: {
     pageTitle: string;

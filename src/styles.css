@@ -780,30 +780,6 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   color: var(--c-ink);
 }
 
-/* THE PLAN — video band between priorities (blush) and Meet Sinan (cream);
-   label and heading mirror .priorities--home. */
-.home-plan {
-  background: var(--c-paper);
-  padding: var(--space-section) 0;
-}
-.home-plan__eyebrow {
-  color: var(--c-turquoise-deep);
-  margin: 0 0 var(--sp-2);
-}
-.home-plan__heading {
-  font-family: var(--font-display);
-  font-weight: var(--fw-display);
-  font-size: var(--fs-h2-fluid);
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-display);
-  text-transform: uppercase;
-  color: var(--c-ink);
-  margin: 0 0 var(--sp-7);
-}
-.home-plan .community-videos__grid {
-  justify-content: flex-start;
-}
-
 .priorities__cta {
   display: flex;
   justify-content: center;

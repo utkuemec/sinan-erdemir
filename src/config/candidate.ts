@@ -281,6 +281,10 @@ export const candidate: CandidateConfig = {
   },
 
   plan: {
+    navLabel: "The Plan",
+    pageTitle: "The Plan",
+    metaDescription:
+      "Watch Sinan Erdemir explain his plan for Ward 16 — Don Valley East: a clean city, better ways to get around, and more.",
     eyebrow: "In Sinan’s Own Words",
     heading: "THE PLAN",
     items: [
@@ -313,16 +317,6 @@ export const candidate: CandidateConfig = {
         src: "/videos/plan-ontario-works.mp4",
         poster: "/videos/plan-ontario-works-poster.jpg",
         alt: "Sinan Erdemir on Ontario Works",
-      },
-      {
-        src: "/videos/flemington-community.mp4",
-        poster: "/videos/flemington-community-poster.jpg",
-        alt: "Sinan Erdemir's message to the Flemington community",
-      },
-      {
-        src: "/videos/filipino-community.mp4",
-        poster: "/videos/filipino-community-poster.jpg",
-        alt: "Sinan Erdemir's message to the Filipino community",
       },
     ],
   },

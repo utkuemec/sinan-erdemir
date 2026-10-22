@@ -8,6 +8,7 @@ export const PAGES = [
   "/",
   "/meet-the-candidate",
   "/priorities",
+  "/the-plan",
   "/ward",
   "/community",
   "/get-involved",
