@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FinalCta } from "@/components/FinalCta";
-import { VideoClipList } from "@/components/VideoClipList";
+import { withBase } from "@/lib/paths";
 import { candidate } from "@/config/candidate";
 import { pageHead } from "@/lib/seo";
 
@@ -37,7 +37,30 @@ function PlanPage() {
                 />
               </h1>
             </div>
-            <VideoClipList items={plan.items} />
+            <ol className="plan-list">
+              {plan.items.map((item) => (
+                <li key={item.src} className="plan-item">
+                  <div className="plan-item__text">
+                    <h2 className="plan-item__title">{item.title}</h2>
+                    {item.body.map((p) => (
+                      <p key={p.slice(0, 32)}>{p}</p>
+                    ))}
+                  </div>
+                  <video
+                    className="plan-item__video"
+                    controls
+                    preload="none"
+                    playsInline
+                    poster={withBase(item.poster!)}
+                    width={720}
+                    height={1280}
+                    aria-label={item.alt}
+                  >
+                    <source src={withBase(item.src!)} type="video/mp4" />
+                  </video>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
         <FinalCta />

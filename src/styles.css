@@ -2260,6 +2260,54 @@ html[data-hero="split"] .hero__inner { min-width: 0; }
   box-shadow: var(--shadow-md);
   background: var(--c-ink);
 }
+.plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1040px;
+}
+.plan-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: var(--sp-7, 56px);
+  align-items: center;
+  padding: var(--sp-7, 56px) 0;
+  border-top: 1px solid var(--color-border);
+}
+.plan-item:first-child { border-top: 0; padding-top: 0; }
+.plan-item__text { border-right: 1px solid var(--color-border); padding-right: var(--sp-7, 56px); }
+.plan-item__title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-display);
+  font-size: clamp(26px, 1.6vw + 16px, 38px);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--c-ink);
+  margin: 0 0 var(--sp-4);
+}
+.plan-item__text p {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0 0 var(--sp-3);
+}
+.plan-item__text p:last-child { margin-bottom: 0; }
+.plan-item__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  background: var(--c-ink);
+}
+@media (max-width: 800px) {
+  .plan-item { grid-template-columns: 1fr; gap: var(--sp-4); padding: var(--sp-6, 40px) 0; }
+  .plan-item__text { border-right: 0; padding-right: 0; }
+  .plan-item__title { font-size: 26px; }
+  .plan-item__text p { font-size: 16px; }
+  .plan-item__video { max-width: 320px; margin: 0 auto; }
+}
 /* Landscape embeds (YouTube etc.) show a 9:16 cover in the grid and play in
    a dialog: third-party players can't be cropped to the tile's shape. */
 .community-videos__cover {

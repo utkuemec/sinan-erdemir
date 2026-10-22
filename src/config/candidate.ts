@@ -289,34 +289,63 @@ export const candidate: CandidateConfig = {
     heading: "THE PLAN",
     items: [
       {
+        title: "What do you want from your city councillor?",
+        body: [
+          "Your city councillor shouldn’t be someone who shows up at election time and then disappears.",
+          "While my ideas may not be the perfect solution, I promise that I will be accessible, listen, take action, and follow up.",
+          "I promise that in the next four years, you will see a real change in how our city maintains and cleans our neighbourhood; and better ways to get around.",
+        ],
         src: "/videos/plan-what-you-want.mp4",
         poster: "/videos/plan-what-you-want-poster.jpg",
         alt: "Sinan Erdemir: what do you want from a city councillor?",
       },
       {
+        title: "The city can do a better job maintaining and cleaning",
+        body: [
+          "This shouldn’t be at the bottom of your list of things that you think the city can do better. It shouldn’t be normal for us to walk outside and see broken sidewalks everywhere, our roads covered with potholes, weeds growing out of the sidewalks, rusty poles, garbage that sits untouched for weeks or even months on end, the list goes on. We must hold our city to a higher standard, starting with a schedule of cleaning crew that takes care of our streets on a regular basis.",
+        ],
         src: "/videos/plan-clean-city.mp4",
         poster: "/videos/plan-clean-city-poster.jpg",
         alt: "Sinan Erdemir's plan for a clean city",
       },
       {
+        title: "Getting around: more reliable TTC",
+        body: [
+          "More people will take the TTC if it becomes more reliable. If we can trust that our bus or subway will be on time, then more people will choose public transit. Instead of measuring accuracy only by the last stop, we must ensure that every single stop is tracked. If your bus is late, we should be paying for your ride. This is how accurate our public transportation should be.",
+        ],
         src: "/videos/plan-getting-around-1.mp4",
         poster: "/videos/plan-getting-around-1-poster.jpg",
-        alt: "Sinan Erdemir on better ways to get around, part 1",
+        alt: "Sinan Erdemir on a more reliable TTC",
       },
       {
+        title: "Getting around: bike lanes & e-scooters",
+        body: [
+          "We shouldn’t have to choose a side between cyclists and drivers. Cyclists deserve to have a safe way to ride their bikes, while drivers feel that cyclists slow down traffic. It doesn’t have to be this way. In fact, it shouldn’t be this way as bikes and cars should not be on the same road together. It is not safe!",
+          "I believe that with proper planning, we can make a bike lane that is elevated and off the road. It will be separate from sidewalks. We can plan this out by using a section of our boulevards, the grassy strip between the sidewalk and the road. This will also allow for e-scooters to have a safe space.",
+        ],
         src: "/videos/plan-getting-around-2.mp4",
         poster: "/videos/plan-getting-around-2-poster.jpg",
-        alt: "Sinan Erdemir on better ways to get around, part 2",
+        alt: "Sinan Erdemir on bike lanes and e-scooters",
       },
       {
+        title: "Getting around: shuttle service",
+        body: [
+          "Incorporating a shuttle service will help take the number of cars off our roads. This shuttle service will be used for city workers and workers in larger companies. It has already worked reliably for decades in countries like Türkiye.",
+        ],
         src: "/videos/plan-getting-around-3.mp4",
         poster: "/videos/plan-getting-around-3-poster.jpg",
-        alt: "Sinan Erdemir on better ways to get around, part 3",
+        alt: "Sinan Erdemir on a shuttle service",
       },
       {
+        title: "Ontario Works redesign",
+        body: [
+          "More than $2.6 billion was budgeted on Ontario Works financial assistance across Ontario in the 2025-2026 fiscal year. You read that right — billion, not million. I believe that this program is not serving the people that need it, as there are many areas that need to be changed. For instance, even with the maximum amount someone can receive, it is barely enough for basic needs such as food and shelter. And it is not designed to incentivize those who actually find a job.",
+          "We must find a way to properly help those truly in need get back on their feet, with a concrete timeline. At the same time, we must have proper regulations in place for those who no longer need help. I will push for stronger oversight and responsible administration of the program in Toronto, and work with the province on changes.",
+          "My goal is to ensure that we prevent improper payments to make better use of the money we are already spending, and direct resources to support other city priorities. Let’s make sure that the right people get the right support.",
+        ],
         src: "/videos/plan-ontario-works.mp4",
         poster: "/videos/plan-ontario-works-poster.jpg",
-        alt: "Sinan Erdemir on Ontario Works",
+        alt: "Sinan Erdemir on redesigning Ontario Works",
       },
     ],
   },

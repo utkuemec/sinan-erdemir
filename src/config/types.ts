@@ -92,6 +92,12 @@ export interface CampaignClip {
   alt: string;
 }
 
+/** A platform point on /the-plan: heading and paragraphs beside a self-hosted clip. */
+export interface PlanItem extends CampaignClip {
+  title: string;
+  body: string[];
+}
+
 /**
  * Feature switches. Sections and workflows check these so the campaign can
  * enable/disable functionality without deleting code.
@@ -392,10 +398,11 @@ export interface CandidateConfig {
   };
 
   /** Policy videos on their own page (/the-plan), linked from the main menu. */
-  plan: VideoGroup & {
+  plan: Omit<VideoGroup, "items"> & {
     navLabel: string;
     pageTitle: string;
     metaDescription: string;
+    items: PlanItem[];
   };
 
   community: {
